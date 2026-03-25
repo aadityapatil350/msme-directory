@@ -36,8 +36,9 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
-# Allow .env.example for documentation
+# Allow .env.example and .env.production for Vercel import
 !.env.example
+!.env.production
 
 # vercel
 .vercel
