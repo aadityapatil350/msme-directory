@@ -15,9 +15,9 @@ export default function Navbar() {
     { href: '/loans', label: 'Loans' },
     { href: '/eligibility-checker', label: 'Eligibility' },
     { href: '/consultants', label: 'Consultants' },
-    { href: '/guides', label: 'Guides' },
+    { href: '/blog', label: 'Blog' },
+    { href: '/resources', label: 'Resources' },
     { href: '/list-your-firm', label: 'List Your Firm' },
-    { href: '/user/login', label: 'Dashboard' },
   ]
 
   const isActive = (href: string) => {
