@@ -1,0 +1,219 @@
+/* Blog and Guide Content Styles */
+
+.blog-content,
+.guide-content {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #374151;
+}
+
+.blog-content h2,
+.guide-content h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e5e7eb;
+  font-family: 'Syne', system-ui, sans-serif;
+}
+
+.blog-content h3,
+.guide-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-family: 'Syne', system-ui, sans-serif;
+}
+
+.blog-content h4,
+.guide-content h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #334155;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.blog-content p,
+.guide-content p {
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+  color: #4b5563;
+}
+
+.blog-content strong,
+.guide-content strong {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.blog-content em,
+.guide-content em {
+  font-style: italic;
+  color: #4b5563;
+}
+
+.blog-content ul,
+.guide-content ul {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.blog-content ol,
+.guide-content ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+  list-style-type: decimal;
+}
+
+.blog-content li,
+.guide-content li {
+  margin-bottom: 0.5rem;
+  color: #4b5563;
+  line-height: 1.7;
+}
+
+.blog-content li::marker,
+.guide-content li::marker {
+  color: #6b7280;
+}
+
+/* Nested lists */
+.blog-content ul ul,
+.blog-content ol ul,
+.guide-content ul ul,
+.guide-content ol ul {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Checklist styles */
+.blog-content .checklist,
+.guide-content .checklist {
+  list-style: none;
+  padding-left: 0;
+}
+
+.blog-content .checklist-item,
+.guide-content .checklist-item {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.blog-content .checklist-item::before,
+.guide-content .checklist-item::before {
+  content: '☐';
+  position: absolute;
+  left: 0;
+  color: #9ca3af;
+}
+
+.blog-content .checklist-item.checked::before,
+.guide-content .checklist-item.checked::before {
+  content: '☑';
+  color: #10b981;
+}
+
+/* Links */
+.blog-content a,
+.guide-content a {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s ease;
+}
+
+.blog-content a:hover,
+.guide-content a:hover {
+  color: #1d4ed8;
+}
+
+/* Inline code */
+.blog-content code,
+.guide-content code {
+  background-color: #f3f4f6;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-family: 'Fira Code', 'Consolas', monospace;
+  color: #dc2626;
+}
+
+/* Blockquotes */
+.blog-content blockquote,
+.guide-content blockquote {
+  border-left: 4px solid #2563eb;
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #6b7280;
+  background-color: #f9fafb;
+  padding: 1rem 1rem 1rem 1.5rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+/* Horizontal rule */
+.blog-content hr,
+.guide-content hr {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 2rem 0;
+}
+
+/* Emoji styling */
+.blog-content .emoji,
+.guide-content .emoji {
+  font-style: normal;
+  font-size: 1.1em;
+  vertical-align: middle;
+}
+
+/* First paragraph styling */
+.blog-content > p:first-child,
+.guide-content > p:first-child {
+  font-size: 1.1rem;
+  color: #374151;
+  line-height: 1.9;
+}
+
+/* Table styles (if needed) */
+.blog-content table,
+.guide-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.blog-content th,
+.blog-content td,
+.guide-content th,
+.guide-content td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.blog-content th,
+.guide-content th {
+  background-color: #f9fafb;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Remove extra spacing at start */
+.blog-content > *:first-child,
+.guide-content > *:first-child {
+  margin-top: 0;
+}
+
+/* Remove extra spacing at end */
+.blog-content > *:last-child,
+.guide-content > *:last-child {
+  margin-bottom: 0;
+}

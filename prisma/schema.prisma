@@ -1,0 +1,233 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Scheme {
+  id               String    @id @default(cuid())
+  slug             String    @unique
+  name             String
+  shortDescription String
+  description      String    @db.Text
+  type             String // central/state/sector
+  state            String?
+  sector           String[]
+  minAmount        Float?
+  maxAmount        Float?
+  eligibility      String    @db.Text
+  documents        String[]
+  applyUrl         String?
+  benefits         String    @db.Text
+  isActive         Boolean   @default(true)
+  isFeatured       Boolean   @default(false)
+  isSponsored      Boolean   @default(false)
+  sponsoredUntil   DateTime?
+  viewCount        Int       @default(0)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  guides           Guide[]
+}
+
+model Loan {
+  id              String    @id @default(cuid())
+  slug            String    @unique
+  name            String
+  provider        String
+  providerLogo    String?
+  type            String // mudra/business/collateral-free/govt
+  minAmount       Float
+  maxAmount       Float
+  interestRateMin Float
+  interestRateMax Float
+  tenure          String
+  eligibility     String    @db.Text
+  documents       String[]
+  features        String[]
+  affiliateUrl    String?
+  isSponsored     Boolean   @default(false)
+  sponsoredUntil  DateTime?
+  viewCount       Int       @default(0)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  guides          Guide[]
+}
+
+model User {
+  id           String      @id @default(cuid())
+  email        String      @unique
+  password     String
+  name         String
+  phone        String?
+  isActive     Boolean     @default(true)
+  lastLoginAt  DateTime?
+  consultantId String?     @unique
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  consultant   Consultant? @relation(fields: [consultantId], references: [id])
+  firmClaims   FirmClaim[]
+}
+
+model FirmClaim {
+  id           String     @id @default(cuid())
+  userId       String
+  consultantId String
+  status       String     @default("pending") // pending/approved/rejected
+  message      String?    @db.Text // User's claim message/proof
+  adminNotes   String?    @db.Text
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  user         User       @relation(fields: [userId], references: [id])
+  consultant   Consultant @relation(fields: [consultantId], references: [id])
+
+  @@unique([userId, consultantId])
+}
+
+model Consultant {
+  id                     String      @id @default(cuid())
+  slug                   String      @unique
+  name                   String
+  firmName               String
+  designation            String?
+  city                   String
+  state                  String
+  services               String[]
+  phone                  String
+  email                  String      @unique
+  website                String?
+  bio                    String?     @db.Text
+  experience             Int?
+  reviewCount            Int         @default(0)
+  rating                 Float       @default(0)
+  viewCount              Int         @default(0)
+  isPremium              Boolean     @default(false)
+  tier                   String      @default("free") // free/featured (admin sets this)
+  paidUntil              DateTime?
+  isVerified             Boolean     @default(false) // admin sets this
+  // Payment fields
+  razorpayOrderId        String?
+  razorpayPaymentId      String?
+  razorpaySubscriptionId String?
+  createdAt              DateTime    @default(now())
+  updatedAt              DateTime    @updatedAt
+  user                   User?
+  firmClaims             FirmClaim[]
+}
+
+model Lead {
+  id              String   @id @default(cuid())
+  name            String
+  phone           String
+  email           String?
+  city            String
+  state           String
+  businessType    String // manufacturing/services/trading
+  businessAge     String
+  monthlyTurnover String
+  loanAmount      Float?
+  requirement     String // loan/subsidy/both/expert
+  sourceUrl       String?
+  sourcePage      String?
+  status          String   @default("new") // new/contacted/qualified/converted/rejected
+  notes           String?  @db.Text
+  assignedTo      String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model BlogPost {
+  id              String    @id @default(cuid())
+  slug            String    @unique
+  title           String
+  excerpt         String
+  content         String    @db.Text
+  category        String
+  tags            String[]
+  coverImage      String?
+  authorName      String
+  authorAvatar    String?
+  isPublished     Boolean   @default(false)
+  publishedAt     DateTime?
+  viewCount       Int       @default(0)
+  metaTitle       String?
+  metaDescription String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Guide {
+  id              String    @id @default(cuid())
+  slug            String    @unique
+  title           String
+  excerpt         String
+  content         String    @db.Text
+  schemeId        String?
+  loanId          String?
+  category        String
+  isPublished     Boolean   @default(false)
+  publishedAt     DateTime?
+  viewCount       Int       @default(0)
+  metaTitle       String?
+  metaDescription String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  scheme          Scheme?   @relation(fields: [schemeId], references: [id])
+  loan            Loan?     @relation(fields: [loanId], references: [id])
+}
+
+model ListingEnquiry {
+  id          String   @id @default(cuid())
+  firmName    String
+  contactName String
+  email       String
+  phone       String
+  city        String
+  state       String
+  services    String[]
+  tier        String // free/featured
+  status      String   @default("pending") // pending/approved/rejected
+  notes       String?  @db.Text
+  createdAt   DateTime @default(now())
+}
+
+model Payment {
+  id                  String   @id @default(cuid())
+  consultantId        String?
+  razorpayOrderId     String   @unique
+  razorpayPaymentId   String?
+  razorpaySignature   String?
+  amount              Float
+  currency            String   @default("INR")
+  status              String   @default("created") // created/paid/failed
+  tier                String   // featured
+  duration            Int      @default(30) // days
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  phone     String?
+  isActive  Boolean  @default(true)
+  source    String?
+  createdAt DateTime @default(now())
+}
+
+model SiteConfig {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt
+}
+
+model AffiliateClick {
+  id        String   @id @default(cuid())
+  url       String
+  source    String
+  type      String // affiliate/lead
+  userAgent String?
+  createdAt DateTime @default(now())
+}
