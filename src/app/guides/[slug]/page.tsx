@@ -7,6 +7,8 @@ import '../../content-styles.css'
 
 export const dynamic = 'force-dynamic'
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://msmevault.in'
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const guide = await prisma.guide.findUnique({
@@ -19,9 +21,38 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     }
   }
 
+  const title = guide.metaTitle || `${guide.title} - Complete Guide 2025 | MSMEVault`
+  const description = guide.metaDescription || `${guide.excerpt} Step-by-step guide for MSME owners in India.`
+
   return {
-    title: guide.metaTitle || `${guide.title} | MSMEVault`,
-    description: guide.metaDescription || guide.excerpt,
+    title,
+    description,
+    keywords: [
+      guide.title,
+      `${guide.title} guide`,
+      `${guide.title} India`,
+      'MSME guide',
+      guide.category,
+      'small business India',
+    ],
+    alternates: {
+      canonical: `/guides/${slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${siteUrl}/guides/${slug}`,
+      type: 'article',
+      publishedTime: guide.publishedAt?.toISOString(),
+      modifiedTime: guide.updatedAt?.toISOString(),
+      locale: 'en_IN',
+      siteName: 'MSMEVault',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   }
 }
 
@@ -46,18 +77,76 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
     orderBy: { viewCount: 'desc' },
   })
 
+  // JSON-LD Article Schema
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: guide.title,
+    description: guide.excerpt,
+    image: `${siteUrl}/og-image.png`,
+    author: {
+      '@type': 'Organization',
+      name: 'MSMEVault',
+      url: siteUrl,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'MSMEVault',
+      logo: { '@type': 'ImageObject', url: `${siteUrl}/logo.png` },
+    },
+    datePublished: guide.publishedAt?.toISOString(),
+    dateModified: guide.updatedAt?.toISOString(),
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `${siteUrl}/guides/${slug}` },
+    articleSection: guide.category,
+    wordCount: guide.content.split(/\s+/).length,
+    keywords: guide.category,
+  }
+
+  // BreadcrumbList Schema
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
+      { '@type': 'ListItem', position: 2, name: 'Guides', item: `${siteUrl}/guides` },
+      { '@type': 'ListItem', position: 3, name: guide.title, item: `${siteUrl}/guides/${slug}` },
+    ],
+  }
+
+  // HowTo Schema (if guide has numbered steps)
+  const hasSteps = /^\d+\.|^#{1,3} Step/m.test(guide.content)
+  const howToJsonLd = hasSteps ? {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: guide.title,
+    description: guide.excerpt,
+    step: guide.content
+      .split('\n')
+      .filter(line => /^\d+\./.test(line))
+      .slice(0, 10)
+      .map((line, i) => ({
+        '@type': 'HowToStep',
+        position: i + 1,
+        text: line.replace(/^\d+\.\s*/, '').trim(),
+      })),
+  } : null
+
   return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      {howToJsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} />}
     <div className="min-h-screen bg-[#f0f4ff]">
       {/* Breadcrumb */}
       <div className="bg-white border-b border-gray-200 px-4 md:px-6 py-3">
         <div className="max-w-[1400px] mx-auto">
-          <div className="flex items-center gap-2 text-sm text-gray-600">
+          <nav className="flex items-center gap-2 text-sm text-gray-600" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-[var(--blue)]">Home</Link>
             <span>→</span>
-            <Link href="/resources" className="hover:text-[var(--blue)]">Resources</Link>
+            <Link href="/guides" className="hover:text-[var(--blue)]">Guides</Link>
             <span>→</span>
             <span className="text-[var(--navy)] font-medium">{guide.title}</span>
-          </div>
+          </nav>
         </div>
       </div>
 
@@ -149,5 +238,6 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
       </div>
 
     </div>
+    </>
   )
 }

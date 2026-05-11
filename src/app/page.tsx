@@ -8,43 +8,45 @@ export const dynamic = 'force-dynamic'
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://msmevault.in'
 
 export const metadata: Metadata = {
-  title: 'MSMEVault.in - Find Government Schemes & Loans for Your MSME Business',
+  title: 'MSMEVault – Government Schemes & Loans for Small Business India 2025',
   description:
-    'India\'s #1 MSME directory. Discover 150+ government schemes, loans & subsidies. Check eligibility in 2 minutes. Connect with 50+ verified CA firms & consultants across 30+ cities.',
+    'Find 150+ government schemes, Mudra loans & subsidies for your MSME. Check eligibility free in 2 minutes. Trusted by 12,000+ small business owners across India.',
   keywords: [
-    'MSME schemes India',
+    'MSME schemes India 2025',
     'government loans for small business',
-    'MSME registration online',
-    'Mudra loan apply',
-    'CGTMSE scheme',
-    'Stand Up India loan',
+    'Mudra loan apply online',
+    'CGTMSE scheme eligibility',
+    'Stand Up India scheme',
     'Udyam registration',
-    'business subsidies',
+    'MSME subsidies India',
+    'business loan without collateral',
     'CA firms for MSME',
-    'MSME consultants near me',
+    'PMEGP scheme apply',
   ],
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'MSMEVault.in - India\'s #1 MSME Schemes & Loans Directory',
+    title: 'MSMEVault – Find Government Schemes & Loans for Your Small Business',
     description:
-      'Discover 150+ government schemes, loans & subsidies for MSMEs. Check eligibility instantly. Connect with verified consultants.',
+      '150+ government schemes, Mudra loans & subsidies. Check eligibility free in 2 minutes. 12,000+ MSMEs helped.',
     url: siteUrl,
     type: 'website',
+    locale: 'en_IN',
+    siteName: 'MSMEVault',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'MSMEVault.in - Find Government Schemes & Loans for Your MSME',
+        alt: 'MSMEVault – Government Schemes & Loans for MSME India',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'MSMEVault.in - India\'s #1 MSME Schemes & Loans Directory',
-    description: 'Discover 150+ government schemes, loans & subsidies for MSMEs.',
+    title: 'MSMEVault – Government Schemes & Loans for Small Business India',
+    description: '150+ government schemes, Mudra loans & subsidies. Check eligibility free.',
     images: ['/og-image.png'],
   },
 }
@@ -68,8 +70,8 @@ export default async function HomePage() {
 
   // Fetch top consultants
   const topConsultants = await prisma.consultant.findMany({
-    where: { isPremium: true, isVerified: true },
-    orderBy: { rating: 'desc' },
+    where: { isVerified: true },
+    orderBy: [{ rating: 'desc' }, { reviewCount: 'desc' }],
     take: 3,
   })
 
@@ -286,11 +288,6 @@ export default async function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {topConsultants.map((consultant) => (
                 <div key={consultant.id} className="bg-white border border-[var(--gray-light)] rounded-xl p-4 flex gap-3 relative">
-                  {consultant.tier === 'premium' && (
-                    <div className="absolute top-3 right-3 bg-[var(--yellow)] text-[#92400e] text-[10px] font-bold px-2 py-[2px] rounded-full">
-                      ⭐ Featured
-                    </div>
-                  )}
                   <div className="w-12 h-12 rounded-full bg-[var(--blue)] flex items-center justify-center text-white font-bold text-base flex-shrink-0">
                     {consultant.name.substring(0, 2).toUpperCase()}
                   </div>

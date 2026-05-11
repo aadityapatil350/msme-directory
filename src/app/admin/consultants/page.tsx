@@ -179,7 +179,7 @@ export default function AdminConsultantsPage() {
               <p className="text-2xl font-bold text-navy">{stats.total}</p>
             </div>
             <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
-              <p className="text-sm text-gray-600 mb-1">Featured Listings</p>
+              <p className="text-sm text-gray-600 mb-1">Premium Listings</p>
               <p className="text-2xl font-bold text-orange-600">{stats.premium}</p>
             </div>
             <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
@@ -213,7 +213,7 @@ export default function AdminConsultantsPage() {
               >
                 <option value="all">All Tiers</option>
                 <option value="free">Free</option>
-                <option value="featured">Featured</option>
+                <option value="premium">Premium</option>
               </select>
 
               <select
@@ -301,7 +301,6 @@ export default function AdminConsultantsPage() {
                         </td>
                         <td className="px-4 py-3 text-sm">
                           <span className={`inline-block px-2 py-1 rounded text-xs font-semibold ${
-                            consultant.tier === 'featured' ? 'bg-purple-100 text-purple-700' :
                             consultant.tier === 'premium' ? 'bg-orange-100 text-orange-700' :
                             consultant.tier === 'standard' ? 'bg-blue-100 text-blue-700' :
                             'bg-gray-100 text-gray-700'

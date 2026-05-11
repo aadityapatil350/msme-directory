@@ -402,21 +402,21 @@ export default function ConsultantsClient({ consultants }: { consultants: Consul
                     <div
                       key={consultant.id}
                       className={`bg-white border rounded-xl p-4 flex gap-3 relative hover:shadow-lg transition-shadow ${
-                        consultant.tier === 'featured'
+                        consultant.tier === 'premium'
                           ? 'border-[var(--orange)] border-2 shadow-md'
                           : 'border-[var(--gray-light)]'
                       }`}
                     >
-                      {/* Featured Badge */}
-                      {consultant.tier === 'featured' && (
+                      {/* Premium Badge */}
+                      {consultant.tier === 'premium' && (
                         <div className="absolute top-3 right-3 bg-gradient-to-r from-[var(--orange)] to-[#ea580c] text-white text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1">
-                          <span>⭐</span> Featured
+                          <span>⭐</span> Premium
                         </div>
                       )}
 
                       {/* Avatar */}
                       <div className={`w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg flex-shrink-0 ${
-                        consultant.tier === 'featured' ? 'bg-gradient-to-br from-[var(--orange)] to-[#ea580c]' : 'bg-[var(--blue)]'
+                        consultant.tier === 'premium' ? 'bg-gradient-to-br from-[var(--orange)] to-[#ea580c]' : 'bg-[var(--blue)]'
                       }`}>
                         {consultant.name.substring(0, 2).toUpperCase()}
                       </div>
@@ -440,14 +440,14 @@ export default function ConsultantsClient({ consultants }: { consultants: Consul
                           {consultant.designation || 'CA Firm'} · {consultant.city}, {consultant.state} {consultant.experience ? `· ${consultant.experience} years experience` : ''}
                         </p>
                         <div className="flex gap-1 flex-wrap mb-2">
-                          {consultant.services.slice(0, consultant.tier === 'featured' ? 6 : 4).map((service, idx) => (
+                          {consultant.services.slice(0, consultant.tier === 'premium' ? 6 : 4).map((service, idx) => (
                             <span key={idx} className="bg-[#f1f5f9] text-[var(--gray)] text-[10px] px-2 py-[2px] rounded-full">
                               {service}
                             </span>
                           ))}
-                          {consultant.services.length > (consultant.tier === 'featured' ? 6 : 4) && (
+                          {consultant.services.length > (consultant.tier === 'premium' ? 6 : 4) && (
                             <span className="bg-[#f1f5f9] text-[var(--gray)] text-[10px] px-2 py-[2px] rounded-full">
-                              +{consultant.services.length - (consultant.tier === 'featured' ? 6 : 4)} more
+                              +{consultant.services.length - (consultant.tier === 'premium' ? 6 : 4)} more
                             </span>
                           )}
                         </div>
@@ -457,7 +457,7 @@ export default function ConsultantsClient({ consultants }: { consultants: Consul
                             <span className="font-semibold text-xs">{consultant.rating.toFixed(1)}</span>
                             <span className="text-[var(--gray)] text-xs">({consultant.reviewCount} reviews)</span>
                           </div>
-                          {consultant.tier === 'featured' && (
+                          {consultant.tier === 'premium' && (
                             <div className="text-xs text-green-600 font-medium">
                               📞 Response: &lt;2 hours
                             </div>
@@ -465,7 +465,7 @@ export default function ConsultantsClient({ consultants }: { consultants: Consul
                         </div>
                         <div className="flex gap-2 flex-wrap">
                           {/* WhatsApp Button - Featured Only */}
-                          {consultant.tier === 'featured' && (
+                          {consultant.tier === 'premium' && (
                             <a
                               href={`https://wa.me/${consultant.phone.replace(/[^0-9]/g, '')}?text=Hi, I found you on MSMEVault and would like to discuss my business requirements.`}
                               target="_blank"
@@ -482,7 +482,7 @@ export default function ConsultantsClient({ consultants }: { consultants: Consul
                             href={`tel:${consultant.phone}`}
                             className="bg-[var(--blue)] text-white text-xs font-semibold px-[14px] py-[6px] rounded-md hover:bg-[#1e40af] transition-colors"
                           >
-                            {consultant.tier === 'featured' ? 'Call Now' : 'Contact Now →'}
+                            {consultant.tier === 'premium' ? 'Call Now' : 'Contact Now →'}
                           </a>
                           <a
                             href={`mailto:${consultant.email}`}

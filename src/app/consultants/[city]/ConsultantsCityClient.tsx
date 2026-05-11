@@ -168,9 +168,9 @@ export default function ConsultantsCityClient({
                       key={consultant.id}
                       className="bg-white border border-[var(--gray-light)] rounded-xl p-4 flex gap-3 relative hover:shadow-lg transition-shadow"
                     >
-                      {(consultant.tier === 'premium' || consultant.tier === 'featured') && (
+                      {consultant.tier === 'premium' && (
                         <div className="absolute top-3 right-3 bg-[var(--yellow)] text-[#92400e] text-[10px] font-bold px-2 py-[2px] rounded-full">
-                          ⭐ Featured
+                          ⭐ Premium
                         </div>
                       )}
                       <div className="w-14 h-14 rounded-full bg-[var(--blue)] flex items-center justify-center text-white font-bold text-lg flex-shrink-0">

@@ -25,24 +25,31 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     ? `₹${(scheme.minAmount / 100000).toFixed(0)}L - ₹${scheme.maxAmount >= 10000000 ? (scheme.maxAmount / 10000000).toFixed(0) + 'Cr' : (scheme.maxAmount / 100000).toFixed(0) + 'L'}`
     : ''
 
+  const amountStr = loanRange ? ` Get ${loanRange}.` : ''
+  const metaDesc = `${scheme.shortDescription}${amountStr} Check eligibility, required documents & how to apply online in 2025-26.`
+
   return {
-    title: `${scheme.name} - Eligibility, Benefits & How to Apply 2025`,
-    description: `${scheme.shortDescription} ${loanRange ? `Loan amount: ${loanRange}.` : ''} Check eligibility and apply online.`,
+    title: `${scheme.name} 2025-26 – Eligibility, Benefits & How to Apply | MSMEVault`,
+    description: metaDesc,
     keywords: [
       scheme.name,
       `${scheme.name} eligibility`,
-      `${scheme.name} apply online`,
-      `${scheme.type === 'central' ? 'Central' : 'State'} MSME scheme`,
-      ...scheme.sector.map(s => `${s} MSME scheme`),
+      `${scheme.name} apply online 2025`,
+      `${scheme.name} benefits`,
+      `${scheme.type === 'central' ? 'central government' : 'state government'} MSME scheme`,
+      ...scheme.sector.map(s => `${s} MSME scheme India`),
+      'government scheme for small business',
     ],
     alternates: {
       canonical: `/schemes/${slug}`,
     },
     openGraph: {
-      title: `${scheme.name} | Eligibility & Benefits | MSMEVault`,
-      description: scheme.shortDescription,
+      title: `${scheme.name} 2025-26 | Eligibility, Benefits & Apply | MSMEVault`,
+      description: metaDesc,
       url: `${siteUrl}/schemes/${slug}`,
       type: 'article',
+      locale: 'en_IN',
+      siteName: 'MSMEVault',
       images: [
         {
           url: '/og-image.png',
@@ -54,8 +61,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     },
     twitter: {
       card: 'summary_large_image',
-      title: scheme.name,
-      description: scheme.shortDescription,
+      title: `${scheme.name} 2025-26 – Eligibility & How to Apply`,
+      description: metaDesc,
       images: ['/og-image.png'],
     },
   }
@@ -69,6 +76,50 @@ export default async function SchemeDetailPage({ params }: { params: Promise<{ s
 
   if (!scheme) {
     notFound()
+  }
+
+  const loanRange = scheme.minAmount && scheme.maxAmount
+    ? `₹${(scheme.minAmount / 100000).toFixed(0)}L - ₹${scheme.maxAmount >= 10000000 ? (scheme.maxAmount / 10000000).toFixed(0) + 'Cr' : (scheme.maxAmount / 100000).toFixed(0) + 'L'}`
+    : ''
+
+  // FAQ Schema
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: `Who is eligible for ${scheme.name}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: scheme.eligibility.substring(0, 500),
+        },
+      },
+      {
+        '@type': 'Question',
+        name: `What are the benefits of ${scheme.name}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: scheme.benefits.substring(0, 500),
+        },
+      },
+      ...(loanRange ? [{
+        '@type': 'Question',
+        name: `What is the loan amount under ${scheme.name}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `The loan/subsidy amount under ${scheme.name} ranges from ${loanRange}.`,
+        },
+      }] : []),
+      {
+        '@type': 'Question',
+        name: `What documents are required for ${scheme.name}?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: scheme.documents.join(', '),
+        },
+      },
+    ],
   }
 
   // JSON-LD Schema for Government Service
@@ -134,6 +185,10 @@ export default async function SchemeDetailPage({ params }: { params: Promise<{ s
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
     <div className="min-h-screen bg-[#f0f4ff]">
       {/* Hero Header with Gradient Background */}
