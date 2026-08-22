@@ -1,557 +1,221 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { Search, ArrowUpDown, ArrowUp, ArrowDown, Filter } from 'lucide-react'
+import Link from 'next/link'
+import { VerifiedLoan } from '@/data/verified-loans'
+import {
+  Search,
+  ExternalLink,
+  AlertCircle,
+} from 'lucide-react'
 
-type Loan = {
-  id: string
-  slug: string
-  name: string
-  provider: string
-  providerLogo: string | null
-  type: string
-  minAmount: number
-  maxAmount: number
-  interestRateMin: number
-  interestRateMax: number
-  tenure: string
-  eligibility: string
-  documents: string[]
-  features: string[]
-  affiliateUrl: string | null
-  isSponsored: boolean
-  sponsoredUntil: Date | null
-  viewCount: number
-  createdAt: Date
-  updatedAt: Date
-}
+export default function LoansClient({ loans }: { loans: VerifiedLoan[] }) {
+  const [searchTerm, setSearchTerm] = useState('')
+  const [lenderType, setLenderType] = useState<string>('all')
+  const [categoryFilter, setCategoryFilter] = useState<string>('all')
+  const [collateralOnly, setCollateralOnly] = useState<boolean>(false)
 
-type FilterType = 'all' | 'collateral-free' | 'under-10l' | '10l-1cr' | 'above-1cr'
-type LenderType = 'all' | 'psu-banks' | 'private-banks' | 'nbfcs' | 'fintechs'
-type SortType = 'rate-asc' | 'rate-desc' | 'amount-asc' | 'amount-desc' | 'default'
+  const filteredLoans = useMemo(() => {
+    return loans.filter((loan) => {
+      const matchesSearch =
+        searchTerm === '' ||
+        loan.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        loan.provider.toLowerCase().includes(searchTerm.toLowerCase())
 
-export default function LoansClient({ loans }: { loans: Loan[] }) {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [amountFilter, setAmountFilter] = useState<FilterType>('all')
-  const [lenderType, setLenderType] = useState<LenderType>('all')
-  const [collateralFree, setCollateralFree] = useState(false)
-  const [sortBy, setSortBy] = useState<SortType>('default')
+      const matchesLender = lenderType === 'all' || loan.providerType === lenderType
+      const matchesCategory = categoryFilter === 'all' || loan.category === categoryFilter
+      const matchesCollateral = !collateralOnly || !loan.collateralRequired
 
-  // Categorize lenders
-  const getLenderCategory = (provider: string): 'psu-bank' | 'private-bank' | 'nbfc' | 'fintech' => {
-    const psuBanks = ['State Bank of India', 'Punjab National Bank', 'Bank of Baroda', 'Canara Bank']
-    const privateBanks = ['HDFC Bank', 'ICICI Bank', 'Axis Bank', 'Kotak Mahindra Bank']
-    const fintechs = ['ZipLoan', 'GetVantage', 'Razorpay', 'FlexiLoans', 'Indifi']
-
-    if (psuBanks.includes(provider)) return 'psu-bank'
-    if (privateBanks.includes(provider)) return 'private-bank'
-    if (fintechs.includes(provider)) return 'fintech'
-    return 'nbfc'
-  }
-
-  // Get processing time (hardcoded based on known lenders)
-  const getProcessingTime = (provider: string): string => {
-    const fast = ['Bajaj Finserv', 'Lendingkart', 'ZipLoan', 'Razorpay']
-    const medium = ['NeoGrowth', 'Capital Float', 'GetVantage', 'InCred', 'Indifi', 'FlexiLoans']
-    const slow = ['HDFC Bank', 'ICICI Bank', 'Axis Bank', 'Kotak Mahindra Bank']
-
-    if (fast.includes(provider)) return '2-3 days'
-    if (medium.includes(provider)) return '3-5 days'
-    if (slow.includes(provider)) return '5-7 days'
-    return '7-10 days'
-  }
-
-  // Get reviews (hardcoded based on known lenders)
-  const getReviews = (provider: string): string => {
-    const reviews: Record<string, string> = {
-      'Bajaj Finserv': '⭐ 4.7 · 3.2K reviews',
-      'Lendingkart': '⭐ 4.5 · 2.8K reviews',
-      'NeoGrowth': '⭐ 4.6 · 1.9K reviews',
-      'HDFC Bank': '⭐ 4.8 · 5.1K reviews',
-      'State Bank of India': '⭐ 4.4 · 4.3K reviews',
-      'Tata Capital': '⭐ 4.6 · 2.2K reviews',
-      'ICICI Bank': '⭐ 4.7 · 4.8K reviews',
-      'Axis Bank': '⭐ 4.6 · 3.9K reviews',
-      'Kotak Mahindra Bank': '⭐ 4.5 · 2.4K reviews',
-      'Punjab National Bank': '⭐ 4.3 · 3.1K reviews',
-    }
-    return reviews[provider] || '⭐ 4.5 · 1.5K reviews'
-  }
-
-  // Check if loan is collateral-free
-  const isCollateralFree = (loan: Loan): boolean => {
-    return loan.features.some(f =>
-      f.toLowerCase().includes('collateral-free') ||
-      f.toLowerCase().includes('collateral free') ||
-      f.toLowerCase().includes('no collateral')
-    )
-  }
-
-  // Filter and sort loans
-  const filteredAndSortedLoans = useMemo(() => {
-    let filtered = loans.filter(loan => {
-      // Search filter
-      const matchesSearch = searchQuery === '' ||
-        loan.provider.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        loan.name.toLowerCase().includes(searchQuery.toLowerCase())
-
-      // Amount filter
-      let matchesAmount = true
-      if (amountFilter === 'under-10l') {
-        matchesAmount = loan.maxAmount <= 1000000
-      } else if (amountFilter === '10l-1cr') {
-        matchesAmount = loan.maxAmount > 1000000 && loan.maxAmount <= 10000000
-      } else if (amountFilter === 'above-1cr') {
-        matchesAmount = loan.maxAmount > 10000000
-      }
-
-      // Lender type filter
-      let matchesLenderType = true
-      if (lenderType !== 'all') {
-        const category = getLenderCategory(loan.provider)
-        matchesLenderType = (
-          (lenderType === 'psu-banks' && category === 'psu-bank') ||
-          (lenderType === 'private-banks' && category === 'private-bank') ||
-          (lenderType === 'nbfcs' && category === 'nbfc') ||
-          (lenderType === 'fintechs' && category === 'fintech')
-        )
-      }
-
-      // Collateral filter
-      const matchesCollateral = !collateralFree || isCollateralFree(loan)
-
-      return matchesSearch && matchesAmount && matchesLenderType && matchesCollateral
+      return matchesSearch && matchesLender && matchesCategory && matchesCollateral
     })
+  }, [loans, searchTerm, lenderType, categoryFilter, collateralOnly])
 
-    // Sort
-    if (sortBy === 'rate-asc') {
-      filtered.sort((a, b) => a.interestRateMin - b.interestRateMin)
-    } else if (sortBy === 'rate-desc') {
-      filtered.sort((a, b) => b.interestRateMin - a.interestRateMin)
-    } else if (sortBy === 'amount-asc') {
-      filtered.sort((a, b) => a.maxAmount - b.maxAmount)
-    } else if (sortBy === 'amount-desc') {
-      filtered.sort((a, b) => b.maxAmount - a.maxAmount)
-    } else {
-      // Default: sponsored first, then by rate
-      filtered.sort((a, b) => {
-        if (a.isSponsored && !b.isSponsored) return -1
-        if (!a.isSponsored && b.isSponsored) return 1
-        return a.interestRateMin - b.interestRateMin
-      })
-    }
-
-    return filtered
-  }, [loans, searchQuery, amountFilter, lenderType, collateralFree, sortBy])
-
-  // Format amount
-  const formatAmount = (amount: number): string => {
-    if (amount >= 10000000) {
-      return `₹${(amount / 10000000).toFixed(1)}Cr`
-    } else if (amount >= 100000) {
-      return `₹${(amount / 100000).toFixed(0)}L`
-    } else {
-      return `₹${(amount / 100000).toFixed(1)}L`
-    }
+  const formatRupee = (val: number) => {
+    if (val >= 10000000) return `₹${(val / 10000000).toFixed(1).replace(/\.0$/, '')} Cr`
+    if (val >= 100000) return `₹${(val / 100000).toFixed(1).replace(/\.0$/, '')} Lakh`
+    return `₹${val.toLocaleString('en-IN')}`
   }
 
   return (
-    <div className="min-h-screen">
-      {/* Page Header */}
-      <div className="bg-gradient-to-br from-[var(--navy)] to-[#1a3a6e] px-6 py-8">
-        <div className="max-w-[1400px] mx-auto">
-          <h1 className="font-['Syne'] text-3xl font-extrabold text-white mb-2">
-            💰 Compare MSME Business Loans
+    <div className="min-h-screen bg-[#FAFAFA] py-10 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
+        {/* Breadcrumb */}
+        <nav className="text-xs text-zinc-500 mb-4 flex items-center gap-1.5 font-mono">
+          <Link href="/" className="hover:text-zinc-950">Home</Link>
+          <span>/</span>
+          <span className="text-zinc-950">MSME Loans Comparison</span>
+        </nav>
+
+        {/* Header */}
+        <div className="bg-white border border-zinc-200 rounded-xl p-6 sm:p-8 mb-6 shadow-2xs">
+          <div className="inline-flex items-center gap-2 bg-zinc-100 text-zinc-700 text-[10px] font-mono font-medium px-2.5 py-0.5 rounded mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 inline-block" />
+            <span>RBI Regulated Lending Institutions &bull; August 2026</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight mb-2">
+            Compare MSME &amp; Business Loan Rates (2026)
           </h1>
-          <p className="text-[#94a3b8] text-sm mb-3">
-            Side-by-side comparison of top banks & NBFCs — verified rates & eligibility (Updated March 2025)
+          <p className="text-xs sm:text-sm text-zinc-500 max-w-2xl leading-relaxed">
+            Compare borrowing limits, indicative rates, tenure, and security requirements across PSU banks, private banks, NBFCs, and fintech platforms.
           </p>
-          <div className="flex gap-3 flex-wrap">
-            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 py-1.5">
-              <span className="text-xs text-white font-medium">✓ {loans.length} Verified Lenders</span>
+        </div>
+
+        {/* Filter Bar */}
+        <div className="bg-white border border-zinc-200 rounded-xl p-4 mb-6 shadow-2xs space-y-3">
+          <div className="relative">
+            <Search className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              placeholder="Search by lender name or loan product (e.g. SBI, HDFC, Mudra, Lendingkart)..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-9 pr-4 py-2 bg-zinc-50 border border-zinc-200 rounded-lg text-xs text-zinc-950 outline-none focus:border-zinc-400 focus:bg-white transition-all"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+            <div>
+              <label className="text-[10px] font-mono uppercase text-zinc-400 block mb-1">
+                Lender Type
+              </label>
+              <select
+                value={lenderType}
+                onChange={(e) => setLenderType(e.target.value)}
+                className="w-full p-2 bg-zinc-50 border border-zinc-200 rounded-md text-xs text-zinc-800 outline-none focus:border-zinc-400"
+              >
+                <option value="all">All Lenders (PSU, Private, NBFC, Fintech)</option>
+                <option value="psu-bank">Public Sector Banks (SBI, PNB, etc.)</option>
+                <option value="private-bank">Private Sector Banks (HDFC, ICICI, etc.)</option>
+                <option value="nbfc">NBFCs (Tata Capital, Lendingkart, etc.)</option>
+                <option value="fintech">Fintech Platforms (FlexiLoans, Indifi)</option>
+              </select>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 py-1.5">
-              <span className="text-xs text-white font-medium">✓ Banks, NBFCs & Fintechs</span>
+
+            <div>
+              <label className="text-[10px] font-mono uppercase text-zinc-400 block mb-1">
+                Loan Category
+              </label>
+              <select
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+                className="w-full p-2 bg-zinc-50 border border-zinc-200 rounded-md text-xs text-zinc-800 outline-none focus:border-zinc-400"
+              >
+                <option value="all">All Products</option>
+                <option value="mudra">Mudra Loans (PMMY)</option>
+                <option value="business">Term &amp; Growth Loans</option>
+                <option value="working-capital">Working Capital &amp; Credit Lines</option>
+                <option value="collateral-free">Collateral-Free MSME Loans</option>
+              </select>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 py-1.5">
-              <span className="text-xs text-white font-medium">✓ Rates from 8.4%</span>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-3 py-1.5">
-              <span className="text-xs text-white font-medium">✓ Up to ₹5 Cr</span>
+
+            <div className="flex items-end">
+              <label className="flex items-center gap-2 p-2 border border-zinc-200 rounded-md bg-zinc-50 w-full cursor-pointer hover:bg-zinc-100/70">
+                <input
+                  type="checkbox"
+                  checked={collateralOnly}
+                  onChange={(e) => setCollateralOnly(e.target.checked)}
+                  className="w-3.5 h-3.5 text-zinc-900 rounded accent-zinc-950"
+                />
+                <span className="text-xs text-zinc-700 font-medium">
+                  Collateral-Free Only
+                </span>
+              </label>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="px-6 py-6 bg-[#f0f4ff]">
-        <div className="max-w-[1400px] mx-auto">
-          {/* Search and Filters */}
-          <div className="bg-white border border-[var(--gray-light)] rounded-xl p-4 mb-6 shadow-sm">
-            {/* Search Bar */}
-            <div className="mb-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search lenders by name..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 border border-[var(--gray-light)] rounded-lg text-sm outline-none focus:border-[var(--blue)] focus:ring-2 focus:ring-blue-100 transition-all"
-                />
-              </div>
-            </div>
+        {/* Loan Table */}
+        <div className="bg-white border border-zinc-200 rounded-xl shadow-2xs overflow-hidden mb-8">
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs text-left">
+              <thead className="bg-zinc-50 text-zinc-500 border-b border-zinc-200 uppercase text-[10px] font-mono">
+                <tr>
+                  <th className="py-3 px-4">Lender &amp; Product</th>
+                  <th className="py-3 px-4">Indicative Rate</th>
+                  <th className="py-3 px-4">Borrowing Range</th>
+                  <th className="py-3 px-4">Tenure</th>
+                  <th className="py-3 px-4">Key Criteria</th>
+                  <th className="py-3 px-4 text-right">Official Link</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-zinc-100">
+                {filteredLoans.map((loan) => (
+                  <tr key={loan.id} className="hover:bg-zinc-50/70 transition-colors">
+                    {/* Lender */}
+                    <td className="py-3.5 px-4">
+                      <div className="font-semibold text-xs text-zinc-950">{loan.name}</div>
+                      <div className="text-[11px] text-zinc-500 flex items-center gap-1 mt-0.5">
+                        <span>{loan.provider}</span>
+                        <span>&bull;</span>
+                        <span className="capitalize">{loan.providerType.replace('-', ' ')}</span>
+                      </div>
+                    </td>
 
-            {/* Filter Buttons */}
-            <div className="space-y-3">
-              {/* Amount Filters */}
-              <div>
-                <label className="text-xs font-semibold text-gray-700 mb-2 block flex items-center gap-1">
-                  <Filter className="w-3 h-3" />
-                  Filter by Loan Amount
-                </label>
-                <div className="flex gap-2 flex-wrap">
-                  <button
-                    onClick={() => setAmountFilter('all')}
-                    className={`text-xs px-4 py-2 rounded-full font-medium transition-all ${
-                      amountFilter === 'all'
-                        ? 'bg-[var(--navy)] text-white shadow-md'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    All Amounts
-                  </button>
-                  <button
-                    onClick={() => setAmountFilter('under-10l')}
-                    className={`text-xs px-4 py-2 rounded-full font-medium transition-all ${
-                      amountFilter === 'under-10l'
-                        ? 'bg-[var(--navy)] text-white shadow-md'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    Under ₹10L
-                  </button>
-                  <button
-                    onClick={() => setAmountFilter('10l-1cr')}
-                    className={`text-xs px-4 py-2 rounded-full font-medium transition-all ${
-                      amountFilter === '10l-1cr'
-                        ? 'bg-[var(--navy)] text-white shadow-md'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    ₹10L - ₹1Cr
-                  </button>
-                  <button
-                    onClick={() => setAmountFilter('above-1cr')}
-                    className={`text-xs px-4 py-2 rounded-full font-medium transition-all ${
-                      amountFilter === 'above-1cr'
-                        ? 'bg-[var(--navy)] text-white shadow-md'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    Above ₹1Cr
-                  </button>
-                </div>
-              </div>
+                    {/* Rate */}
+                    <td className="py-3.5 px-4">
+                      <div className="font-bold text-xs text-zinc-950">
+                        {loan.interestRateMin}% – {loan.interestRateMax}% p.a.
+                      </div>
+                      <div className="text-[10px] text-zinc-400 mt-0.5 leading-tight">
+                        {loan.interestRateNote}
+                      </div>
+                    </td>
 
-              {/* Lender Type Filters */}
-              <div>
-                <label className="text-xs font-semibold text-gray-700 mb-2 block flex items-center gap-1">
-                  <Filter className="w-3 h-3" />
-                  Filter by Lender Type
-                </label>
-                <div className="flex gap-2 flex-wrap">
-                  <button
-                    onClick={() => setLenderType('all')}
-                    className={`text-xs px-4 py-2 rounded-full font-medium transition-all ${
-                      lenderType === 'all'
-                        ? 'bg-[var(--navy)] text-white shadow-md'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    All Lenders
-                  </button>
-                  <button
-                    onClick={() => setLenderType('psu-banks')}
-                    className={`text-xs px-4 py-2 rounded-full font-medium transition-all ${
-                      lenderType === 'psu-banks'
-                        ? 'bg-green-600 text-white shadow-md'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    PSU Banks
-                  </button>
-                  <button
-                    onClick={() => setLenderType('private-banks')}
-                    className={`text-xs px-4 py-2 rounded-full font-medium transition-all ${
-                      lenderType === 'private-banks'
-                        ? 'bg-blue-600 text-white shadow-md'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    Private Banks
-                  </button>
-                  <button
-                    onClick={() => setLenderType('nbfcs')}
-                    className={`text-xs px-4 py-2 rounded-full font-medium transition-all ${
-                      lenderType === 'nbfcs'
-                        ? 'bg-orange-600 text-white shadow-md'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    NBFCs
-                  </button>
-                  <button
-                    onClick={() => setLenderType('fintechs')}
-                    className={`text-xs px-4 py-2 rounded-full font-medium transition-all ${
-                      lenderType === 'fintechs'
-                        ? 'bg-purple-600 text-white shadow-md'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    Fintechs
-                  </button>
-                </div>
-              </div>
+                    {/* Range */}
+                    <td className="py-3.5 px-4">
+                      <div className="font-semibold text-xs text-zinc-950">
+                        {formatRupee(loan.minAmount)} – {formatRupee(loan.maxAmount)}
+                      </div>
+                      <div className="text-[10px] text-emerald-700 mt-0.5">
+                        {loan.collateralRequired ? 'Security Required' : 'No Collateral'}
+                      </div>
+                    </td>
 
-              {/* Collateral Free Toggle */}
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  id="collateral-free"
-                  checked={collateralFree}
-                  onChange={(e) => setCollateralFree(e.target.checked)}
-                  className="w-4 h-4 text-[var(--navy)] border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
-                />
-                <label htmlFor="collateral-free" className="text-sm font-medium text-gray-700 cursor-pointer">
-                  Show only collateral-free loans
-                </label>
-              </div>
-            </div>
-          </div>
+                    {/* Tenure */}
+                    <td className="py-3.5 px-4 text-zinc-600 font-mono text-[11px]">
+                      {loan.tenure}
+                    </td>
 
-          {/* Results Count and Sort */}
-          <div className="flex justify-between items-center mb-4">
-            <p className="text-sm text-gray-600">
-              Showing <span className="font-bold text-[var(--navy)]">{filteredAndSortedLoans.length}</span> of {loans.length} lenders
-            </p>
-            <div className="flex items-center gap-2">
-              <label className="text-xs font-medium text-gray-700">Sort by:</label>
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as SortType)}
-                className="text-xs px-3 py-1.5 border border-[var(--gray-light)] rounded-lg outline-none focus:border-[var(--blue)] focus:ring-2 focus:ring-blue-100"
-              >
-                <option value="default">Default (Best Match)</option>
-                <option value="rate-asc">Interest Rate: Low to High</option>
-                <option value="rate-desc">Interest Rate: High to Low</option>
-                <option value="amount-asc">Loan Amount: Low to High</option>
-                <option value="amount-desc">Loan Amount: High to Low</option>
-              </select>
-            </div>
-          </div>
+                    {/* Features */}
+                    <td className="py-3.5 px-4 max-w-xs">
+                      <ul className="space-y-0.5 text-[11px] text-zinc-500">
+                        {loan.features.slice(0, 2).map((feat, i) => (
+                          <li key={i} className="flex items-start gap-1">
+                            <span>&bull;</span>
+                            <span>{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </td>
 
-          {/* Comparison Table */}
-          <div className="bg-white border border-[var(--gray-light)] rounded-xl overflow-hidden mb-6 shadow-sm">
-            {/* Desktop Table */}
-            <div className="hidden lg:block overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-[var(--navy)] text-white">
-                    <th className="px-4 py-3 text-left text-xs font-semibold">Lender</th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold">Loan Amount</th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold">Interest Rate</th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold">Tenure</th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold">Processing Time</th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold">Collateral</th>
-                    <th className="px-4 py-3 text-left text-xs font-semibold">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredAndSortedLoans.length === 0 ? (
-                    <tr>
-                      <td colSpan={7} className="px-4 py-12 text-center text-gray-500">
-                        <div className="flex flex-col items-center gap-2">
-                          <Search className="w-12 h-12 text-gray-300" />
-                          <p className="font-medium">No lenders found</p>
-                          <p className="text-sm">Try adjusting your filters or search query</p>
-                        </div>
-                      </td>
-                    </tr>
-                  ) : (
-                    filteredAndSortedLoans.map((loan, idx) => (
-                      <tr
-                        key={loan.id}
-                        className={`border-b border-[var(--gray-light)] hover:bg-blue-50 transition-colors ${
-                          idx % 2 === 1 ? 'bg-gray-50' : ''
-                        }`}
+                    {/* Link */}
+                    <td className="py-3.5 px-4 text-right">
+                      <a
+                        href={loan.applyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-zinc-900 hover:bg-zinc-800 text-white text-[11px] font-medium px-2.5 py-1.5 rounded-md inline-flex items-center gap-1 transition-colors"
                       >
-                        <td className="px-4 py-4">
-                          <div className="flex items-center gap-2">
-                            {loan.isSponsored && (
-                              <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full font-semibold">
-                                Featured
-                              </span>
-                            )}
-                            <div>
-                              <div className="font-bold text-sm text-gray-900">{loan.provider}</div>
-                              <div className="text-xs text-gray-500">{getReviews(loan.provider)}</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-4 py-4 text-[13px] font-semibold text-[var(--money)]">
-                          {formatAmount(loan.minAmount)} – {formatAmount(loan.maxAmount)}
-                        </td>
-                        <td className="px-4 py-4 text-[13px] font-semibold">
-                          {loan.interestRateMin}–{loan.interestRateMax}% p.a.
-                        </td>
-                        <td className="px-4 py-4 text-[13px]">{loan.tenure}</td>
-                        <td className="px-4 py-4 text-[13px] font-medium text-green-600">
-                          {getProcessingTime(loan.provider)}
-                        </td>
-                        <td className="px-4 py-4 text-[13px]">
-                          {isCollateralFree(loan) ? (
-                            <span className="text-green-600 font-semibold">Not Required</span>
-                          ) : (
-                            <span className="text-gray-500">Varies</span>
-                          )}
-                        </td>
-                        <td className="px-4 py-4">
-                          <a
-                            href={loan.affiliateUrl || '#'}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-block bg-[var(--blue)] text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-                          >
-                            Apply Now →
-                          </a>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Mobile Cards */}
-            <div className="lg:hidden divide-y divide-gray-200">
-              {filteredAndSortedLoans.length === 0 ? (
-                <div className="px-6 py-12 text-center text-gray-500">
-                  <Search className="w-12 h-12 text-gray-300 mx-auto mb-2" />
-                  <p className="font-medium">No lenders found</p>
-                  <p className="text-sm">Try adjusting your filters</p>
-                </div>
-              ) : (
-                filteredAndSortedLoans.map((loan) => (
-                  <div key={loan.id} className="p-4 hover:bg-blue-50 transition-colors">
-                    <div className="flex justify-between items-start mb-3">
-                      <div>
-                        <h3 className="font-bold text-sm text-gray-900">{loan.provider}</h3>
-                        <p className="text-xs text-gray-500 mt-0.5">{getReviews(loan.provider)}</p>
-                      </div>
-                      {loan.isSponsored && (
-                        <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full font-semibold">
-                          Featured
-                        </span>
-                      )}
-                    </div>
-                    <div className="space-y-2 text-sm mb-3">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Amount:</span>
-                        <span className="font-semibold text-[var(--money)]">
-                          {formatAmount(loan.minAmount)} – {formatAmount(loan.maxAmount)}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Interest Rate:</span>
-                        <span className="font-semibold">{loan.interestRateMin}–{loan.interestRateMax}% p.a.</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Tenure:</span>
-                        <span>{loan.tenure}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Processing:</span>
-                        <span className="text-green-600 font-medium">{getProcessingTime(loan.provider)}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Collateral:</span>
-                        <span className={isCollateralFree(loan) ? 'text-green-600 font-semibold' : 'text-gray-500'}>
-                          {isCollateralFree(loan) ? 'Not Required' : 'Varies'}
-                        </span>
-                      </div>
-                    </div>
-                    <a
-                      href={loan.affiliateUrl || '#'}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full bg-[var(--blue)] text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-blue-700 transition-colors text-center"
-                    >
-                      Apply Now →
-                    </a>
-                  </div>
-                ))
-              )}
-            </div>
+                        <span>Official Portal</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
+        </div>
 
-          {/* Data Accuracy Disclaimer */}
-          <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-xl p-4 mb-6">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center">
-                <span className="text-amber-600 text-lg">ℹ️</span>
-              </div>
-              <div className="flex-1">
-                <h4 className="font-bold text-amber-900 text-sm mb-1">Loan Data Accuracy Notice</h4>
-                <p className="text-xs text-amber-800 leading-relaxed">
-                  Interest rates and loan amounts verified as of <strong>March 2025</strong> from official lender websites and aggregator platforms.
-                  Actual rates may vary based on credit score, business profile, and lender discretion.
-                  Always verify current offers directly with the lender before applying.
-                </p>
-              </div>
-            </div>
+        {/* RBI Disclosure */}
+        <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-4 text-xs text-zinc-500 space-y-1">
+          <div className="font-semibold text-zinc-950 flex items-center gap-1.5">
+            <AlertCircle className="w-3.5 h-3.5 text-zinc-500" />
+            <span>RBI Digital Lending Disclosure</span>
           </div>
-
-          {/* Lead Form */}
-          <div className="bg-white border border-[var(--gray-light)] rounded-2xl p-6 max-w-[600px] mx-auto shadow-sm">
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-5 border border-blue-100">
-              <h4 className="text-[15px] font-bold mb-1 text-gray-900">🚀 Get personalised loan offers</h4>
-              <p className="text-[13px] text-gray-600 mb-4">
-                Tell us your requirement — we'll match you with the best 3 lenders
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
-                <input
-                  type="text"
-                  placeholder="Your Name"
-                  className="px-[14px] py-[10px] border border-gray-300 rounded-lg text-[13px] outline-none focus:border-[var(--blue)] focus:ring-2 focus:ring-blue-100 transition-all"
-                />
-                <input
-                  type="tel"
-                  placeholder="Mobile Number"
-                  className="px-[14px] py-[10px] border border-gray-300 rounded-lg text-[13px] outline-none focus:border-[var(--blue)] focus:ring-2 focus:ring-blue-100 transition-all"
-                />
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
-                <input
-                  type="text"
-                  placeholder="Loan Amount Needed"
-                  className="px-[14px] py-[10px] border border-gray-300 rounded-lg text-[13px] outline-none focus:border-[var(--blue)] focus:ring-2 focus:ring-blue-100 transition-all"
-                />
-                <select className="px-[14px] py-[10px] border border-gray-300 rounded-lg text-[13px] outline-none focus:border-[var(--blue)] focus:ring-2 focus:ring-blue-100 transition-all bg-white">
-                  <option>Business Type</option>
-                  <option>Manufacturing</option>
-                  <option>Services</option>
-                  <option>Trading</option>
-                </select>
-              </div>
-              <button className="w-full bg-[var(--orange)] text-white text-sm font-bold px-4 py-3 rounded-lg hover:bg-orange-600 transition-colors shadow-md">
-                Get My Loan Offers →
-              </button>
-              <p className="text-[11px] text-gray-600 mt-2 text-center">
-                ✅ Free service · No hidden charges · Your data is safe
-              </p>
-            </div>
-          </div>
+          <p className="text-[11px] leading-relaxed text-zinc-500">
+            MSMEVault is an independent comparison portal and does not disburse loans. All loan appraisals, underwriting, interest rates, and disbursements are executed solely by respective RBI-regulated lending institutions (Banks &amp; NBFCs).
+          </p>
         </div>
       </div>
     </div>

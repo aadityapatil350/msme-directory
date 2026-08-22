@@ -1,23 +1,17 @@
 {
-  "name": "MSMEVault.in - MSME Schemes & Loans Directory",
+  "name": "MSMEVault.in – Verified Government Schemes & Loans Directory",
   "short_name": "MSMEVault",
-  "description": "India's #1 MSME directory. Find government schemes, loans & verified consultants.",
+  "description": "Verified Indian government schemes, Mudra loans, PMEGP subsidies, and CGTMSE guarantee cover explained simply.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f0f4ff",
-  "theme_color": "#0f1f3d",
+  "background_color": "#FAFAFA",
+  "theme_color": "#18181B",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     }
   ],

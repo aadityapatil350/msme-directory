@@ -1,57 +1,34 @@
-import LoansClient from './LoansClient'
-import { prisma } from '@/lib/prisma'
-
 import { Metadata } from 'next'
+import { VERIFIED_LOANS } from '@/data/verified-loans'
+import LoansClient from './LoansClient'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://msmevault.in'
 
 export const metadata: Metadata = {
-  title: 'Compare 22+ Business Loans for MSMEs - Best Rates & Offers 2025',
-  description: 'Compare 22+ verified business loans from top banks, NBFCs and fintechs. Interest rates 8.4%-35%, loan amounts ₹50K-₹5Cr. Updated March 2025.',
+  title: 'Compare MSME & Business Loan Rates (2026) | Bank, NBFC & Mudra Comparison',
+  description:
+    'Compare indicative interest rates, borrowing limits, tenure, and collateral requirements across SBI, HDFC, ICICI, Tata Capital, Lendingkart, and Mudra loans. Verified August 2026.',
   keywords: [
-    'MSME business loans',
-    'small business loans India',
-    'compare business loans',
-    'MSME loan interest rates',
-    'collateral free loans MSME',
-    'bank loans for small business',
-    'NBFC business loans',
-    'startup business loans',
+    'MSME loan interest rates 2026',
+    'business loan comparison India',
+    'Mudra loan interest rate',
+    'collateral free business loan',
+    'SBI SME loan rates',
+    'HDFC business loan interest',
+    'working capital loan comparison',
   ],
   alternates: {
     canonical: '/loans',
   },
   openGraph: {
-    title: 'Compare 22+ Business Loans for MSMEs | Best Rates 2025',
-    description: 'Compare verified business loans from banks & NBFCs. Interest rates 8.4%-35%, amounts ₹50K-₹5Cr.',
+    title: 'Compare MSME & Business Loan Rates (2026) | MSMEVault',
+    description:
+      'Compare indicative interest rates, borrowing limits, tenure, and collateral requirements across PSU banks, private banks, NBFCs, and fintechs.',
     url: `${siteUrl}/loans`,
     type: 'website',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Compare Business Loans for MSMEs',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Compare 22+ Business Loans for MSMEs',
-    description: 'Compare verified business loans. Interest rates 8.4%-35%.',
-    images: ['/og-image.png'],
   },
 }
 
-export const dynamic = 'force-dynamic'
-
-export default async function LoansPage() {
-  const loans = await prisma.loan.findMany({
-    orderBy: [
-      { isSponsored: 'desc' },
-      { interestRateMin: 'asc' },
-    ],
-  })
-
-  return <LoansClient loans={loans} />
+export default function LoansPage() {
+  return <LoansClient loans={VERIFIED_LOANS} />
 }

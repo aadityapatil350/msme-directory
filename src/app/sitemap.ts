@@ -1,141 +1,63 @@
 import { MetadataRoute } from 'next'
-import { prisma } from '@/lib/prisma'
+import { VERIFIED_SCHEMES } from '@/data/verified-schemes'
+import { VERIFIED_GUIDES } from '@/data/verified-guides'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://msmevault.in'
+const CITIES = [
+  'mumbai', 'delhi', 'bangalore', 'pune', 'ahmedabad',
+  'chennai', 'hyderabad', 'jaipur', 'kolkata', 'surat'
+]
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // Static pages
-  const staticPages: MetadataRoute.Sitemap = [
-    {
-      url: siteUrl,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 1,
-    },
-    {
-      url: `${siteUrl}/schemes`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${siteUrl}/consultants`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${siteUrl}/loans`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${siteUrl}/blog`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.8,
-    },
-    {
-      url: `${siteUrl}/guides`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${siteUrl}/resources`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.7,
-    },
-    {
-      url: `${siteUrl}/eligibility-checker`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${siteUrl}/list-your-firm`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-  ]
+export default function sitemap(): MetadataRoute.Sitemap {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://msmevault.in'
+  const currentDate = new Date().toISOString()
 
-  // Dynamic pages - Schemes
-  let schemePages: MetadataRoute.Sitemap = []
-  try {
-    const schemes = await prisma.scheme.findMany({
-      where: { isActive: true },
-      select: { slug: true, updatedAt: true },
-    })
-    schemePages = schemes.map((scheme) => ({
-      url: `${siteUrl}/schemes/${scheme.slug}`,
-      lastModified: scheme.updatedAt,
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    }))
-  } catch (error) {
-    console.error('Error fetching schemes for sitemap:', error)
-  }
+  // 1. Static Core Pages
+  const staticPages = [
+    '',
+    '/schemes',
+    '/loans',
+    '/guides',
+    '/tools/emi-calculator',
+    '/tools/subsidy-calculator',
+    '/eligibility-checker',
+    '/consultants',
+    '/list-your-firm',
+    '/about',
+    '/editorial-policy',
+    '/disclaimer',
+    '/privacy',
+    '/terms',
+    '/contact',
+  ].map((route) => ({
+    url: `${siteUrl}${route}`,
+    lastModified: currentDate,
+    changeFrequency: 'daily' as const,
+    priority: route === '' ? 1.0 : route.startsWith('/tools') || route === '/schemes' || route === '/loans' ? 0.9 : 0.7,
+  }))
 
-  // Dynamic pages - Blog posts
-  let blogPages: MetadataRoute.Sitemap = []
-  try {
-    const posts = await prisma.blogPost.findMany({
-      where: { isPublished: true },
-      select: { slug: true, updatedAt: true },
-    })
-    blogPages = posts.map((post) => ({
-      url: `${siteUrl}/blog/${post.slug}`,
-      lastModified: post.updatedAt,
-      changeFrequency: 'weekly' as const,
-      priority: 0.6,
-    }))
-  } catch (error) {
-    console.error('Error fetching blog posts for sitemap:', error)
-  }
+  // 2. Verified Schemes
+  const schemePages = VERIFIED_SCHEMES.map((scheme) => ({
+    url: `${siteUrl}/schemes/${scheme.slug}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }))
 
-  // Dynamic pages - Guides
-  let guidePages: MetadataRoute.Sitemap = []
-  try {
-    const guides = await prisma.guide.findMany({
-      where: { isPublished: true },
-      select: { slug: true, updatedAt: true },
-    })
-    guidePages = guides.map((guide) => ({
-      url: `${siteUrl}/guides/${guide.slug}`,
-      lastModified: guide.updatedAt,
-      changeFrequency: 'weekly' as const,
-      priority: 0.6,
-    }))
-  } catch (error) {
-    console.error('Error fetching guides for sitemap:', error)
-  }
+  // 3. Pillar Policy Guides
+  const guidePages = VERIFIED_GUIDES.map((guide) => ({
+    url: `${siteUrl}/guides/${guide.slug}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly' as const,
+    priority: 0.9,
+  }))
 
-  // Dynamic pages - Consultants by city
-  let cityPages: MetadataRoute.Sitemap = []
-  try {
-    const cities = await prisma.consultant.findMany({
-      where: { isVerified: true },
-      select: { city: true },
-      distinct: ['city'],
-    })
-    cityPages = cities.map((item) => ({
-      url: `${siteUrl}/consultants/${item.city.toLowerCase().replace(/\s+/g, '-')}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    }))
-  } catch (error) {
-    console.error('Error fetching cities for sitemap:', error)
-  }
+  // 4. City Consultant Directories (Beta)
+  const cityPages = CITIES.map((city) => ({
+    url: `${siteUrl}/consultants/${city}`,
+    lastModified: currentDate,
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }))
 
-  return [
-    ...staticPages,
-    ...schemePages,
-    ...blogPages,
-    ...guidePages,
-    ...cityPages,
-  ]
+  return [...staticPages, ...schemePages, ...guidePages, ...cityPages]
 }

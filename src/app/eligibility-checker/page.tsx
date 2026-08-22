@@ -2,623 +2,368 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { CheckCircle2 } from 'lucide-react'
+import { VERIFIED_SCHEMES } from '@/data/verified-schemes'
+import { formatSchemeBenefit } from '@/lib/scheme-benefit'
+import {
+  ArrowRight,
+  ArrowLeft,
+  RotateCcw,
+  Sparkles,
+} from 'lucide-react'
 
-type FormData = {
-  // Step 1: Business Info
-  businessType: string
-  sector: string[]
-  state: string
-
-  // Step 2: Business Details
-  annualTurnover: string
-  employeeCount: string
-  yearsInBusiness: string
-
-  // Step 3: Entrepreneur Profile
-  gender: string
-  category: string
-  hasUdyamRegistration: string
-
-  // Step 4: Funding Need
+interface Answers {
+  sector: string
+  stage: string
+  turnover: string
   loanAmount: string
-  purpose: string
-
-  // Step 5: Contact Info
-  name: string
-  email: string
-  phone: string
-  consent: boolean
-}
-
-const INITIAL_FORM_DATA: FormData = {
-  businessType: '',
-  sector: [],
-  state: '',
-  annualTurnover: '',
-  employeeCount: '',
-  yearsInBusiness: '',
-  gender: '',
-  category: '',
-  hasUdyamRegistration: '',
-  loanAmount: '',
-  purpose: '',
-  name: '',
-  email: '',
-  phone: '',
-  consent: false,
+  location: string
 }
 
 export default function EligibilityCheckerPage() {
   const [step, setStep] = useState(1)
-  const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isComplete, setIsComplete] = useState(false)
+  const [answers, setAnswers] = useState<Answers>({
+    sector: '',
+    stage: '',
+    turnover: '',
+    loanAmount: '',
+    location: '',
+  })
+  const [showResults, setShowResults] = useState(false)
 
-  const totalSteps = 5
-  const progress = (step / totalSteps) * 100
+  const handleSelect = (key: keyof Answers, value: string) => {
+    setAnswers((prev) => ({ ...prev, [key]: value }))
+  }
 
   const handleNext = () => {
-    if (step < totalSteps) {
-      setStep(step + 1)
+    if (step < 5) {
+      setStep((s) => s + 1)
+    } else {
+      setShowResults(true)
     }
   }
 
   const handleBack = () => {
     if (step > 1) {
-      setStep(step - 1)
+      setStep((s) => s - 1)
     }
   }
 
-  const handleSectorToggle = (sector: string) => {
-    setFormData(prev => ({
-      ...prev,
-      sector: prev.sector.includes(sector)
-        ? prev.sector.filter(s => s !== sector)
-        : [...prev.sector, sector]
-    }))
+  const handleReset = () => {
+    setStep(1)
+    setAnswers({
+      sector: '',
+      stage: '',
+      turnover: '',
+      loanAmount: '',
+      location: '',
+    })
+    setShowResults(false)
   }
 
-  const handleSubmit = async () => {
-    setIsSubmitting(true)
-
-    try {
-      // Submit lead to API
-      const response = await fetch('/api/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          businessType: formData.businessType,
-          sector: formData.sector.join(', '),
-          state: formData.state,
-          annualTurnover: formData.annualTurnover,
-          employeeCount: formData.employeeCount,
-          loanAmount: formData.loanAmount,
-          status: 'new',
-          source: 'eligibility_checker',
-        }),
-      })
-
-      if (response.ok) {
-        setIsComplete(true)
+  // Scheme Matching Engine
+  const matchingSchemes = VERIFIED_SCHEMES.filter((scheme) => {
+    // Stage check: PMEGP only for new
+    if (answers.stage === 'existing' && scheme.slug === 'pmegp-scheme') {
+      return false
+    }
+    // Location check: State schemes only for matching state
+    if (scheme.type === 'state' && scheme.state && answers.location) {
+      if (answers.location.toLowerCase() !== scheme.state.toLowerCase()) {
+        return false
       }
-    } catch (error) {
-      console.error('Error submitting lead:', error)
-    } finally {
-      setIsSubmitting(false)
     }
-  }
-
-  if (isComplete) {
-    return (
-      <div className="min-h-screen bg-[#f0f4ff] py-12">
-        <div className="max-w-[700px] mx-auto px-6">
-          <div className="bg-white border border-gray-200 rounded-xl p-8 text-center">
-            <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-              <CheckCircle2 className="h-8 w-8 text-green-600" />
-            </div>
-            <h2 className="text-2xl font-bold mb-2">You're Eligible for Multiple Schemes!</h2>
-            <p className="text-gray-600 mb-6">
-              We found 12 schemes that match your profile
-            </p>
-
-            <p className="text-gray-700 mb-6">
-              Our team of experts will analyze your profile and send you a personalized report within 24 hours.
-            </p>
-
-            <div className="bg-orange-50 p-6 rounded-lg border border-orange-200 mb-6">
-              <h3 className="font-semibold text-gray-900 mb-3">What happens next?</h3>
-              <ul className="space-y-2 text-sm text-gray-700 text-left">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
-                  <span>Personalized eligibility report sent to {formData.email}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
-                  <span>Free 15-minute consultation with our expert</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
-                  <span>Step-by-step application guidance</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Link href="/schemes" className="flex-1">
-                <button className="w-full bg-custom-orange text-white text-sm font-semibold px-6 py-3 rounded-lg hover:bg-[#ea580c] transition-colors">
-                  Browse Matching Schemes
-                </button>
-              </Link>
-              <Link href="/consultants" className="flex-1">
-                <button className="w-full bg-white border border-gray-300 text-gray-700 text-sm font-semibold px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors">
-                  Talk to Expert
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
+    return true
+  })
 
   return (
-    <div className="min-h-screen">
-      {/* Page Header */}
-      <div className="bg-gradient-to-br from-[#0f1f3d] to-[#1a3a6e] px-6 py-8">
-        <div className="max-w-[700px] mx-auto text-center">
-          <h1 className="text-3xl font-bold text-white mb-2">
-            ✅ Check Your Eligibility
+    <div className="min-h-screen bg-[#FAFAFA] py-10 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto">
+        {/* Breadcrumb */}
+        <nav className="text-xs text-zinc-500 mb-4 flex items-center gap-1.5 font-mono">
+          <Link href="/" className="hover:text-zinc-950">Home</Link>
+          <span>/</span>
+          <span className="text-zinc-950">Scheme Eligibility Matcher</span>
+        </nav>
+
+        {/* Header */}
+        <div className="bg-white border border-zinc-200 rounded-xl p-6 sm:p-8 mb-6 shadow-2xs">
+          <div className="inline-flex items-center gap-2 bg-zinc-100 text-zinc-700 text-[10px] font-mono font-medium px-2.5 py-0.5 rounded mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-zinc-500" />
+            <span>Interactive Assessment</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight mb-2">
+            MSME Scheme Eligibility Matcher
           </h1>
-          <p className="text-gray-300 text-sm">
-            Answer a few questions to discover schemes you qualify for
+          <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed">
+            Answer 5 brief questions about your business to receive an instant list of matching Central and State schemes, loan brackets, and subsidies.
           </p>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="px-6 py-8 bg-[#f0f4ff]">
-        <div className="max-w-[700px] mx-auto">
-          {/* Progress Bar */}
-          <div className="mb-6">
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-sm font-semibold text-gray-700">
-                Step {step} of {totalSteps}
-              </span>
-              <span className="text-sm text-gray-600">{Math.round(progress)}% Complete</span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div
-                className="bg-custom-orange h-2 rounded-full transition-all duration-300"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-          </div>
-
-          {/* Form Card */}
-          <div className="bg-white border border-gray-200 rounded-xl p-6">
-            <div className="mb-6">
-              <h2 className="text-xl font-bold mb-2">
-                {step === 1 && 'Tell us about your business'}
-                {step === 2 && 'Business Details'}
-                {step === 3 && 'Entrepreneur Profile'}
-                {step === 4 && 'Funding Requirements'}
-                {step === 5 && 'Your Contact Information'}
-              </h2>
-              <p className="text-sm text-gray-600">
-                {step === 1 && 'Basic information about your business type and sector'}
-                {step === 2 && 'Financial and operational details'}
-                {step === 3 && 'Information about you as an entrepreneur'}
-                {step === 4 && 'How much funding do you need and why?'}
-                {step === 5 && 'Get your personalized eligibility report'}
-              </p>
+        {!showResults ? (
+          <div className="bg-white border border-zinc-200 rounded-xl p-6 sm:p-8 shadow-2xs">
+            {/* Step Progress */}
+            <div className="flex items-center justify-between mb-6 pb-4 border-b border-zinc-100 text-xs font-mono text-zinc-400">
+              <span>Step {step} of 5</span>
+              <div className="flex gap-1.5">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <div
+                    key={i}
+                    className={`w-6 h-1 rounded-full ${
+                      i <= step ? 'bg-zinc-950' : 'bg-zinc-200'
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
 
-            {/* Step 1: Business Info */}
+            {/* Step 1: Sector */}
             {step === 1 && (
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-semibold mb-3">Business Type</label>
-                  <div className="space-y-2">
-                    {[
-                      { value: 'micro', label: 'Micro Enterprise' },
-                      { value: 'small', label: 'Small Enterprise' },
-                      { value: 'medium', label: 'Medium Enterprise' },
-                      { value: 'startup', label: 'Startup (Not yet registered)' },
-                    ].map((option) => (
-                      <label key={option.value} className="flex items-center gap-2 cursor-pointer">
-                        <input
-                          type="radio"
-                          name="businessType"
-                          value={option.value}
-                          checked={formData.businessType === option.value}
-                          onChange={(e) => setFormData({ ...formData, businessType: e.target.value })}
-                          className="w-4 h-4 text-custom-blue"
-                        />
-                        <span className="text-sm">{option.label}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold mb-3">Select Your Sector(s)</label>
-                  <div className="grid grid-cols-2 gap-3">
-                    {['Manufacturing', 'Services', 'Trading', 'Agriculture', 'Technology', 'Healthcare', 'Education', 'Tourism'].map((sector) => (
-                      <label key={sector} className="flex items-center gap-2 cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={formData.sector.includes(sector)}
-                          onChange={() => handleSectorToggle(sector)}
-                          className="w-4 h-4 text-custom-blue rounded"
-                        />
-                        <span className="text-sm">{sector}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="state" className="block text-sm font-semibold mb-2">State</label>
-                  <select
-                    id="state"
-                    value={formData.state}
-                    onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:border-custom-blue"
-                  >
-                    <option value="">Select your state</option>
-                    <option value="maharashtra">Maharashtra</option>
-                    <option value="gujarat">Gujarat</option>
-                    <option value="karnataka">Karnataka</option>
-                    <option value="tamil-nadu">Tamil Nadu</option>
-                    <option value="rajasthan">Rajasthan</option>
-                    <option value="uttar-pradesh">Uttar Pradesh</option>
-                    <option value="west-bengal">West Bengal</option>
-                    <option value="delhi">Delhi</option>
-                    <option value="haryana">Haryana</option>
-                    <option value="punjab">Punjab</option>
-                  </select>
+              <div className="space-y-4">
+                <h2 className="text-base font-bold text-zinc-950">
+                  What is your primary line of business?
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {[
+                    { id: 'Manufacturing', desc: 'Making physical goods / industrial processing' },
+                    { id: 'Services', desc: 'IT, consulting, logistics, healthcare, repairs' },
+                    { id: 'Trading / Retail', desc: 'Wholesale, retail store, distributor' },
+                    { id: 'Food Processing', desc: 'Agri-processing, packaged foods, bakeries' },
+                    { id: 'Artisan / Traditional Crafts', desc: 'Carpentry, pottery, smithing, handloom' },
+                  ].map((opt) => (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => handleSelect('sector', opt.id)}
+                      className={`p-3.5 rounded-lg border text-left text-xs transition-all ${
+                        answers.sector === opt.id
+                          ? 'border-zinc-950 bg-zinc-50 text-zinc-950 font-semibold'
+                          : 'border-zinc-200 text-zinc-600 hover:bg-zinc-50'
+                      }`}
+                    >
+                      <div className="font-semibold text-zinc-950 text-xs">{opt.id}</div>
+                      <div className="text-[11px] text-zinc-400 mt-0.5">{opt.desc}</div>
+                    </button>
+                  ))}
                 </div>
               </div>
             )}
 
-            {/* Step 2: Business Details */}
+            {/* Step 2: Stage */}
             {step === 2 && (
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-semibold mb-3">Annual Turnover</label>
-                  <div className="space-y-2">
-                    {[
-                      { value: '0-25l', label: 'Less than ₹25 Lakhs' },
-                      { value: '25l-5cr', label: '₹25 Lakhs - ₹5 Crores' },
-                      { value: '5cr-50cr', label: '₹5 Crores - ₹50 Crores' },
-                      { value: '50cr+', label: 'Above ₹50 Crores' },
-                    ].map((option) => (
-                      <label key={option.value} className="flex items-center gap-2 cursor-pointer">
-                        <input
-                          type="radio"
-                          name="annualTurnover"
-                          value={option.value}
-                          checked={formData.annualTurnover === option.value}
-                          onChange={(e) => setFormData({ ...formData, annualTurnover: e.target.value })}
-                          className="w-4 h-4 text-custom-blue"
-                        />
-                        <span className="text-sm">{option.label}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold mb-3">Number of Employees</label>
-                  <div className="space-y-2">
-                    {[
-                      { value: '0-10', label: '1-10 employees' },
-                      { value: '11-50', label: '11-50 employees' },
-                      { value: '51-100', label: '51-100 employees' },
-                      { value: '100+', label: '100+ employees' },
-                    ].map((option) => (
-                      <label key={option.value} className="flex items-center gap-2 cursor-pointer">
-                        <input
-                          type="radio"
-                          name="employeeCount"
-                          value={option.value}
-                          checked={formData.employeeCount === option.value}
-                          onChange={(e) => setFormData({ ...formData, employeeCount: e.target.value })}
-                          className="w-4 h-4 text-custom-blue"
-                        />
-                        <span className="text-sm">{option.label}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold mb-3">Years in Business</label>
-                  <div className="space-y-2">
-                    {[
-                      { value: '0-1', label: 'Less than 1 year (Startup)' },
-                      { value: '1-3', label: '1-3 years' },
-                      { value: '3-5', label: '3-5 years' },
-                      { value: '5+', label: 'More than 5 years' },
-                    ].map((option) => (
-                      <label key={option.value} className="flex items-center gap-2 cursor-pointer">
-                        <input
-                          type="radio"
-                          name="yearsInBusiness"
-                          value={option.value}
-                          checked={formData.yearsInBusiness === option.value}
-                          onChange={(e) => setFormData({ ...formData, yearsInBusiness: e.target.value })}
-                          className="w-4 h-4 text-custom-blue"
-                        />
-                        <span className="text-sm">{option.label}</span>
-                      </label>
-                    ))}
-                  </div>
+              <div className="space-y-4">
+                <h2 className="text-base font-bold text-zinc-950">
+                  What is your business operational stage?
+                </h2>
+                <div className="grid grid-cols-1 gap-2.5">
+                  {[
+                    { id: 'new', title: 'New Enterprise (Greenfield)', desc: 'Planning to launch a new unit or in setup stage (< 1 year)' },
+                    { id: 'existing', title: 'Existing Enterprise (Expansion)', desc: 'Operational for over 1 year; seeking working capital or expansion loan' },
+                  ].map((opt) => (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => handleSelect('stage', opt.id)}
+                      className={`p-4 rounded-lg border text-left text-xs transition-all ${
+                        answers.stage === opt.id
+                          ? 'border-zinc-950 bg-zinc-50 text-zinc-950 font-semibold'
+                          : 'border-zinc-200 text-zinc-600 hover:bg-zinc-50'
+                      }`}
+                    >
+                      <div className="font-semibold text-zinc-950 text-xs">{opt.title}</div>
+                      <div className="text-[11px] text-zinc-400 mt-0.5">{opt.desc}</div>
+                    </button>
+                  ))}
                 </div>
               </div>
             )}
 
-            {/* Step 3: Entrepreneur Profile */}
+            {/* Step 3: Turnover Band */}
             {step === 3 && (
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-semibold mb-3">Gender</label>
-                  <div className="space-y-2">
-                    {[
-                      { value: 'male', label: 'Male' },
-                      { value: 'female', label: 'Female' },
-                      { value: 'other', label: 'Other' },
-                    ].map((option) => (
-                      <label key={option.value} className="flex items-center gap-2 cursor-pointer">
-                        <input
-                          type="radio"
-                          name="gender"
-                          value={option.value}
-                          checked={formData.gender === option.value}
-                          onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-                          className="w-4 h-4 text-custom-blue"
-                        />
-                        <span className="text-sm">{option.label}</span>
-                      </label>
-                    ))}
-                  </div>
-                  <p className="text-xs text-gray-500 mt-2">Many schemes have special benefits for women entrepreneurs</p>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold mb-3">Category</label>
-                  <div className="space-y-2">
-                    {[
-                      { value: 'general', label: 'General' },
-                      { value: 'sc', label: 'SC (Scheduled Caste)' },
-                      { value: 'st', label: 'ST (Scheduled Tribe)' },
-                      { value: 'obc', label: 'OBC (Other Backward Class)' },
-                    ].map((option) => (
-                      <label key={option.value} className="flex items-center gap-2 cursor-pointer">
-                        <input
-                          type="radio"
-                          name="category"
-                          value={option.value}
-                          checked={formData.category === option.value}
-                          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                          className="w-4 h-4 text-custom-blue"
-                        />
-                        <span className="text-sm">{option.label}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold mb-3">Do you have Udyam Registration?</label>
-                  <div className="space-y-2">
-                    {[
-                      { value: 'yes', label: 'Yes, I have Udyam Registration' },
-                      { value: 'no', label: 'No, but planning to get it' },
-                      { value: 'unsure', label: 'Not sure what this is' },
-                    ].map((option) => (
-                      <label key={option.value} className="flex items-center gap-2 cursor-pointer">
-                        <input
-                          type="radio"
-                          name="hasUdyamRegistration"
-                          value={option.value}
-                          checked={formData.hasUdyamRegistration === option.value}
-                          onChange={(e) => setFormData({ ...formData, hasUdyamRegistration: e.target.value })}
-                          className="w-4 h-4 text-custom-blue"
-                        />
-                        <span className="text-sm">{option.label}</span>
-                      </label>
-                    ))}
-                  </div>
-                  <p className="text-xs text-gray-500 mt-2">Udyam Registration is mandatory for many government schemes</p>
+              <div className="space-y-4">
+                <h2 className="text-base font-bold text-zinc-950">
+                  What is your annual turnover?
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {[
+                    { id: '< 10L', title: 'Under ₹10 Lakh', desc: 'Eligible for Shishu / Micro schemes' },
+                    { id: '10L - 1Cr', title: '₹10 Lakh to ₹1 Crore', desc: 'Eligible for Kishor / Tarun / PMEGP' },
+                    { id: '1Cr - 10Cr', title: '₹1 Crore to ₹10 Crore', desc: 'Micro MSME classification ceiling' },
+                    { id: '10Cr - 100Cr', title: '₹10 Crore to ₹100 Crore', desc: 'Small MSME classification bracket' },
+                  ].map((opt) => (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => handleSelect('turnover', opt.id)}
+                      className={`p-3.5 rounded-lg border text-left text-xs transition-all ${
+                        answers.turnover === opt.id
+                          ? 'border-zinc-950 bg-zinc-50 text-zinc-950 font-semibold'
+                          : 'border-zinc-200 text-zinc-600 hover:bg-zinc-50'
+                      }`}
+                    >
+                      <div className="font-semibold text-zinc-950 text-xs">{opt.title}</div>
+                      <div className="text-[11px] text-zinc-400 mt-0.5">{opt.desc}</div>
+                    </button>
+                  ))}
                 </div>
               </div>
             )}
 
-            {/* Step 4: Funding Need */}
+            {/* Step 4: Required Funding */}
             {step === 4 && (
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-semibold mb-3">How much funding do you need?</label>
-                  <div className="space-y-2">
-                    {[
-                      { value: '0-50k', label: 'Less than ₹50,000' },
-                      { value: '50k-5l', label: '₹50,000 - ₹5 Lakhs' },
-                      { value: '5l-25l', label: '₹5 Lakhs - ₹25 Lakhs' },
-                      { value: '25l-1cr', label: '₹25 Lakhs - ₹1 Crore' },
-                      { value: '1cr+', label: 'Above ₹1 Crore' },
-                    ].map((option) => (
-                      <label key={option.value} className="flex items-center gap-2 cursor-pointer">
-                        <input
-                          type="radio"
-                          name="loanAmount"
-                          value={option.value}
-                          checked={formData.loanAmount === option.value}
-                          onChange={(e) => setFormData({ ...formData, loanAmount: e.target.value })}
-                          className="w-4 h-4 text-custom-blue"
-                        />
-                        <span className="text-sm">{option.label}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="purpose" className="block text-sm font-semibold mb-2">What will you use the funding for?</label>
-                  <select
-                    id="purpose"
-                    value={formData.purpose}
-                    onChange={(e) => setFormData({ ...formData, purpose: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:border-custom-blue"
-                  >
-                    <option value="">Select purpose</option>
-                    <option value="working-capital">Working Capital</option>
-                    <option value="machinery">Machinery Purchase</option>
-                    <option value="expansion">Business Expansion</option>
-                    <option value="new-business">Starting New Business</option>
-                    <option value="technology">Technology Upgrade</option>
-                    <option value="export">Export Development</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-
-                <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                  <p className="text-sm text-blue-900">
-                    <strong>Good news!</strong> Based on your requirements, you may be eligible for collateral-free loans and subsidies.
-                  </p>
+              <div className="space-y-4">
+                <h2 className="text-base font-bold text-zinc-950">
+                  How much funding / loan do you require?
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {[
+                    { id: '< 50K', title: 'Up to ₹50,000', desc: 'Mudra Shishu bracket' },
+                    { id: '50K - 5L', title: '₹50,000 to ₹5 Lakh', desc: 'Mudra Kishor bracket' },
+                    { id: '5L - 20L', title: '₹5 Lakh to ₹20 Lakh', desc: 'Mudra Tarun / Tarun Plus (₹20L)' },
+                    { id: '20L - 50L', title: '₹20 Lakh to ₹50 Lakh', desc: 'PMEGP Manufacturing Max' },
+                    { id: '50L - 10Cr', title: '₹50 Lakh to ₹10 Crore', desc: 'CGTMSE Collateral-Free Cover' },
+                  ].map((opt) => (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => handleSelect('loanAmount', opt.id)}
+                      className={`p-3.5 rounded-lg border text-left text-xs transition-all ${
+                        answers.loanAmount === opt.id
+                          ? 'border-zinc-950 bg-zinc-50 text-zinc-950 font-semibold'
+                          : 'border-zinc-200 text-zinc-600 hover:bg-zinc-50'
+                      }`}
+                    >
+                      <div className="font-semibold text-zinc-950 text-xs">{opt.title}</div>
+                      <div className="text-[11px] text-zinc-400 mt-0.5">{opt.desc}</div>
+                    </button>
+                  ))}
                 </div>
               </div>
             )}
 
-            {/* Step 5: Contact Info */}
+            {/* Step 5: Location */}
             {step === 5 && (
-              <div className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-semibold mb-2">Full Name *</label>
-                  <input
-                    id="name"
-                    type="text"
-                    placeholder="Enter your full name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:border-custom-blue"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-semibold mb-2">Email Address *</label>
-                  <input
-                    id="email"
-                    type="email"
-                    placeholder="your@email.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:border-custom-blue"
-                  />
-                  <p className="text-xs text-gray-500 mt-1">We'll send your eligibility report here</p>
-                </div>
-
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-semibold mb-2">Phone Number *</label>
-                  <input
-                    id="phone"
-                    type="tel"
-                    placeholder="+91 98765 43210"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:border-custom-blue"
-                  />
-                  <p className="text-xs text-gray-500 mt-1">For free expert consultation</p>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <input
-                    id="consent"
-                    type="checkbox"
-                    checked={formData.consent}
-                    onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
-                    className="w-4 h-4 mt-1 text-custom-blue rounded"
-                  />
-                  <label htmlFor="consent" className="text-sm leading-relaxed">
-                    I agree to receive my eligibility report via email and consent to being contacted by MSMEVault.in and partner consultants for assistance with scheme applications.
-                  </label>
-                </div>
-
-                <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-sm font-medium text-green-900 mb-1">You're almost done!</p>
-                      <p className="text-xs text-green-800">
-                        Get instant access to matching schemes and a free consultation with our experts.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+              <div className="space-y-4">
+                <h2 className="text-base font-bold text-zinc-950">
+                  Select your state of operation
+                </h2>
+                <select
+                  value={answers.location}
+                  onChange={(e) => handleSelect('location', e.target.value)}
+                  className="w-full p-3 bg-zinc-50 border border-zinc-200 rounded-lg text-xs text-zinc-900 outline-none focus:border-zinc-400"
+                >
+                  <option value="">Select State</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Tamil Nadu">Tamil Nadu</option>
+                  <option value="Karnataka">Karnataka</option>
+                  <option value="Uttar Pradesh">Uttar Pradesh</option>
+                  <option value="Rajasthan">Rajasthan</option>
+                  <option value="Telangana">Telangana</option>
+                  <option value="Punjab">Punjab</option>
+                  <option value="Delhi">Delhi</option>
+                  <option value="Other">Other State / All India</option>
+                </select>
               </div>
             )}
 
-            {/* Navigation Buttons */}
-            <div className="flex gap-3 mt-8">
-              {step > 1 && (
-                <button
-                  onClick={handleBack}
-                  className="flex-1 bg-white border border-gray-300 text-gray-700 text-sm font-semibold px-6 py-2 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  ← Back
-                </button>
-              )}
+            {/* Step Navigation Buttons */}
+            <div className="flex justify-between items-center pt-6 mt-6 border-t border-zinc-100">
+              <button
+                type="button"
+                onClick={handleBack}
+                disabled={step === 1}
+                className="text-xs text-zinc-500 hover:text-zinc-950 disabled:opacity-30 disabled:hover:text-zinc-500 flex items-center gap-1 font-medium"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Back</span>
+              </button>
 
-              {step < totalSteps ? (
-                <button
-                  onClick={handleNext}
-                  disabled={
-                    (step === 1 && (!formData.businessType || formData.sector.length === 0 || !formData.state)) ||
-                    (step === 2 && (!formData.annualTurnover || !formData.employeeCount || !formData.yearsInBusiness)) ||
-                    (step === 3 && (!formData.gender || !formData.category || !formData.hasUdyamRegistration)) ||
-                    (step === 4 && (!formData.loanAmount || !formData.purpose))
-                  }
-                  className="flex-1 bg-custom-orange text-white text-sm font-semibold px-6 py-2 rounded-lg hover:bg-[#ea580c] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Continue →
-                </button>
-              ) : (
-                <button
-                  onClick={handleSubmit}
-                  disabled={!formData.name || !formData.email || !formData.phone || !formData.consent || isSubmitting}
-                  className="flex-1 bg-custom-orange text-white text-sm font-semibold px-6 py-2 rounded-lg hover:bg-[#ea580c] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? 'Submitting...' : 'Get My Results ✓'}
-                </button>
-              )}
+              <button
+                type="button"
+                onClick={handleNext}
+                disabled={
+                  (step === 1 && !answers.sector) ||
+                  (step === 2 && !answers.stage) ||
+                  (step === 3 && !answers.turnover) ||
+                  (step === 4 && !answers.loanAmount) ||
+                  (step === 5 && !answers.location)
+                }
+                className="bg-zinc-950 hover:bg-zinc-800 disabled:opacity-30 text-white text-xs font-medium px-4 py-2 rounded-lg transition-colors flex items-center gap-1.5"
+              >
+                <span>{step === 5 ? 'View Matching Schemes' : 'Continue'}</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
             </div>
           </div>
+        ) : (
+          /* Results View */
+          <div className="space-y-6">
+            <div className="bg-white border border-zinc-200 rounded-xl p-6 shadow-2xs">
+              <div className="flex items-center justify-between gap-3 mb-4 pb-4 border-b border-zinc-100">
+                <div>
+                  <h2 className="text-base font-bold text-zinc-950">
+                    We found {matchingSchemes.length} matching schemes for you
+                  </h2>
+                  <div className="text-xs text-zinc-500 mt-0.5 font-mono">
+                    Sector: {answers.sector} &bull; Stage: {answers.stage} &bull; State: {answers.location}
+                  </div>
+                </div>
 
-          {/* Trust Indicators */}
-          <div className="mt-6 text-center">
-            <div className="flex items-center justify-center gap-6 text-sm text-gray-600">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-green-600" />
-                <span>100% Free</span>
+                <button
+                  onClick={handleReset}
+                  className="text-xs text-zinc-500 hover:text-zinc-950 flex items-center gap-1 font-mono"
+                >
+                  <RotateCcw className="w-3 h-3" />
+                  <span>Restart</span>
+                </button>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-green-600" />
-                <span>No Spam</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-green-600" />
-                <span>Instant Results</span>
+
+              <div className="space-y-3">
+                {matchingSchemes.map((scheme) => {
+                  const formatted = formatSchemeBenefit(scheme.benefit, {
+                    minAmount: scheme.minAmount,
+                    maxAmount: scheme.maxAmount,
+                    name: scheme.name,
+                    description: scheme.description,
+                  })
+
+                  return (
+                    <div
+                      key={scheme.id}
+                      className="p-4 rounded-lg border border-zinc-200 hover:border-zinc-300 bg-zinc-50/50 transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+                    >
+                      <div className="space-y-1 max-w-lg">
+                        <div className="flex items-center gap-2">
+                          <span className="bg-zinc-100 text-zinc-700 text-[10px] font-mono px-1.5 py-0.5 rounded font-medium">
+                            {scheme.type === 'central' ? 'Central' : 'State'}
+                          </span>
+                          <span className="font-semibold text-xs text-zinc-950">
+                            {scheme.name}
+                          </span>
+                        </div>
+                        <div className="text-xs text-emerald-700 font-medium">
+                          {formatted.primaryText}
+                        </div>
+                        <div className="text-[11px] text-zinc-500 line-clamp-1">
+                          {scheme.shortDescription}
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2 self-end sm:self-auto flex-shrink-0">
+                        <Link
+                          href={`/schemes/${scheme.slug}`}
+                          className="bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium px-3 py-1.5 rounded-md transition-colors"
+                        >
+                          View Guide &rarr;
+                        </Link>
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   )

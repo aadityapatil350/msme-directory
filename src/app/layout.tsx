@@ -1,18 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/sonner";
-import Script from "next/script";
-import { Analytics } from "@vercel/analytics/next";
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-inter",
-  display: "swap",
-});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://msmevault.in";
 
@@ -20,122 +10,41 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#0f1f3d",
+  themeColor: "#09090B",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "MSMEVault.in - Find Government Schemes & Loans for Your MSME",
+    default: "MSMEVault.in – Verified Indian Government Schemes & MSME Loans (2026)",
     template: "%s | MSMEVault.in",
   },
   description:
-    "India's #1 MSME directory. Discover 150+ government schemes, loans & subsidies for small businesses. Check eligibility in 2 minutes. Connect with verified CA firms & consultants across India.",
+    "Free, plain-language reference to Udyam registration, Mudra (Tarun Plus ₹20L), PMEGP subsidies (15%-35%), CGTMSE (₹10 Cr cover), and 60+ central and state schemes. Every figure sourced and dated.",
   keywords: [
-    "MSME schemes",
-    "government loans for MSME",
-    "business subsidies India",
-    "startup funding",
-    "MSME registration",
-    "Udyam registration",
-    "Mudra loan",
-    "CGTMSE scheme",
-    "Stand Up India",
-    "small business loans",
-    "CA firms near me",
-    "MSME consultants",
-    "GST registration",
-    "business compliance India",
+    "MSME schemes India 2026",
+    "government loans for small business",
+    "Udyam registration free",
+    "Mudra loan apply online",
+    "CGTMSE scheme eligibility",
+    "PMEGP margin money subsidy",
+    "PM Vishwakarma yojana",
+    "MSME classification thresholds 2026",
   ],
-  authors: [{ name: "MSMEVault.in", url: siteUrl }],
+  authors: [{ name: "MSMEVault Editorial Research Desk", url: `${siteUrl}/about` }],
   creator: "MSMEVault.in",
   publisher: "MSMEVault.in",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "MSMEVault.in - India's #1 MSME Schemes & Loans Directory",
+    title: "MSMEVault.in – Verified Indian Government Schemes & MSME Loans",
     description:
-      "Discover 150+ government schemes, loans & subsidies for MSMEs. Check eligibility instantly. Connect with verified consultants.",
+      "Free, plain-language reference to Udyam registration, Mudra, PMEGP, CGTMSE and 60+ central and state schemes. Every figure sourced and dated.",
     url: siteUrl,
     siteName: "MSMEVault.in",
     locale: "en_IN",
     type: "website",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "MSMEVault.in - Find Government Schemes & Loans for Your MSME",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "MSMEVault.in - India's #1 MSME Schemes & Loans Directory",
-    description:
-      "Discover 150+ government schemes, loans & subsidies for MSMEs. Check eligibility instantly.",
-    images: ["/og-image.png"],
-    creator: "@msmevault",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  verification: {
-    google: process.env.GOOGLE_SITE_VERIFICATION || "",
-  },
-  category: "Business",
-};
-
-// Organization Schema
-const organizationSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "MSMEVault.in",
-  url: siteUrl,
-  logo: `${siteUrl}/logo.png`,
-  description:
-    "India's leading platform for MSME schemes, loans, subsidies, and business consultants.",
-  foundingDate: "2024",
-  sameAs: [
-    "https://twitter.com/msmevault",
-    "https://www.linkedin.com/company/msmevault",
-    "https://www.facebook.com/msmevault",
-  ],
-  contactPoint: {
-    "@type": "ContactPoint",
-    contactType: "customer service",
-    availableLanguage: ["English", "Hindi"],
-  },
-};
-
-// WebSite Schema with SearchAction
-const websiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "MSMEVault.in",
-  url: siteUrl,
-  description: "India's #1 MSME directory for government schemes, loans & business consultants",
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: `${siteUrl}/schemes?q={search_term_string}`,
-    },
-    "query-input": "required name=search_term_string",
   },
 };
 
@@ -144,56 +53,47 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "MSMEVault.in",
+    url: siteUrl,
+    logo: `${siteUrl}/icon.svg`,
+    description:
+      "Independent private portal for Indian MSME government scheme guidance, loan comparisons, and subsidy calculations.",
+    sameAs: [],
+  };
+
+  const webSiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "MSMEVault.in",
+    url: siteUrl,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${siteUrl}/schemes?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  };
 
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className="scroll-smooth">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
-
-        {/* Structured Data */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(websiteSchema),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
         />
       </head>
-      <body className="font-sans antialiased">
-        {/* Google Analytics */}
-        {GA_MEASUREMENT_ID && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-              strategy="afterInteractive"
-            />
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${GA_MEASUREMENT_ID}', {
-                  page_path: window.location.pathname,
-                });
-              `}
-            </Script>
-          </>
-        )}
-
+      <body className="min-h-screen flex flex-col bg-[#FAFAFA] text-zinc-950 antialiased selection:bg-zinc-900 selection:text-white">
         <Navbar />
-        <main className="min-h-screen">{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer />
         <Toaster />
-        <Analytics />
       </body>
     </html>
   );

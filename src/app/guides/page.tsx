@@ -1,114 +1,100 @@
 import Link from 'next/link'
-import { prisma } from '@/lib/prisma'
-
 import { Metadata } from 'next'
+import { VERIFIED_GUIDES } from '@/data/verified-guides'
+import { ArrowRight } from 'lucide-react'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://msmevault.in'
 
 export const metadata: Metadata = {
-  title: 'MSME Guides - Step-by-Step Application Tutorials & Document Checklists',
-  description: 'Comprehensive step-by-step guides for MSME scheme applications, Udyam registration, Mudra loans, GST filing, and business compliance. Free document checklists included.',
-  keywords: [
-    'MSME application guide',
-    'Udyam registration steps',
-    'Mudra loan application process',
-    'GST registration guide',
-    'MSME document checklist',
-    'scheme application tutorial',
-    'business registration guide India',
-  ],
+  title: 'MSME Policy & Scheme Pillar Guides (2026) | MSMEVault.in',
+  description:
+    'Comprehensive, verified, plain-language guides to Udyam Registration, Mudra Loans (Tarun Plus ₹20L), PMEGP Subsidies (15%-35%), and CGTMSE Guarantee cover.',
   alternates: {
     canonical: '/guides',
   },
   openGraph: {
-    title: 'MSME Guides & Tutorials | Step-by-Step Application Help',
-    description: 'Free step-by-step guides for MSME schemes, loans & registrations. Document checklists included.',
+    title: 'Verified MSME Scheme & Loan Guides (2026)',
+    description: 'Plain-language guides to central and state MSME schemes. Every figure sourced and dated.',
     url: `${siteUrl}/guides`,
     type: 'website',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'MSME Guides & Tutorials',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'MSME Guides & Tutorials | MSMEVault',
-    description: 'Step-by-step guides for MSME schemes, loans & registrations.',
-    images: ['/og-image.png'],
   },
 }
 
-export const dynamic = 'force-dynamic'
-
-export default async function GuidesPage() {
-  // Fetch published guides from database
-  const guides = await prisma.guide.findMany({
-    where: { isPublished: true },
-    orderBy: { publishedAt: 'desc' },
-    select: {
-      id: true,
-      title: true,
-      excerpt: true,
-      category: true,
-      slug: true,
-      viewCount: true,
-      publishedAt: true,
-    },
-  })
-
+export default function GuidesPage() {
   return (
-    <div className="min-h-screen">
-      {/* Page Header */}
-      <div className="bg-gradient-to-br from-[#0f1f3d] to-[#1a3a6e] px-4 md:px-6 py-8">
-        <div className="max-w-[1400px] mx-auto">
-          <h1 className="text-3xl font-bold text-white mb-2">
-            📚 MSME Guides & Tutorials
+    <div className="min-h-screen bg-[#FAFAFA] py-10 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
+        {/* Breadcrumb */}
+        <nav className="text-xs text-zinc-500 mb-4 flex items-center gap-1.5 font-mono">
+          <Link href="/" className="hover:text-zinc-950">Home</Link>
+          <span>/</span>
+          <span className="text-zinc-950">Policy Guides</span>
+        </nav>
+
+        {/* Header */}
+        <div className="bg-white border border-zinc-200 rounded-xl p-6 sm:p-8 mb-6 shadow-2xs">
+          <div className="inline-flex items-center gap-2 bg-zinc-100 text-zinc-700 text-[10px] font-mono font-medium px-2.5 py-0.5 rounded mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 inline-block" />
+            <span>Editorial Pillar Guides &bull; August 2026</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 tracking-tight mb-2">
+            Indian MSME Policy &amp; Compliance Guides
           </h1>
-          <p className="text-gray-300 text-sm">
-            Step-by-step guides to help you navigate government schemes and loans
+          <p className="text-xs sm:text-sm text-zinc-500 max-w-2xl leading-relaxed">
+            In-depth reference guides to statutory registrations, subsidy calculations, and institutional credit guarantees. All figures verified against official gazette notifications.
           </p>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="px-4 md:px-6 py-6 bg-[#f0f4ff]">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {guides.map((guide) => (
-              <Link key={guide.id} href={`/guides/${guide.slug}`}>
-                <div className="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-lg transition-shadow cursor-pointer h-full">
-                  <div className="inline-block bg-blue-100 text-blue-700 text-xs font-semibold px-2 py-1 rounded mb-3">
+        {/* Guides Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+          {VERIFIED_GUIDES.map((guide) => (
+            <div
+              key={guide.slug}
+              className="bg-white border border-zinc-200 hover:border-zinc-300 rounded-xl p-5 shadow-2xs hover:shadow-xs transition-all flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-2.5">
+                  <span className="inline-block bg-zinc-100 text-zinc-700 text-[10px] font-mono font-medium px-2 py-0.5 rounded">
                     {guide.category}
-                  </div>
-                  <h3 className="text-lg font-bold mb-2 text-[var(--navy)]">{guide.title}</h3>
-                  <p className="text-sm text-gray-600 mb-4">{guide.excerpt}</p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-xs text-gray-500">{guide.viewCount} views</span>
-                    <span className="bg-custom-blue text-white text-xs font-semibold px-4 py-2 rounded-md hover:bg-[#1e40af] transition-colors">
-                      Read Guide →
-                    </span>
+                  </span>
+                  <span className="text-[10px] text-zinc-400 font-mono">
+                    {guide.lastVerified}
+                  </span>
+                </div>
+
+                <h2 className="font-semibold text-sm text-zinc-950 mb-1.5 leading-snug">
+                  <Link href={`/guides/${guide.slug}`} className="hover:underline">
+                    {guide.title}
+                  </Link>
+                </h2>
+
+                <p className="text-xs text-zinc-500 line-clamp-3 mb-4 leading-relaxed">
+                  {guide.excerpt}
+                </p>
+
+                {/* Key Takeaway preview */}
+                <div className="bg-zinc-50 border border-zinc-100 rounded-lg p-2.5 mb-4">
+                  <div className="text-[11px] text-zinc-600 line-clamp-2">
+                    &bull; {guide.keyTakeaways[0]}
                   </div>
                 </div>
-              </Link>
-            ))}
-          </div>
+              </div>
 
-          {/* Coming Soon */}
-          <div className="mt-8 bg-white border border-gray-200 rounded-xl p-8 text-center">
-            <h3 className="text-xl font-bold mb-2">More Guides Coming Soon</h3>
-            <p className="text-gray-600 mb-4">
-              We're creating comprehensive guides for every scheme and loan type
-            </p>
-            <Link href="/eligibility-checker">
-              <button className="bg-custom-orange text-white text-sm font-semibold px-6 py-3 rounded-lg hover:bg-[#ea580c] transition-colors">
-                Check Your Eligibility Instead →
-              </button>
-            </Link>
-          </div>
+              <div className="pt-3 border-t border-zinc-100 flex items-center justify-between">
+                <div className="text-[11px] text-zinc-400">
+                  {guide.author.name}
+                </div>
+
+                <Link
+                  href={`/guides/${guide.slug}`}
+                  className="bg-zinc-900 hover:bg-zinc-800 text-white text-[11px] font-medium px-2.5 py-1.5 rounded-md transition-colors inline-flex items-center gap-1"
+                >
+                  <span>Read Guide</span>
+                  <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

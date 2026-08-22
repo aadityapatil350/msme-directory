@@ -1,336 +1,403 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { prisma } from '@/lib/prisma'
-import { Search, CheckCircle, Shield, Zap } from 'lucide-react'
-
-export const dynamic = 'force-dynamic'
+import { VERIFIED_SCHEMES } from '@/data/verified-schemes'
+import { formatSchemeBenefit } from '@/lib/scheme-benefit'
+import {
+  ArrowRight,
+  Calculator,
+  Percent,
+  FileCheck,
+  ExternalLink,
+  Search,
+} from 'lucide-react'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://msmevault.in'
 
 export const metadata: Metadata = {
-  title: 'MSMEVault – Government Schemes & Loans for Small Business India 2025',
+  title: 'MSMEVault.in – Indian Government Schemes & MSME Loans Explained Simply (2026)',
   description:
-    'Find 150+ government schemes, Mudra loans & subsidies for your MSME. Check eligibility free in 2 minutes. Trusted by 12,000+ small business owners across India.',
+    'Free, plain-language reference to Udyam registration, Mudra loans (Tarun Plus ₹20L), PMEGP subsidies (15%-35%), CGTMSE (₹10 Cr cover), and 60+ central and state schemes.',
   keywords: [
-    'MSME schemes India 2025',
+    'MSME schemes India 2026',
     'government loans for small business',
     'Mudra loan apply online',
     'CGTMSE scheme eligibility',
-    'Stand Up India scheme',
-    'Udyam registration',
-    'MSME subsidies India',
-    'business loan without collateral',
-    'CA firms for MSME',
-    'PMEGP scheme apply',
+    'PMEGP margin money subsidy',
+    'Udyam registration free',
+    'PM Vishwakarma yojana',
+    'MSME classification thresholds 2026',
   ],
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'MSMEVault – Find Government Schemes & Loans for Your Small Business',
+    title: 'MSMEVault.in – Verified Government Schemes & MSME Loans',
     description:
-      '150+ government schemes, Mudra loans & subsidies. Check eligibility free in 2 minutes. 12,000+ MSMEs helped.',
+      'Free, plain-language reference to Udyam registration, Mudra, PMEGP, CGTMSE and 60+ central and state schemes. Every figure sourced and dated.',
     url: siteUrl,
     type: 'website',
-    locale: 'en_IN',
-    siteName: 'MSMEVault',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'MSMEVault – Government Schemes & Loans for MSME India',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'MSMEVault – Government Schemes & Loans for Small Business India',
-    description: '150+ government schemes, Mudra loans & subsidies. Check eligibility free.',
-    images: ['/og-image.png'],
   },
 }
 
-export default async function HomePage() {
-  // Get total active schemes count
-  const totalSchemes = await prisma.scheme.count({
-    where: { isActive: true },
-  })
+export default function HomePage() {
+  const topSchemes = VERIFIED_SCHEMES.slice(0, 6)
+  const totalSchemesCount = VERIFIED_SCHEMES.length
 
-  // Get featured schemes sorted by popularity
-  const featuredSchemes = await prisma.scheme.findMany({
-    where: { isActive: true },
-    orderBy: [
-      { isSponsored: 'desc' },
-      { viewCount: 'desc' },
-      { isFeatured: 'desc' },
-    ],
-    take: 6,
-  })
-
-  // Fetch top consultants
-  const topConsultants = await prisma.consultant.findMany({
-    where: { isVerified: true },
-    orderBy: [{ rating: 'desc' }, { reviewCount: 'desc' }],
-    take: 3,
-  })
-
-  // Get state-wise scheme counts
-  const states = ['Maharashtra', 'Gujarat', 'Rajasthan', 'Tamil Nadu', 'Karnataka', 'Uttar Pradesh', 'West Bengal', 'Punjab', 'Haryana', 'Telangana', 'Andhra Pradesh', 'Delhi']
-
-  const stateSchemeCounts = await Promise.all(
-    states.map(async (state) => {
-      const count = await prisma.scheme.count({
-        where: {
-          isActive: true,
-          OR: [
-            { state: state.toLowerCase() },
-            { type: 'central' } // Central schemes are available to all states
-          ]
-        }
-      })
-      return { state, count }
-    })
-  )
+  const states = [
+    { name: 'Maharashtra', count: '14+' },
+    { name: 'Gujarat', count: '12+' },
+    { name: 'Tamil Nadu', count: '10+' },
+    { name: 'Karnataka', count: '9+' },
+    { name: 'Uttar Pradesh', count: '11+' },
+    { name: 'Rajasthan', count: '8+' },
+    { name: 'Telangana', count: '7+' },
+    { name: 'Punjab', count: '6+' },
+  ]
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[var(--navy)] via-[#1a3a6e] to-[#0f2d5a] px-6 py-12 overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute top-[-50px] right-[-50px] w-[300px] h-[300px] rounded-full opacity-15 bg-[radial-gradient(circle,rgba(249,115,22,0.15)_0%,transparent_70%)]" />
-
-        <div className="relative max-w-[1400px] mx-auto">
-          {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-[#fbbf24] text-xs font-semibold px-3 py-[5px] rounded-full mb-4">
-            🇮🇳 India&apos;s #1 MSME Scheme Directory
+    <div className="flex flex-col min-h-screen bg-[#FAFAFA]">
+      {/* 1. Minimalist Hero Section */}
+      <section className="bg-white border-b border-zinc-200 pt-16 pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Trust Pill */}
+          <div className="inline-flex items-center gap-2 bg-zinc-100 border border-zinc-200/80 text-zinc-700 text-[11px] font-medium px-3.5 py-1 rounded-full mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 inline-block" />
+            <span>Anchored to Primary Gazette Notifications &bull; Updated August 2026</span>
           </div>
 
-          {/* Heading */}
-          <h1 className="font-['Syne'] text-4xl md:text-5xl font-extrabold text-white leading-tight mb-3 max-w-[600px]">
-            Find the Right <span className="text-[var(--orange)]">Govt Scheme</span><br />for Your Business
+          {/* Minimalist Heading */}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-zinc-950 tracking-tight mb-5 leading-tight">
+            Indian government schemes &amp; MSME loans, <span className="text-zinc-500 font-normal">explained simply.</span>
           </h1>
 
-          {/* Subtext */}
-          <p className="text-[#94a3b8] text-base mb-6 max-w-[500px]">
-            {totalSchemes}+ central & state schemes. Check eligibility in 2 minutes. Connect with verified lenders & consultants.
+          {/* Subtitle */}
+          <p className="text-sm sm:text-base text-zinc-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+            Free, plain-language guides to Udyam registration, Mudra (Tarun Plus ₹20L), PMEGP subsidies (15%–35%), and CGTMSE guarantee cover. Every figure sourced and dated from official primary records.
           </p>
 
-          {/* Search Bar */}
-          <div className="bg-white rounded-xl p-[6px] flex items-center max-w-[560px] gap-2 mb-5">
-            <input
-              type="text"
-              placeholder="Search schemes, loans, subsidies..."
-              className="flex-1 px-3 py-2 border-none outline-none text-sm text-[var(--text)]"
-            />
-            <select className="border-l border-[var(--gray-light)] px-2 py-1 text-sm text-[var(--gray)] bg-transparent outline-none">
-              <option>All States</option>
-              <option>Maharashtra</option>
-              <option>Gujarat</option>
-              <option>Karnataka</option>
-            </select>
-            <button className="bg-[var(--blue)] text-white px-5 py-[10px] rounded-lg text-sm font-semibold hover:bg-[#1e40af] hover:shadow-md transition-all">
-              Search
-            </button>
+          {/* Search Bar with Quick Filter Pills */}
+          <div className="max-w-xl mx-auto mb-8">
+            <Link
+              href="/schemes"
+              className="flex items-center gap-3 w-full bg-zinc-50 hover:bg-white border border-zinc-200 hover:border-zinc-400 rounded-xl px-4 py-3 text-left text-xs text-zinc-400 transition-all shadow-2xs group"
+            >
+              <Search className="w-4 h-4 text-zinc-400 group-hover:text-zinc-900 transition-colors" />
+              <span className="flex-1 text-zinc-500">Search 60+ central and state schemes (e.g. Mudra, PMEGP, CGTMSE)...</span>
+              <kbd className="hidden sm:inline-block bg-white border border-zinc-200 text-[10px] text-zinc-400 px-2 py-0.5 rounded font-mono">
+                Browse &rarr;
+              </kbd>
+            </Link>
+
+            <div className="flex flex-wrap items-center justify-center gap-1.5 mt-3 text-[11px] text-zinc-500">
+              <span className="text-zinc-400">Popular:</span>
+              <Link href="/guides/udyam-registration" className="text-zinc-700 hover:text-zinc-950 underline underline-offset-2">
+                Udyam Registration
+              </Link>
+              <span>&bull;</span>
+              <Link href="/guides/mudra-loan" className="text-zinc-700 hover:text-zinc-950 underline underline-offset-2">
+                Mudra ₹20L
+              </Link>
+              <span>&bull;</span>
+              <Link href="/tools/subsidy-calculator" className="text-zinc-700 hover:text-zinc-950 underline underline-offset-2">
+                PMEGP Subsidy
+              </Link>
+              <span>&bull;</span>
+              <Link href="/guides/cgtmse" className="text-zinc-700 hover:text-zinc-950 underline underline-offset-2">
+                CGTMSE Cover
+              </Link>
+            </div>
           </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-[10px] mb-6">
-            <Link href="/eligibility-checker">
-              <button className="bg-[var(--orange)] text-white px-6 py-3 rounded-lg text-sm font-semibold hover:bg-[#ea580c] hover:shadow-lg hover:-translate-y-0.5 transition-all">
-                Check My Eligibility →
-              </button>
+          {/* Action CTAs */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-12">
+            <Link
+              href="/eligibility-checker"
+              className="bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-medium px-5 py-2.5 rounded-lg shadow-2xs transition-all flex items-center gap-2"
+            >
+              <span>Check Scheme Fit</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
-            <Link href="/schemes">
-              <button className="bg-white/10 text-white border border-white/30 px-6 py-3 rounded-lg text-sm font-semibold hover:bg-white/20 hover:shadow-md transition-all">
-                Browse All Schemes
-              </button>
+
+            <Link
+              href="/schemes"
+              className="bg-white hover:bg-zinc-50 text-zinc-900 text-xs font-medium px-5 py-2.5 rounded-lg border border-zinc-200 hover:border-zinc-300 transition-all"
+            >
+              Browse All Schemes
             </Link>
-            <Link href="/consultants">
-              <button className="bg-white/10 text-white border border-white/30 px-6 py-3 rounded-lg text-sm font-semibold hover:bg-white/20 hover:shadow-md transition-all">
-                Talk to Expert
-              </button>
+
+            <Link
+              href="/tools/emi-calculator"
+              className="bg-zinc-100 hover:bg-zinc-200/80 text-zinc-700 text-xs font-medium px-4 py-2.5 rounded-lg transition-all flex items-center gap-1.5"
+            >
+              <Calculator className="w-3.5 h-3.5 text-zinc-500" />
+              <span>EMI Calculator</span>
             </Link>
           </div>
 
-          {/* Stats */}
-          <div className="flex gap-8 flex-wrap">
-            <div>
-              <div className="font-['Syne'] text-2xl font-extrabold text-[var(--orange)]">{totalSchemes}+</div>
-              <div className="text-xs text-[#94a3b8]">Active Schemes</div>
+          {/* Verifiable Macro Figures (Official Public Data) */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto text-left pt-6 border-t border-zinc-100">
+            <div className="p-3 bg-zinc-50/70 border border-zinc-200/70 rounded-xl">
+              <div className="text-lg sm:text-xl font-bold text-zinc-950">7.83 Cr+</div>
+              <div className="text-[11px] text-zinc-500 mt-0.5 leading-tight">
+                Enterprises on Udyam <span className="block text-[9px] text-zinc-400 font-mono">(MSME Min. 2026)</span>
+              </div>
             </div>
-            <div>
-              <div className="font-['Syne'] text-2xl font-extrabold text-[var(--orange)]">28</div>
-              <div className="text-xs text-[#94a3b8]">States Covered</div>
+
+            <div className="p-3 bg-zinc-50/70 border border-zinc-200/70 rounded-xl">
+              <div className="text-lg sm:text-xl font-bold text-zinc-950">₹10 Crore</div>
+              <div className="text-[11px] text-zinc-500 mt-0.5 leading-tight">
+                CGTMSE Guarantee Cap <span className="block text-[9px] text-zinc-400 font-mono">(Circular 250/2024-25)</span>
+              </div>
             </div>
-            <div>
-              <div className="font-['Syne'] text-2xl font-extrabold text-[var(--orange)]">12K+</div>
-              <div className="text-xs text-[#94a3b8]">MSMEs Helped</div>
+
+            <div className="p-3 bg-zinc-50/70 border border-zinc-200/70 rounded-xl">
+              <div className="text-lg sm:text-xl font-bold text-zinc-950">₹20 Lakh</div>
+              <div className="text-[11px] text-zinc-500 mt-0.5 leading-tight">
+                Mudra Tarun Plus Limit <span className="block text-[9px] text-zinc-400 font-mono">(DFS w.e.f. Oct 2024)</span>
+              </div>
             </div>
-            <div>
-              <div className="font-['Syne'] text-2xl font-extrabold text-[var(--orange)]">₹5Cr+</div>
-              <div className="text-xs text-[#94a3b8]">Loans Facilitated</div>
+
+            <div className="p-3 bg-zinc-50/70 border border-zinc-200/70 rounded-xl">
+              <div className="text-lg sm:text-xl font-bold text-zinc-950">15%–35%</div>
+              <div className="text-[11px] text-zinc-500 mt-0.5 leading-tight">
+                PMEGP Margin Subsidy <span className="block text-[9px] text-zinc-400 font-mono">(KVIC Guidelines)</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Trust Bar */}
-      <div className="bg-white px-6 py-[14px] border-b border-[var(--gray-light)] flex items-center gap-6 flex-wrap">
-        <span className="text-xs font-bold text-[var(--gray)]">AS SEEN IN:</span>
-        <span className="flex items-center gap-2 text-xs text-[var(--gray)] font-medium">📰 Economic Times</span>
-        <span className="flex items-center gap-2 text-xs text-[var(--gray)] font-medium">📰 Inc42</span>
-        <span className="flex items-center gap-2 text-xs text-[var(--gray)] font-medium">📰 YourStory</span>
-        <div className="ml-auto flex gap-4 flex-wrap">
-          <span className="flex items-center gap-2 text-xs text-[var(--gray)] font-medium">
-            <CheckCircle className="w-[18px] h-[18px] text-green-600" /> Govt Verified Info
-          </span>
-          <span className="flex items-center gap-2 text-xs text-[var(--gray)] font-medium">
-            <Shield className="w-[18px] h-[18px] text-blue-600" /> 100% Free to Use
-          </span>
-          <span className="flex items-center gap-2 text-xs text-[var(--gray)] font-medium">
-            <Zap className="w-[18px] h-[18px] text-orange-600" /> Updated Weekly
-          </span>
-        </div>
-      </div>
+      {/* 2. Essential Government Schemes Directory */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full">
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-6 gap-2">
+          <div>
+            <h2 className="text-xl font-bold text-zinc-950">
+              Essential Government Schemes &amp; Subsidies
+            </h2>
+            <p className="text-xs text-zinc-500 mt-0.5">
+              Verified breakdowns of the most impactful credit, subsidy, and registration schemes.
+            </p>
+          </div>
 
-      {/* Main Content */}
-      <div className="px-6 py-7 bg-[#f0f4ff]">
-        <div className="max-w-[1400px] mx-auto">
-          {/* Featured Schemes */}
-          <div className="mb-7">
-            <div className="flex justify-between items-end mb-4">
-              <div>
-                <h2 className="font-['Syne'] text-2xl font-extrabold mb-1">🔥 Popular Schemes</h2>
-                <p className="text-[13px] text-[var(--gray)]">Most searched by MSME owners this week</p>
+          <Link
+            href="/schemes"
+            className="text-xs font-medium text-zinc-600 hover:text-zinc-950 flex items-center gap-1 group self-start sm:self-auto"
+          >
+            <span>View all {totalSchemesCount} schemes</span>
+            <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {topSchemes.map((scheme) => {
+            const formatted = formatSchemeBenefit(scheme.benefit, {
+              minAmount: scheme.minAmount,
+              maxAmount: scheme.maxAmount,
+              name: scheme.name,
+              description: scheme.description,
+            })
+
+            return (
+              <div
+                key={scheme.id}
+                className="bg-white border border-zinc-200 hover:border-zinc-300 rounded-xl p-5 shadow-2xs hover:shadow-xs transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-2.5">
+                    <span className="inline-block bg-zinc-100 text-zinc-700 text-[10px] font-mono font-medium px-2 py-0.5 rounded">
+                      {scheme.type === 'central' ? 'Central' : `State (${scheme.state || 'State'})`}
+                    </span>
+                    <span className="text-[10px] text-zinc-400 font-mono">
+                      Verified {scheme.lastVerified}
+                    </span>
+                  </div>
+
+                  <h3 className="font-semibold text-sm text-zinc-950 mb-1.5 leading-snug">
+                    <Link href={`/schemes/${scheme.slug}`} className="hover:underline">
+                      {scheme.name}
+                    </Link>
+                  </h3>
+
+                  <p className="text-xs text-zinc-500 line-clamp-2 mb-4 leading-relaxed">
+                    {scheme.shortDescription}
+                  </p>
+                </div>
+
+                <div className="pt-3 border-t border-zinc-100">
+                  <div className="mb-3">
+                    <span className="text-[10px] uppercase font-mono tracking-wider text-zinc-400 block">
+                      Benefit
+                    </span>
+                    <div className="text-xs font-semibold text-emerald-700 mt-0.5">
+                      {formatted.primaryText}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-2">
+                    <a
+                      href={scheme.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[11px] text-zinc-400 hover:text-zinc-700 inline-flex items-center gap-1"
+                    >
+                      <span>Official Source</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+
+                    <Link
+                      href={`/schemes/${scheme.slug}`}
+                      className="bg-zinc-900 hover:bg-zinc-800 text-white text-[11px] font-medium px-2.5 py-1.5 rounded-md transition-colors inline-flex items-center gap-1"
+                    >
+                      <span>Read Guide</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </Link>
+                  </div>
+                </div>
               </div>
-              <Link href="/schemes">
-                <button className="bg-transparent text-[var(--blue)] border-2 border-[var(--blue)] px-5 py-[10px] rounded-lg text-[13px] font-semibold hover:bg-blue-50 hover:shadow-md transition-all">
-                  View All {totalSchemes}+ →
-                </button>
+            )
+          })}
+        </div>
+      </section>
+
+      {/* 3. Interactive Financial Calculators */}
+      <section className="bg-white border-y border-zinc-200 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="max-w-2xl mb-8">
+            <h2 className="text-xl font-bold text-zinc-950">
+              Interactive Planning Calculators
+            </h2>
+            <p className="text-xs text-zinc-500 mt-0.5">
+              Self-serve assessment tools with mathematical accuracy.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Tool 1 */}
+            <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-5 hover:border-zinc-300 transition-all flex flex-col justify-between">
+              <div>
+                <div className="w-8 h-8 rounded-lg bg-white border border-zinc-200 text-zinc-900 flex items-center justify-center mb-3">
+                  <Calculator className="w-4 h-4" />
+                </div>
+                <h3 className="font-semibold text-sm text-zinc-950 mb-1">
+                  MSME Loan EMI Calculator
+                </h3>
+                <p className="text-xs text-zinc-500 mb-4 leading-relaxed">
+                  Calculate monthly EMIs, total interest, and amortization schedules across Mudra, CGTMSE, and term loans.
+                </p>
+              </div>
+
+              <Link
+                href="/tools/emi-calculator"
+                className="text-xs font-medium text-zinc-900 hover:underline inline-flex items-center gap-1 self-start"
+              >
+                <span>Calculate Loan EMI</span>
+                <ArrowRight className="w-3 h-3" />
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {featuredSchemes.map((scheme) => (
-                <Link key={scheme.id} href={`/schemes/${scheme.slug}`}>
-                  <div className="bg-white border border-[var(--gray-light)] rounded-xl p-4 hover:shadow-lg transition-shadow cursor-pointer">
-                    <div className="inline-block bg-[#eff6ff] text-[var(--blue)] text-xs font-semibold px-2 py-[3px] rounded mb-2">
-                      {scheme.type === 'central' ? '🏛️ Central Scheme' : `🎨 ${scheme.state || 'State'}`}
-                    </div>
-                    <h3 className="font-['Syne'] text-sm font-bold mb-[6px]">{scheme.name}</h3>
-                    <p className="text-xs text-[var(--gray)] leading-relaxed mb-[10px]">
-                      {scheme.shortDescription}
-                    </p>
-                    <div className="text-[13px] font-semibold text-[var(--money)] mb-[10px]">
-                      ₹{((scheme.minAmount || 0) / 100000).toFixed(1)}L – ₹{((scheme.maxAmount || 0) / 100000).toFixed(1)}L
-                    </div>
-                    <div className="flex justify-between items-center pt-[10px] border-t border-[var(--gray-light)]">
-                      <span className="text-xs text-[var(--gray)]">👁 {scheme.viewCount} views</span>
-                      <button className="bg-[var(--blue)] text-white text-xs font-semibold px-[14px] py-[6px] rounded-md hover:bg-[#1e40af] hover:shadow-md transition-all">
-                        Details →
-                      </button>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* State Browse Section */}
-          <div className="mb-7">
-            <h2 className="font-['Syne'] text-2xl font-extrabold mb-1">🗺️ Browse by State</h2>
-            <p className="text-[13px] text-[var(--gray)] mb-5">Find schemes specific to your state</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
-              {stateSchemeCounts.map(({ state, count }) => (
-                <Link key={state} href={`/schemes?state=${state.toLowerCase()}`}>
-                  <div className="bg-white border border-[var(--gray-light)] rounded-lg px-2 py-[10px] text-center cursor-pointer transition-all duration-200 hover:shadow-md group">
-                    <div className="text-xs font-semibold text-[var(--navy)] group-hover:text-[var(--orange)] transition-colors">{state}</div>
-                    <div className="text-[10px] text-[var(--blue)] mt-[2px]">{count} schemes</div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Newsletter */}
-          <div className="mb-7">
-            <div className="bg-gradient-to-br from-[#f97316] to-[#ea580c] rounded-2xl px-7 py-7 text-white text-center shadow-lg">
-              <h3 className="text-xl font-bold mb-2">📬 Get Weekly Scheme Alerts</h3>
-              <p className="text-sm opacity-95 mb-4">New schemes, deadlines, policy changes — direct to your inbox. 8,000+ MSME owners subscribed.</p>
-              <div className="flex gap-3 max-w-[450px] mx-auto">
-                <input
-                  type="email"
-                  placeholder="Enter your mobile or email"
-                  className="flex-1 px-4 py-3 rounded-lg text-sm font-medium outline-none text-[#0f1f3d] placeholder:text-[#94a3b8] bg-white border-0 focus:ring-4 focus:ring-white/30"
-                />
-                <button className="bg-[#0f1f3d] text-white px-6 py-3 rounded-lg font-semibold text-sm hover:bg-[#1a3a6e] hover:shadow-lg transition-all whitespace-nowrap">
-                  Subscribe Free
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Featured Consultants */}
-          <div className="mb-7">
-            <div className="flex justify-between items-end mb-4">
+            {/* Tool 2 */}
+            <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-5 hover:border-zinc-300 transition-all flex flex-col justify-between">
               <div>
-                <h2 className="font-['Syne'] text-2xl font-extrabold mb-1">👨‍💼 Top Consultants Near You</h2>
-                <p className="text-[13px] text-[var(--gray)]">Verified CAs & MSME experts</p>
+                <div className="w-8 h-8 rounded-lg bg-white border border-zinc-200 text-zinc-900 flex items-center justify-center mb-3">
+                  <Percent className="w-4 h-4" />
+                </div>
+                <h3 className="font-semibold text-sm text-zinc-950 mb-1">
+                  PMEGP Subsidy Calculator
+                </h3>
+                <p className="text-xs text-zinc-500 mb-4 leading-relaxed">
+                  Compute 15%–35% margin money subsidy with revised ₹50 Lakh (mfg) and ₹20 Lakh (service) ceilings.
+                </p>
               </div>
-              <Link href="/consultants">
-                <button className="bg-transparent text-[var(--blue)] border-2 border-[var(--blue)] px-5 py-[10px] rounded-lg text-[13px] font-semibold hover:bg-blue-50 hover:shadow-md transition-all">
-                  View All Cities →
-                </button>
+
+              <Link
+                href="/tools/subsidy-calculator"
+                className="text-xs font-medium text-zinc-900 hover:underline inline-flex items-center gap-1 self-start"
+              >
+                <span>Calculate Margin Money</span>
+                <ArrowRight className="w-3 h-3" />
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {topConsultants.map((consultant) => (
-                <div key={consultant.id} className="bg-white border border-[var(--gray-light)] rounded-xl p-4 flex gap-3 relative">
-                  <div className="w-12 h-12 rounded-full bg-[var(--blue)] flex items-center justify-center text-white font-bold text-base flex-shrink-0">
-                    {consultant.name.substring(0, 2).toUpperCase()}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-sm font-bold mb-[3px]">{consultant.firmName || consultant.name}</h3>
-                    <p className="text-xs text-[var(--gray)] mb-[6px]">
-                      {consultant.city}, {consultant.state} · {consultant.experience} yrs exp
-                    </p>
-                    <div className="flex gap-1 flex-wrap mb-2">
-                      {consultant.services.slice(0, 3).map((service, idx) => (
-                        <span key={idx} className="bg-[#f1f5f9] text-[var(--gray)] text-[10px] px-2 py-[2px] rounded-full">
-                          {service}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex items-center gap-2 text-xs">
-                      <span className="text-[var(--yellow)]">★★★★★</span>
-                      <span className="font-semibold">{consultant.rating}</span>
-                      <span className="text-[var(--gray)]">({consultant.reviewCount} reviews)</span>
-                    </div>
-                  </div>
+            {/* Tool 3 */}
+            <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-5 hover:border-zinc-300 transition-all flex flex-col justify-between">
+              <div>
+                <div className="w-8 h-8 rounded-lg bg-white border border-zinc-200 text-zinc-900 flex items-center justify-center mb-3">
+                  <FileCheck className="w-4 h-4" />
                 </div>
-              ))}
-
-              {/* CTA Card */}
-              <div className="bg-[#f8fafc] border border-[var(--gray-light)] rounded-xl p-4 flex gap-3">
-                <div className="w-12 h-12 rounded-full bg-[var(--gray-light)] flex items-center justify-center text-[var(--gray)] font-bold text-base flex-shrink-0">
-                  +
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-sm font-bold text-[var(--gray)] mb-[3px]">Your Firm Here</h3>
-                  <p className="text-xs text-[var(--gray)] mb-3">Get leads from 10,000+ MSMEs in your city</p>
-                  <Link href="/list-your-firm">
-                    <button className="bg-[var(--orange)] text-white text-xs font-semibold px-[14px] py-[6px] rounded-md hover:bg-[#ea580c] hover:shadow-md transition-all">
-                      List Your Firm →
-                    </button>
-                  </Link>
-                </div>
+                <h3 className="font-semibold text-sm text-zinc-950 mb-1">
+                  Scheme Eligibility Matcher
+                </h3>
+                <p className="text-xs text-zinc-500 mb-4 leading-relaxed">
+                  Answer 4 quick questions about sector, turnover, and state to discover eligible subsidy schemes.
+                </p>
               </div>
+
+              <Link
+                href="/eligibility-checker"
+                className="text-xs font-medium text-zinc-900 hover:underline inline-flex items-center gap-1 self-start"
+              >
+                <span>Check Scheme Fit</span>
+                <ArrowRight className="w-3 h-3" />
+              </Link>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* 4. Browse by State Directory */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full">
+        <div className="mb-5">
+          <h2 className="text-lg font-bold text-zinc-950">
+            Regional Schemes by State
+          </h2>
+          <p className="text-xs text-zinc-500">
+            Browse state industrial promotion policies and local incentives.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
+          {states.map((st) => (
+            <Link
+              key={st.name}
+              href={`/schemes?state=${encodeURIComponent(st.name.toLowerCase())}`}
+              className="bg-white border border-zinc-200 hover:border-zinc-400 p-3 rounded-lg text-center transition-all group"
+            >
+              <div className="font-medium text-xs text-zinc-900 group-hover:text-zinc-950">
+                {st.name}
+              </div>
+              <div className="text-[10px] text-zinc-400 mt-0.5 font-mono">
+                {st.count} schemes
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* 5. Founding Cohort Directory Notice */}
+      <section className="py-6 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full mb-12">
+        <div className="bg-white border border-zinc-200 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-1 max-w-2xl">
+            <span className="text-[10px] font-mono uppercase bg-zinc-100 text-zinc-600 px-2 py-0.5 rounded font-semibold inline-block">
+              Founding Professional Cohort
+            </span>
+            <h3 className="text-base font-bold text-zinc-950">
+              Verified CA &amp; MSME Consultant Directory
+            </h3>
+            <p className="text-xs text-zinc-500 leading-relaxed">
+              We currently have no paid listings. If you are a practicing Chartered Accountant, CS, or certified MSME advisor, apply to join our founding cohort. Free during the initial rollout.
+            </p>
+          </div>
+
+          <div className="flex-shrink-0">
+            <Link
+              href="/consultants"
+              className="bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium px-4 py-2.5 rounded-lg transition-colors inline-block"
+            >
+              Join Founding Cohort &rarr;
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
