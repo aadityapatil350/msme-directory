@@ -12,6 +12,7 @@ import {
   FileCheck,
   ArrowRight,
 } from 'lucide-react'
+import LanguageSwitcher from '@/components/layout/LanguageSwitcher'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -198,6 +199,8 @@ export default function Navbar() {
 
           {/* Right CTAs */}
           <div className="hidden lg:flex items-center gap-2.5">
+            <LanguageSwitcher />
+
             <Link
               href="/tools/emi-calculator"
               className="text-xs font-medium text-zinc-700 hover:text-zinc-950 px-3 py-1.5 rounded-lg border border-zinc-200 hover:border-zinc-300 bg-white transition-colors"
@@ -214,8 +217,10 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Toggle */}
-          <div className="lg:hidden flex items-center">
+          {/* Mobile Right Bar */}
+          <div className="lg:hidden flex items-center gap-2">
+            <LanguageSwitcher />
+
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-1.5 rounded-lg text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100"
