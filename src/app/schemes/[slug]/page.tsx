@@ -3,12 +3,9 @@ import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { VERIFIED_SCHEMES } from '@/data/verified-schemes'
 import { formatSchemeBenefit } from '@/lib/scheme-benefit'
-import {
-  ExternalLink,
-  CheckCircle2,
-  AlertCircle,
-  ArrowRight,
-} from 'lucide-react'
+import { ExternalLink, CheckCircle2 } from 'lucide-react'
+import OutboundLink from '@/components/OutboundLink'
+import LeadForm from '@/components/LeadForm'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://msmevault.in'
 
@@ -73,8 +70,32 @@ export default async function SchemeDetailPage({
     description: scheme.description,
   })
 
+  const relatedSchemes = VERIFIED_SCHEMES.filter(
+    (s) => s.slug !== scheme.slug && (s.sector.some(sec => scheme.sector.includes(sec)) || s.type === scheme.type)
+  ).slice(0, 3)
+
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': scheme.benefit.kind === 'credit_linked' ? 'FinancialProduct' : 'GovernmentService',
+    name: scheme.name,
+    description: scheme.shortDescription,
+    provider: { '@type': 'GovernmentOrganization', name: scheme.nodalMinistry },
+    url: `${siteUrl}/schemes/${slug}`,
+  }
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
+      { '@type': 'ListItem', position: 2, name: 'Schemes', item: `${siteUrl}/schemes` },
+      { '@type': 'ListItem', position: 3, name: scheme.name, item: `${siteUrl}/schemes/${slug}` },
+    ],
+  }
+
   return (
     <div className="min-h-screen bg-[#FAFAFA] py-10 px-4 sm:px-6 lg:px-8">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <div className="max-w-4xl mx-auto">
         {/* Breadcrumb */}
         <nav className="text-xs text-zinc-500 mb-4 flex items-center gap-1.5 font-mono">
@@ -118,25 +139,23 @@ export default async function SchemeDetailPage({
             </div>
 
             <div className="flex items-center gap-3">
-              <a
+              <OutboundLink
                 href={scheme.sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                portal={`source:${scheme.slug}`}
                 className="text-zinc-500 hover:text-zinc-950 inline-flex items-center gap-1 font-medium"
               >
                 <span>Official Circular</span>
                 <ExternalLink className="w-3 h-3" />
-              </a>
+              </OutboundLink>
 
-              <a
+              <OutboundLink
                 href={scheme.applyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                portal={`apply:${scheme.slug}`}
                 className="bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium px-3.5 py-1.5 rounded-md transition-colors inline-flex items-center gap-1"
               >
                 <span>Apply on Official Portal</span>
                 <ExternalLink className="w-3 h-3" />
-              </a>
+              </OutboundLink>
             </div>
           </div>
         </div>
@@ -209,6 +228,14 @@ export default async function SchemeDetailPage({
             </ul>
           </div>
 
+          {/* 4.5 Lead capture */}
+          <LeadForm
+            leadType="scheme_enquiry"
+            schemeSlug={scheme.slug}
+            title={`Need help applying for ${scheme.name}?`}
+            description="Our research team will guide you through eligibility, documents, and the official application process. Free service — no fees, no obligation."
+          />
+
           {/* 5. Non-Affiliation Statutory Disclaimer */}
           <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-4 text-xs text-zinc-500">
             <div className="flex items-start gap-2.5">
@@ -222,6 +249,26 @@ export default async function SchemeDetailPage({
             </div>
           </div>
         </div>
+        
+        {/* 6. Related Schemes */}
+        {relatedSchemes.length > 0 && (
+          <div className="mt-8 border-t border-zinc-200 pt-8">
+            <h2 className="text-lg font-bold text-zinc-950 mb-4">Related Schemes</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {relatedSchemes.map((rs) => (
+                <Link
+                  key={rs.slug}
+                  href={`/schemes/${rs.slug}`}
+                  className="bg-white border border-zinc-200 rounded-xl p-4 hover:border-zinc-300 transition-all shadow-2xs group"
+                >
+                  <h3 className="font-semibold text-sm text-zinc-950 mb-1 group-hover:underline">{rs.name}</h3>
+                  <p className="text-xs text-zinc-500 line-clamp-2">{rs.shortDescription}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   )

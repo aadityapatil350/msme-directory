@@ -8,6 +8,8 @@ import {
   ExternalLink,
   AlertCircle,
 } from 'lucide-react'
+import OutboundLink from '@/components/OutboundLink'
+import LeadForm from '@/components/LeadForm'
 
 export default function LoansClient({ loans }: { loans: VerifiedLoan[] }) {
   const [searchTerm, setSearchTerm] = useState('')
@@ -190,21 +192,30 @@ export default function LoansClient({ loans }: { loans: VerifiedLoan[] }) {
 
                     {/* Link */}
                     <td className="py-3.5 px-4 text-right">
-                      <a
+                      <OutboundLink
                         href={loan.applyUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        portal={`apply:${loan.slug}`}
                         className="bg-zinc-900 hover:bg-zinc-800 text-white text-[11px] font-medium px-2.5 py-1.5 rounded-md inline-flex items-center gap-1 transition-colors"
                       >
                         <span>Official Portal</span>
                         <ExternalLink className="w-3 h-3" />
-                      </a>
+                      </OutboundLink>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+        </div>
+
+        {/* Lead capture */}
+        <div className="mb-6">
+          <LeadForm
+            leadType="loan_enquiry"
+            title="Not sure which loan fits? Get a free eligibility check"
+            description="Tell us how much you need and where. Our research desk will shortlist collateral-free options you actually qualify for. Free — no fees, no obligation."
+            compact
+          />
         </div>
 
         {/* RBI Disclosure */}

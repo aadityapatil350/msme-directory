@@ -10,6 +10,7 @@ import {
   RotateCcw,
   Sparkles,
 } from 'lucide-react'
+import LeadForm from '@/components/LeadForm'
 
 interface Answers {
   sector: string
@@ -362,6 +363,12 @@ export default function EligibilityCheckerPage() {
                 })}
               </div>
             </div>
+
+            <LeadForm
+              leadType="scheme_enquiry"
+              title="Want personalised help applying to these schemes?"
+              description="Share your details and our research team will walk you through eligibility, documents, and the official application process for your matched schemes. Free."
+            />
           </div>
         )}
       </div>

@@ -6,6 +6,7 @@ import {
   ExternalLink,
   CheckCircle2,
 } from 'lucide-react'
+import LeadForm from '@/components/LeadForm'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://msmevault.in'
 
@@ -56,8 +57,31 @@ export default async function GuideDetailPage({
     notFound()
   }
 
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: guide.title.replace(/&amp;/g, '&'),
+    description: guide.metaDescription,
+    author: { '@type': 'Person', name: guide.author.name, jobTitle: guide.author.role },
+    publisher: { '@type': 'Organization', name: 'MSMEVault.in', url: siteUrl, logo: { '@type': 'ImageObject', url: `${siteUrl}/icon.svg` } },
+    datePublished: guide.lastVerified,
+    dateModified: guide.lastVerified,
+    mainEntityOfPage: `${siteUrl}/guides/${slug}`,
+  }
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl },
+      { '@type': 'ListItem', position: 2, name: 'Guides', item: `${siteUrl}/guides` },
+      { '@type': 'ListItem', position: 3, name: guide.category, item: `${siteUrl}/guides/${slug}` },
+    ],
+  }
+
   return (
     <div className="min-h-screen bg-[#FAFAFA] py-10 px-4 sm:px-6 lg:px-8">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <div className="max-w-4xl mx-auto">
         {/* Breadcrumb */}
         <nav className="text-xs text-zinc-500 mb-4 flex items-center gap-1.5 font-mono">
@@ -201,6 +225,15 @@ export default async function GuideDetailPage({
               })}
             </div>
           ))}
+        </div>
+
+        {/* Lead capture */}
+        <div className="mb-6">
+          <LeadForm
+            leadType="scheme_enquiry"
+            title="Need personalised help with this?"
+            description="Our research desk will guide you through eligibility, documents, and the official application. Free — no fees, no obligation."
+          />
         </div>
 
         {/* Non-Affiliation Statutory Disclaimer Box */}

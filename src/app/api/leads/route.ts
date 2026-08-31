@@ -1,16 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { rateLimit } from '@/lib/rate-limit'
+import { sendLeadNotification } from '@/lib/email'
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json()
+    const ip =
+      req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+      req.headers.get('x-real-ip') ||
+      'unknown'
 
-    // 1. Honeypot check for spam bots
-    if (body.websiteHp && body.websiteHp.trim() !== '') {
-      return NextResponse.json({ success: true, message: 'Received' }, { status: 200 })
+    // Rate limit: 5 requests / IP / 10 minutes (spec §5.2)
+    const rl = rateLimit(`leads:${ip}`, 5, 10 * 60 * 1000)
+    if (!rl.ok) {
+      return NextResponse.json(
+        { success: false, error: 'Too many requests. Please try again later.' },
+        { status: 429 }
+      )
     }
 
-    // 2. DPDP Mandatory Consent Check
+    const body = await req.json()
+
+    // Honeypot
+    if (body.websiteHp && body.websiteHp.trim() !== '') {
+      return NextResponse.json({ success: true, message: 'Received' })
+    }
+
+    // DPDP mandatory consent
     if (!body.consentGiven) {
       return NextResponse.json(
         { success: false, error: 'DPDP consent is mandatory to process this enquiry.' },
@@ -18,14 +34,22 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // 3. Extract IP and Client Info
-    const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown'
+    if (!body.fullName || !body.phone) {
+      return NextResponse.json(
+        { success: false, error: 'Name and phone are required.' },
+        { status: 400 }
+      )
+    }
 
-    // 4. Save to Database (if DB available)
+    const leadType = body.leadType || 'scheme_enquiry'
+    const loanAmountNeeded = body.loanAmount ? parseFloat(body.loanAmount) : null
+
+    // Persist. DB failure is soft — still notify so the operator can act.
+    let dbOk = false
     try {
       await prisma.lead.create({
         data: {
-          leadType: body.leadType || 'scheme_enquiry',
+          leadType,
           schemeSlug: body.schemeSlug || null,
           loanSlug: body.loanSlug || null,
           fullName: body.fullName || null,
@@ -33,10 +57,15 @@ export async function POST(req: NextRequest) {
           email: body.email || null,
           city: body.city || null,
           state: body.state || null,
-          businessName: body.businessType || null,
+          businessName: body.businessName || null,
           sector: body.sector || null,
           turnoverBand: body.turnover || null,
-          loanAmountNeeded: body.loanAmount ? parseFloat(body.loanAmount) : null,
+          loanAmountNeeded,
+          landingPage: body.landingPage || null,
+          referrer: body.referrer || null,
+          utmSource: body.utmSource || null,
+          utmMedium: body.utmMedium || null,
+          utmCampaign: body.utmCampaign || null,
           consentGiven: Boolean(body.consentGiven),
           consentTextVersion: body.consentTextVersion || 'v2026.1_dpdp',
           consentTimestamp: new Date(),
@@ -45,16 +74,35 @@ export async function POST(req: NextRequest) {
           status: 'new',
         },
       })
+      dbOk = true
     } catch (dbErr) {
-      console.warn('DB Lead insert deferred:', dbErr)
+      console.warn('[leads] DB insert failed:', dbErr)
     }
+
+    // Fire-and-forget notification
+    sendLeadNotification({
+      leadType,
+      fullName: body.fullName,
+      phone: body.phone,
+      email: body.email,
+      city: body.city,
+      state: body.state,
+      schemeSlug: body.schemeSlug,
+      loanSlug: body.loanSlug,
+      loanAmountNeeded,
+      sector: body.sector,
+      turnoverBand: body.turnover,
+      landingPage: body.landingPage,
+      utmSource: body.utmSource,
+    }).catch((err) => console.warn('[leads] notify failed:', err))
 
     return NextResponse.json({
       success: true,
+      persisted: dbOk,
       message: 'Enquiry submitted successfully under DPDP Act 2023.',
     })
   } catch (error) {
-    console.error('Lead processing error:', error)
+    console.error('[leads] processing error:', error)
     return NextResponse.json(
       { success: false, error: 'Failed to process lead.' },
       { status: 500 }

@@ -97,6 +97,17 @@ export default function Navbar() {
               Policy Guides
             </Link>
 
+            <Link
+              href="/blog"
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                isActive('/blog')
+                  ? 'text-zinc-950 bg-zinc-100 font-semibold'
+                  : 'text-zinc-600 hover:text-zinc-950 hover:bg-zinc-50'
+              }`}
+            >
+              Blog
+            </Link>
+
             {/* Tools Dropdown */}
             <div
               className="relative"
@@ -246,6 +257,13 @@ export default function Navbar() {
             className="block px-3 py-2 rounded-lg text-xs font-medium text-zinc-950 hover:bg-zinc-50"
           >
             Policy Guides
+          </Link>
+          <Link
+            href="/blog"
+            onClick={() => setIsOpen(false)}
+            className="block px-3 py-2 rounded-lg text-xs font-medium text-zinc-950 hover:bg-zinc-50"
+          >
+            Blog
           </Link>
           <Link
             href="/tools/emi-calculator"

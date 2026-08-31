@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import { VERIFIED_SCHEMES } from '@/data/verified-schemes'
 import { VERIFIED_GUIDES } from '@/data/verified-guides'
+import { BLOG_POSTS } from '@/data/verified-blog'
 
 const CITIES = [
   'mumbai', 'delhi', 'bangalore', 'pune', 'ahmedabad',
@@ -17,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/schemes',
     '/loans',
     '/guides',
+    '/blog',
     '/tools/emi-calculator',
     '/tools/subsidy-calculator',
     '/eligibility-checker',
@@ -51,7 +53,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }))
 
-  // 4. City Consultant Directories (Beta)
+  // 4. Blog posts
+  const blogPages = BLOG_POSTS.map((post) => ({
+    url: `${siteUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.updatedAt).toISOString(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.85,
+  }))
+
+  // 5. City Consultant Directories (Beta)
   const cityPages = CITIES.map((city) => ({
     url: `${siteUrl}/consultants/${city}`,
     lastModified: currentDate,
@@ -59,5 +69,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  return [...staticPages, ...schemePages, ...guidePages, ...cityPages]
+  return [...staticPages, ...schemePages, ...guidePages, ...blogPages, ...cityPages]
 }

@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "@/components/ui/sonner";
+import Analytics from "@/components/Analytics";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://msmevault.in";
 
@@ -94,6 +95,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );
