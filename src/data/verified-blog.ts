@@ -986,4 +986,606 @@ Print / download / verify Udyam certificate — all three take under 2 minutes o
     relatedSlugs: ['udyam-registration-kaise-kare', 'udyam-registration-fees-truth', 'udyam-vs-udyog-aadhaar-comparison'],
     relatedGuides: ['udyam-registration'],
   },
+
+  // ============================================================
+  // POST 7 — PM Vishwakarma Scheme 2026 Guide (KD 34%, Vol 22.2k)
+  // ============================================================
+  {
+    slug: 'pm-vishwakarma-yojana-guide',
+    title: 'PM Vishwakarma Yojana 2026: 18 Eligible Trades, ₹15,000 Toolkit & 5% Loan Guide',
+    metaTitle: 'PM Vishwakarma Scheme (2026): 18 Trades, ₹15k Grant & 5% Loan',
+    metaDescription:
+      'Complete guide to PM Vishwakarma Scheme 2026. 18 traditional artisan trades, ₹15,000 e-voucher for toolkits, ₹500/day stipend during skill training, and up to ₹3 Lakh collateral-free loan at fixed 5% interest.',
+    targetKeyword: 'pm vishwakarma yojana',
+    category: 'MSME Guides',
+    tags: ['PM Vishwakarma', 'Artisans', 'Subsidized Loan', 'Skill Training', 'Central Scheme'],
+    publishedAt: '2026-09-12',
+    updatedAt: '2026-09-12',
+    readTimeMinutes: 10,
+    author: AUTHOR_ADITYA,
+    excerpt:
+      'Launched to empower traditional artisans and craftspeople across India, the PM Vishwakarma Scheme provides holistic support: end-to-end skill upgradation, ₹15,000 modern toolkit incentives, digital transaction cashbacks, and collateral-free enterprise loans up to ₹3 Lakh at an attractive fixed 5% interest rate.',
+    content: `## What is the PM Vishwakarma Scheme?
+
+The **PM Vishwakarma Yojana** is a Central Sector Scheme launched by the Ministry of Micro, Small and Medium Enterprises (MoMSME) to support traditional artisans and craftspeople who work with their hands and tools.
+
+The scheme has an outlay of **₹13,000 crore** and is fully funded by the Central Government. It recognizes traditional craftspeople as essential contributors to India's informal economy and provides them with official recognition, skill training, modern toolkit vouchers, and subsidized credit without requiring collateral.
+
+---
+
+## The 18 Eligible Traditional Trades
+
+To qualify for PM Vishwakarma, the beneficiary must be engaged in one of the following 18 traditional family-based crafts:
+
+### Wood-Based Trades
+1. **Carpenter (Suthar / Badhai)**
+2. **Boat Maker**
+
+### Iron / Metal-Based Trades
+3. **Armourer**
+4. **Blacksmith (Lohar)**
+5. **Hammer & Tool Kit Maker**
+6. **Locksmith**
+7. **Sculptor (Moortikar / Stone Carver / Stone Breaker)**
+
+### Gold / Jewelry Trades
+8. **Goldsmith (Sonar)**
+
+### Clay / Earth Trades
+9. **Potter (Kumhaar)**
+
+### Leather Trades
+10. **Cobbler (Mochi) / Shoesmith / Footwear Artisan**
+
+### Construction Trades
+11. **Mason (Rajmistri)**
+
+### Fiber / Natural Material Trades
+12. **Basket / Mat / Broom Maker / Coir Weaver**
+13. **Doll & Toy Maker (Traditional)**
+
+### Personal Services & Grooming Trades
+14. **Barber (Naai)**
+15. **Garland Maker (Malakaar)**
+16. **Washerman (Dhobi)**
+17. **Tailor (Darzi)**
+18. **Fishing Net Maker**
+
+---
+
+## 4 Core Benefits Under PM Vishwakarma
+
+Beneficiaries enrolled in the scheme receive four major support components:
+
+### 1. Recognition & Identity
+- Beneficiaries receive an official **PM Vishwakarma Certificate** and a **PM Vishwakarma ID Card**.
+- Provides formal recognition as a certified artisan across India.
+
+### 2. Skill Training & Daily Stipend
+- **Basic Training:** 5 to 7 days (40 hours) of foundational training in modern techniques, tool handling, and digital tools.
+- **Advanced Training:** 15 days (120 hours) for interested candidates seeking higher specialization.
+- **Training Stipend:** **₹500 per day** paid directly into the beneficiary's Aadhaar-seeded bank account during training.
+
+### 3. Toolkit Incentive (₹15,000 Grant)
+- Upon completion of basic training, beneficiaries receive an **e-voucher of up to ₹15,000** to purchase modern, high-grade tools suited to their craft.
+- This is a 100% government grant — not a loan.
+
+### 4. Collateral-Free Enterprise Credit (Up to ₹3 Lakh @ Fixed 5%)
+Beneficiaries who successfully complete basic skill training and maintain active operations can access institutional loans in two tranches:
+
+| Loan Tranche | Maximum Amount | Repayment Tenure | Eligibility Condition |
+| :--- | :--- | :--- | :--- |
+| **Tranche 1 (First Loan)** | **Up to ₹1,00,000** | 18 Months | Completed Basic Training |
+| **Tranche 2 (Second Loan)** | **Up to ₹2,00,000** | 30 Months | Maintained standard repayment in Tranche 1 + adopted digital payments |
+
+- **Effective Interest Rate:** Fixed at **5.0% per annum** for the borrower.
+- **Interest Subvention:** The Government of India provides an **interest subvention of 8.0%** directly to the lending bank, keeping the borrower's burden at only 5%.
+- **No Collateral:** 100% collateral-free, backed by the Credit Guarantee Scheme for PM Vishwakarma administered by NCGTC.
+
+---
+
+## Eligibility Criteria
+
+1. **Age:** Minimum 18 years on the date of registration.
+2. **Trade:** Actively engaged in one of the 18 specified traditional trades.
+3. **Family Cap:** Only **one member per family** (husband, wife, and unmarried children) is eligible.
+4. **Government Service Restriction:** Persons in government service and their family members are not eligible.
+5. **No Existing Similar Subsidized Loan:** Beneficiaries must not have availed loans under PMEGP, PM SVANidhi, or Mudra for similar credit facilities within the preceding 5 years.
+
+---
+
+## Step-by-Step Registration Process
+
+1. **Step 1: Visit Nearest CSC (Common Service Centre):** Initial enrollment requires biometric Aadhaar authentication at any CSC or online at [pmvishwakarma.gov.in](https://pmvishwakarma.gov.in).
+2. **Step 2: Submit Aadhaar & Mobile Verification:** Complete biometric verification and mobile OTP validation.
+3. **Step 3: Trade & Family Declaration:** Select your specific craft trade and enter family details.
+4. **Step 4: Three-Stage Verification:**
+   - *Stage 1:* Verification by Gram Panchayat Head (rural) or Urban Local Body (ULB) Executive (urban).
+   - *Stage 2:* Screening by the District Implementation Committee (DIC).
+   - *Stage 3:* Final approval by the State Level Screening Committee.
+5. **Step 5: Training & Benefit Disbursement:** Once verified, you are scheduled for 5-day basic training and receive your PM Vishwakarma ID and toolkit e-voucher.
+
+---
+
+## Statutory Safety Reminder
+
+Official registration for the PM Vishwakarma Scheme is carried out via Common Service Centres and the official government portal [pmvishwakarma.gov.in](https://pmvishwakarma.gov.in). There are no government processing fees for approval. Never pay unauthorized private agents claiming to guarantee loan approvals.
+`,
+    faq: [
+      {
+        question: 'What is the interest rate on PM Vishwakarma loans?',
+        answer:
+          'The borrower pays a fixed concessional interest rate of 5.0% per annum. The Government of India provides an 8.0% interest subvention directly to the lending bank.',
+      },
+      {
+        question: 'Is the ₹15,000 toolkit incentive a loan or a grant?',
+        answer:
+          'The ₹15,000 toolkit incentive is a 100% government grant provided as an e-voucher. It does not need to be repaid.',
+      },
+      {
+        question: 'Can multiple family members apply for PM Vishwakarma?',
+        answer:
+          'No. As per scheme guidelines, benefits are restricted to one member per family (defined as husband, wife, and unmarried children).',
+      },
+      {
+        question: 'Do I need to submit property collateral for the ₹3 Lakh loan?',
+        answer:
+          'No. PM Vishwakarma loans are 100% collateral-free and credit-guaranteed by the Government through NCGTC.',
+      },
+    ],
+    sources: [
+      { label: 'PM Vishwakarma Official Portal', url: 'https://pmvishwakarma.gov.in' },
+      { label: 'Ministry of MSME — PM Vishwakarma Guidelines', url: 'https://msme.gov.in' },
+    ],
+    relatedSlugs: ['mudra-loan-kaise-le', 'business-loan-without-collateral-guide', 'pmegp-margin-money-calculation'],
+    relatedGuides: ['mudra-loan'],
+  },
+
+  // ============================================================
+  // POST 8 — PMFME Scheme Guide (KD 34%, Vol 8.1k)
+  // ============================================================
+  {
+    slug: 'pmfme-scheme-food-processing-guide',
+    title: 'PMFME Scheme 2026: How to Get 35% Capital Subsidy for Food Processing Units',
+    metaTitle: 'PMFME Scheme 2026: 35% Capital Subsidy for Food Processing (Max ₹10L)',
+    metaDescription:
+      'Everything you need to know about the PMFME (Pradhan Mantri Formalisation of Micro food processing Enterprises) Scheme 2026. 35% credit-linked capital subsidy up to ₹10 Lakh, ODOP eligibility, seed capital for SHGs, and online application process.',
+    targetKeyword: 'pmfme scheme',
+    category: 'PMEGP & Subsidies',
+    tags: ['PMFME', 'Food Processing', 'Capital Subsidy', 'MoFPI', 'Agri Business'],
+    publishedAt: '2026-09-15',
+    updatedAt: '2026-09-15',
+    readTimeMinutes: 8,
+    author: AUTHOR_ADITYA,
+    excerpt:
+      'If you are starting or expanding a food manufacturing or packaging business — such as flour mills, spices processing, bakery, oil extraction, fruit pulp, or snacks — the PMFME Scheme offers a massive 35% credit-linked capital subsidy of up to ₹10 Lakh per enterprise.',
+    content: `## What is the PMFME Scheme?
+
+The **PM Formalisation of Micro food processing Enterprises (PMFME) Scheme** is a flagship initiative launched by the **Ministry of Food Processing Industries (MoFPI)** under the Aatmanirbhar Bharat Abhiyan.
+
+With an outlay of **₹10,000 crore**, the scheme aims to enhance the competitiveness of individual micro-enterprises in the unorganized food processing sector, promote formalization, and support Farmer Producer Organizations (FPOs), Self Help Groups (SHGs), and Producer Cooperatives.
+
+---
+
+## Key Benefits & Financial Support
+
+### 1. Credit-Linked Capital Subsidy for Individual Units
+- **Subsidy Rate:** **35% of the eligible project cost**.
+- **Maximum Ceiling:** **₹10,00,000 (₹10 Lakh)** per micro-enterprise.
+- **Beneficiary Contribution:** Minimum **10% of project cost** as own equity.
+- **Bank Loan:** The balance 55% to 90% is financed via term loans from commercial banks.
+
+### 2. Seed Capital for SHG Members
+- **₹40,000 per SHG member** provided as seed capital for working capital requirements and purchase of small tools.
+
+### 3. Support for Common Infrastructure
+- FPOs, SHGs, Producer Cooperatives, or State agencies establishing common processing facilities, cold storage, packaging units, or testing labs can receive **35% capital subsidy up to ₹3 Crore**.
+
+### 4. Branding and Marketing Support
+- **Up to 50% subsidy** for branding, packaging design, barcode registration, FSSAI compliance, and marketing under state or national brands.
+
+---
+
+## One District One Product (ODOP) Focus
+
+The PMFME Scheme adopts the **One District One Product (ODOP)** approach to reap the benefit of scale in procurement of inputs, common services, and marketing of products.
+
+- **ODOP Alignment:** Each district across India has an identified perishable food product (e.g., Mango processing in Ratnagiri, Spices in Guntur, Makhana in Darbhanga, Turmeric in Nizamabad).
+- **Non-ODOP Units:** Existing food processing units producing non-ODOP products are also eligible for modernization and expansion subsidies.
+
+---
+
+## Eligible Food Processing Activities
+
+A wide range of agro-processing and value-addition activities are covered:
+- **Grain & Pulse Milling:** Flour mills, rice processing, besan units, dal mills.
+- **Oil Extraction:** Mustard oil, groundnut oil, sesame, and cold-pressed oil expellers.
+- **Fruits & Vegetables:** Pickles, jams, sauces, dehydrated fruits, juices, fruit pulp.
+- **Bakery & Confectionery:** Bread, biscuits, cakes, cookies, rusks.
+- **Spices & Condiments:** Turmeric grinding, chilly powder, spice blends, ginger-garlic paste.
+- **Dairy & Snacks:** Paneer, ghee, curd packaging, namkeen, roasted snacks, papad.
+- **Fish & Meat Processing:** Packaged frozen meat, dried fish, value-added poultry products.
+
+---
+
+## Eligibility Criteria for Individual Micro-Enterprises
+
+1. **Enterprise Type:** Individual proprietorship, partnership, LLP, or private limited enterprise engaged in food processing.
+2. **Investment Limit:** Micro-enterprise with plant & machinery investment under ₹2.5 Crore (as per 2026 MSME thresholds).
+3. **Age & Qualification:** Applicant must be at least 18 years old. Minimum 8th standard education is preferred for project costs above ₹5 Lakh.
+4. **Ownership:** Applicant must possess ownership or registered lease rights to the business premises.
+
+---
+
+## How the Subsidy is Credited & Adjusted
+
+Like PMEGP, PMFME operates on a **back-ended subsidy mechanism**:
+1. The sanctioned 35% subsidy amount is released by MoFPI to the lending bank.
+2. The bank places the subsidy amount in a **Term Deposit Receipt (TDR)** in the borrower's name for a period of **3 years**.
+3. No interest is charged on the loan component equal to the subsidy amount.
+4. After 3 years of successful operation and physical verification of the food unit, the subsidy is adjusted against the outstanding term loan principal.
+
+---
+
+## How to Apply Online (Step-by-Step)
+
+1. **Step 1:** Visit the official portal [pmfme.mofpi.gov.in](https://pmfme.mofpi.gov.in).
+2. **Step 2:** Register as an Applicant with your Aadhaar, PAN, and Mobile Number.
+3. **Step 3:** Prepare a Detailed Project Report (DPR) detailing machinery costs, raw material sourcing, and financial projections.
+4. **Step 4:** Submit the online application along with quotation of machinery, premises proof, and Udyam Registration.
+5. **Step 5:** District Resource Persons (DRP) appointed by the State Nodal Agency assist in vetting your DPR before forwarding to the selected bank branch.
+`,
+    faq: [
+      {
+        question: 'What is the maximum subsidy under the PMFME scheme for an individual unit?',
+        answer:
+          'Under PMFME, individual food processing units get a 35% credit-linked capital subsidy on eligible project cost, capped at a maximum of ₹10 Lakh.',
+      },
+      {
+        question: 'Is Udyam Registration mandatory for PMFME?',
+        answer:
+          'Yes. Having a valid Udyam Registration number is required for micro-enterprises applying for bank loans and capital subsidies under PMFME.',
+      },
+      {
+        question: 'Can new food processing businesses apply or only existing ones?',
+        answer:
+          'Both new (greenfield) and existing (brownfield) micro food processing units are eligible for financial support under PMFME, with preference given to ODOP products.',
+      },
+      {
+        question: 'What is the beneficiary contribution under PMFME?',
+        answer:
+          'The applicant must contribute a minimum of 10% of the total project cost from their own funds as equity margin.',
+      },
+    ],
+    sources: [
+      { label: 'MoFPI — PMFME Official Portal', url: 'https://pmfme.mofpi.gov.in' },
+      { label: 'Ministry of Food Processing Industries Guidelines', url: 'https://mofpi.gov.in' },
+    ],
+    relatedSlugs: ['pmegp-margin-money-calculation', 'business-loan-without-collateral-guide', 'udyam-registration-kaise-kare'],
+    relatedGuides: ['pmegp-loan'],
+  },
+
+  // ============================================================
+  // POST 9 — Stand-Up India Scheme Guide (KD 38%, Vol 9.9k)
+  // ============================================================
+  {
+    slug: 'stand-up-india-loan-scheme-guide',
+    title: 'Stand-Up India Scheme 2026: ₹10 Lakh to ₹1 Crore Loans for Women and SC/ST Founders',
+    metaTitle: 'Stand-Up India Scheme 2026: ₹10L to ₹1Cr Greenfield Business Loans',
+    metaDescription:
+      'Complete guide to Stand-Up India loans from ₹10 Lakh to ₹1 Crore. Eligibility for Women and SC/ST entrepreneurs, 85% project cost financing, 7-year repayment, and online application on StandUpMitra.',
+    targetKeyword: 'stand up india',
+    category: 'Mudra & Loans',
+    tags: ['Stand-Up India', 'Women Entrepreneurs', 'SC ST Loans', 'Greenfield Financing', 'Business Loans'],
+    publishedAt: '2026-09-18',
+    updatedAt: '2026-09-18',
+    readTimeMinutes: 8,
+    author: AUTHOR_ADITYA,
+    excerpt:
+      'The Stand-Up India Scheme facilitates bank loans between ₹10 Lakh and ₹1 Crore to at least one Scheduled Caste (SC) or Scheduled Tribe (ST) borrower and at least one Woman borrower per bank branch for setting up greenfield commercial enterprises.',
+    content: `## Overview of Stand-Up India Scheme
+
+The **Stand-Up India Scheme** was launched by the Department of Financial Services (DFS), Ministry of Finance, to promote entrepreneurship at the grassroots level among women and SC/ST communities.
+
+Under the scheme, every branch of all Scheduled Commercial Banks is mandated to facilitate bank loans between **₹10 Lakh and ₹1 Crore** to at least one SC/ST borrower and at least one Woman borrower for setting up a greenfield enterprise.
+
+---
+
+## Key Loan Parameters
+
+| Parameter | Scheme Specification |
+| :--- | :--- |
+| **Loan Amount** | **₹10,00,000 to ₹1,00,00,000 (₹10 Lakh to ₹1 Crore)** |
+| **Nature of Facility** | Composite Loan (inclusive of Term Loan and Working Capital) |
+| **Target Beneficiaries** | SC, ST, and Women Entrepreneurs |
+| **Enterprise Type** | Greenfield project only (first-time venture) |
+| **Eligible Sectors** | Manufacturing, Services, Agri-allied activities, and Trading |
+| **Loan Coverage** | Up to **85% of total project cost** |
+| **Repayment Tenure** | **Up to 7 years** with a maximum moratorium period of **18 months** |
+| **Interest Rate** | Lowest applicable rate for that category (Base Rate / MCLR + Tenure Premium + max 3%) |
+
+---
+
+## What is a "Greenfield Enterprise"?
+
+In the context of Stand-Up India, **"greenfield"** signifies the first-time venture of the beneficiary in the manufacturing, services, agri-allied, or trading sector. Existing operational businesses seeking expansion loans are not covered under Stand-Up India (they should explore CGTMSE or Mudra Tarun Plus instead).
+
+In non-individual enterprises (such as Partnerships, LLPs, or Private Limited Companies), at least **51% of the shareholding and controlling stake** must be held by either an SC/ST or a Woman entrepreneur.
+
+---
+
+## Margin Money & Promoter Equity
+
+- The scheme envisions that the loan will cover **up to 85% of the total project cost** (inclusive of term loan and working capital).
+- The borrower is expected to bring in at least **15% of the project cost** as own margin money.
+- If the borrower is eligible for central or state subsidies (e.g. state industrial policy incentives), the subsidy can be counted towards the margin money, provided the borrower's own cash contribution is at least 10%.
+
+---
+
+## Security & Collateral Requirements
+
+- **Primary Security:** Assets created out of the bank loan (plant, machinery, equipment, stock, book debts).
+- **Collateral / Guarantee:** Stand-Up India loans can be secured either through collateral security or through the **Credit Guarantee Fund for Stand-Up India (CGFSI)** operated by NCGTC, minimizing physical collateral requirements.
+
+---
+
+## How to Apply on the StandUpMitra Portal
+
+1. **Step 1: Access the Portal:** Visit [standupmitra.in](https://www.standupmitra.in).
+2. **Step 2: Register as Borrower:** Choose whether you need "Trainee Borrower" handholding (for business plan preparation, financial training) or "Ready Borrower" status.
+3. **Step 3: Fill Business & Loan Details:** Enter project cost, preferred bank branch, sector, and promoter equity share.
+4. **Step 4: Upload Documents:** Upload PAN, Aadhaar, Caste Certificate (for SC/ST), Udyam Registration, project report, and premises proof.
+5. **Step 5: Bank Processing:** The application is directly routed to the selected bank branch for appraisal, sanction, and disbursement.
+`,
+    faq: [
+      {
+        question: 'Can a general category male apply for Stand-Up India?',
+        answer:
+          'No. Stand-Up India is strictly reserved for Women entrepreneurs (all categories) and Scheduled Caste (SC) / Scheduled Tribe (ST) founders.',
+      },
+      {
+        question: 'What is the maximum loan limit under Stand-Up India?',
+        answer:
+          'The scheme provides composite loans (term loan plus working capital) from ₹10 Lakh up to a maximum of ₹1 Crore.',
+      },
+      {
+        question: 'What is the repayment tenure for Stand-Up India loans?',
+        answer:
+          'The repayment tenure is up to 7 years, with a moratorium period of up to 18 months during the initial project setup phase.',
+      },
+    ],
+    sources: [
+      { label: 'StandUpMitra Official Portal', url: 'https://www.standupmitra.in' },
+      { label: 'Department of Financial Services — Stand-Up India', url: 'https://financialservices.gov.in' },
+    ],
+    relatedSlugs: ['business-loan-without-collateral-guide', 'mudra-loan-kaise-le', 'pmegp-margin-money-calculation'],
+    relatedGuides: ['cgtmse', 'mudra-loan'],
+  },
+
+  // ============================================================
+  // POST 10 — Business Loan Without Collateral Guide (KD 38%, Vol 880)
+  // ============================================================
+  {
+    slug: 'business-loan-without-collateral-guide',
+    title: 'Business Loans Without Collateral in India (2026): Top 5 Options, Limits & Rates',
+    metaTitle: 'Business Loan Without Collateral in India (2026) – Top 5 Options',
+    metaDescription:
+      'Compare the best collateral-free business loan options in India: CGTMSE guarantee up to ₹10 Crore, Mudra Tarun Plus up to ₹20 Lakh, Bank unsecured credit lines, and Fintech NBFC loans. Verified interest rates and eligibility criteria.',
+    targetKeyword: 'business loan without collateral',
+    category: 'Mudra & Loans',
+    tags: ['Collateral Free Loans', 'Business Loan', 'CGTMSE', 'Mudra', 'Unsecured Loan', 'MSME Finance'],
+    publishedAt: '2026-09-22',
+    updatedAt: '2026-09-22',
+    readTimeMinutes: 9,
+    author: AUTHOR_ADITYA,
+    excerpt:
+      'Securing credit without pledging residential property or commercial land is the primary financing hurdle for growing MSMEs. Here is a definitive guide to the top 5 legitimate, government-backed and institutional collateral-free business loan routes available in India.',
+    content: `## The Collateral Hurdle for Indian Small Businesses
+
+For millions of micro, small, and medium enterprise owners, obtaining capital has historically required pledging immovable property — such as residential homes, industrial land, or commercial offices — as primary collateral security.
+
+However, over the past three years, the Reserve Bank of India (RBI), Ministry of MSME, and financial institutions have dramatically expanded **collateral-free credit mechanisms**. Today, an enterprise can secure from **₹50,000 up to ₹10 Crore** in institutional business financing without mortgaging real estate assets.
+
+---
+
+## Top 5 Collateral-Free Business Loan Options Compared
+
+| Loan Option | Guarantee / Backing | Maximum Amount | Indicative Interest Rate | Best Suited For |
+| :--- | :--- | :--- | :--- | :--- |
+| **1. CGTMSE Scheme** | Credit Guarantee Trust (MoMSME & SIDBI) | **Up to ₹10 Crore** | 9.0% – 13.0% p.a. | Established MSMEs expanding machinery or working capital |
+| **2. PM Mudra Yojana** | Credit Guarantee Fund for Micro Units (CGFMU) | **Up to ₹20 Lakh** (Tarun Plus) | 8.5% – 12.5% p.a. | Micro enterprises, shops, services, and small manufacturing |
+| **3. PM Vishwakarma** | NCGTC Guarantee + 8% Interest Subvention | **Up to ₹3 Lakh** | **Fixed 5.0% p.a.** | 18 Traditional artisans and craftspeople |
+| **4. Bank Unsecured Credit Lines** | Cash Flow / GST Underwritten (SBI, HDFC, ICICI) | Up to ₹50 Lakh – ₹1 Crore | 11.5% – 16.0% p.a. | Businesses with 2+ years GST returns and clean bank banking |
+| **5. Fintech & NBFC MSME Loans** | Digital Cashflow Scoring (Tata Capital, Lendingkart) | Up to ₹30 Lakh – ₹75 Lakh | 15.0% – 24.0% p.a. | Fast 48-hour disbursals with no physical branch visits |
+
+---
+
+## Deep Dive into Each Collateral-Free Route
+
+### 1. CGTMSE Credit Guarantee Scheme (Up to ₹10 Crore)
+- **How It Works:** Instead of asking the borrower for property collateral, the lending bank purchases credit guarantee cover from CGTMSE. If the loan defaults, CGTMSE reimburses the bank **75% to 85%** of the defaulted amount.
+- **2025–2026 Upgrade:** The guarantee ceiling was raised from ₹5 Crore to **₹10 Crore** w.e.f. 1 April 2025.
+- **Annual Guarantee Fee (AGF):** Standard guarantee fee ranges from 0.37% to 1.35% per annum, depending on loan slab and borrower category (reduced rates for women and micro units).
+
+### 2. PM Mudra Yojana (Up to ₹20 Lakh)
+- **4 Brackets:** Shishu (&le;₹50k), Kishor (₹50k–₹5L), Tarun (₹5L–₹10L), and **Tarun Plus** (up to ₹20L for entrepreneurs who have previously repaid a Tarun loan).
+- **No Processing Fee:** For Shishu and Kishor loans, public sector banks do not charge processing fees.
+
+### 3. Bank Cash-Flow Based Working Capital Lines
+- Major commercial banks (SBI SME Clean Credit, HDFC Business Growth Loan, ICICI Business Installment Loan) offer collateral-free term loans and overdraft limits up to ₹50 Lakh.
+- **Underwriting Basis:** Approved solely on **GST return consistency, bank statement average quarterly balance (AQB), and CIBIL score (&ge; 720)**.
+
+---
+
+## Mandatory Documentation for Collateral-Free Loans
+
+To qualify quickly for an unsecured or guarantee-backed business loan, keep these verified documents ready:
+
+1. **KYC:** PAN & Aadhaar of all promoters / directors.
+2. **Statutory Registrations:** Udyam Registration Certificate and GST Registration Certificate.
+3. **Banking Track Record:** Last 12 months operating bank account statements in digital PDF format.
+4. **Tax Compliance:** Last 2 to 3 years Income Tax Returns (ITR) with Computation of Income and audited financials (if applicable).
+5. **GST Data:** GSTR-3B and GSTR-1 filings for the last 12 months.
+6. **Existing Loan Obligations:** Sanction letters and repayment track records for all existing borrowing.
+
+---
+
+## Red Flags & Scams to Avoid
+
+When applying for collateral-free business loans:
+- **Never Pay "Approval Fees" in Advance:** Legitimate banks and NBFCs deduct processing charges directly from the disbursed loan amount. Any agent demanding upfront cash or UPI transfers for "guaranteed approval" is a scam.
+- **Verify RBI Registration:** Ensure the lending entity is a Scheduled Commercial Bank or an RBI-registered NBFC.
+`,
+    faq: [
+      {
+        question: 'Can a newly registered business get a collateral-free loan?',
+        answer:
+          'Yes. New (greenfield) businesses can secure collateral-free loans through PM Mudra Shishu (up to ₹50,000), PM Vishwakarma (up to ₹3 Lakh), or PMEGP (margin money subsidy + bank loan).',
+      },
+      {
+        question: 'What is the minimum CIBIL score required for an unsecured business loan?',
+        answer:
+          'Most banks and NBFCs require a personal CIBIL score of 700+ (ideally 750+) and a Commercial CMR score between 1 and 4 for unsecured loan approval.',
+      },
+      {
+        question: 'Is CGTMSE a loan or a guarantee?',
+        answer:
+          'CGTMSE is a Credit Guarantee Trust operated by the Government and SIDBI. It is not a direct lender — it provides guarantee cover to banks so they can disburse collateral-free loans up to ₹10 Crore.',
+      },
+    ],
+    sources: [
+      { label: 'CGTMSE Official Portal', url: 'https://www.cgtmse.in' },
+      { label: 'Mudra Official Portal', url: 'https://www.mudra.org.in' },
+      { label: 'Reserve Bank of India Master Directions', url: 'https://rbi.org.in' },
+    ],
+    relatedSlugs: ['mudra-loan-kaise-le', 'stand-up-india-loan-scheme-guide', 'pmegp-margin-money-calculation'],
+    relatedGuides: ['cgtmse', 'mudra-loan'],
+  },
+
+  // ============================================================
+  // POST 11 — PMEGP Loan Online Application Guide (KD 50%, Vol 246k)
+  // ============================================================
+  {
+    slug: 'pmegp-loan-apply-online-guide',
+    title: 'PMEGP Loan 2026: Complete Application Process, Project Limits & Subsidy Claim',
+    metaTitle: 'PMEGP Loan 2026: Online Application Process, ₹50L Limit & Subsidy',
+    metaDescription:
+      'Complete guide to PMEGP loan application 2026. Revised project cost limits of ₹50 Lakh (Manufacturing) and ₹20 Lakh (Service), 15% to 35% margin money subsidy, KVIC e-portal step-by-step process, and DPR format.',
+    targetKeyword: 'pmegp loan',
+    category: 'PMEGP & Subsidies',
+    tags: ['PMEGP', 'KVIC', 'Capital Subsidy', 'Govt Loan', 'Self Employment', 'DPR'],
+    publishedAt: '2026-09-25',
+    updatedAt: '2026-09-25',
+    readTimeMinutes: 11,
+    author: AUTHOR_ADITYA,
+    excerpt:
+      'The Prime Minister Employment Generation Programme (PMEGP) is India’s largest credit-linked subsidy scheme for setting up new manufacturing and service micro-enterprises, offering up to 35% government grant on project costs up to ₹50 Lakh.',
+    content: `## What is the PMEGP Scheme?
+
+The **Prime Minister’s Employment Generation Programme (PMEGP)** is a flagship credit-linked subsidy programme administered by the **Ministry of MSME** through the **Khadi and Village Industries Commission (KVIC)** as the national single nodal agency.
+
+At the state level, the scheme is implemented through:
+- State KVIC Directorates
+- State Khadi and Village Industries Boards (KVIB)
+- District Industries Centres (DIC)
+- Coir Board (for coir units)
+
+---
+
+## Revised Project Cost Ceilings (2026 Update)
+
+The Government of India has significantly enhanced the maximum project cost ceilings for new enterprises setting up under PMEGP:
+
+| Enterprise Sector | Maximum Eligible Project Cost | Minimum Qualification for Projects &gt; ₹10L |
+| :--- | :--- | :--- |
+| **Manufacturing Sector** | **₹50,00,000 (₹50 Lakh)** | 8th Class Pass |
+| **Service / Business Sector** | **₹20,00,000 (₹20 Lakh)** | 8th Class Pass (for &gt; ₹5L) |
+
+*Note: The cost of land cannot be included in the project cost calculation. Project cost comprises capital expenditure (plant, machinery, equipment, building construction) and one cycle of working capital.*
+
+---
+
+## Margin Money Subsidy Rates Matrix
+
+The subsidy under PMEGP is termed **"Margin Money"** and is calculated as a percentage of the total approved project cost:
+
+| Beneficiary Category | Own Contribution (Promoter Equity) | Urban Area Subsidy | Rural Area Subsidy |
+| :--- | :--- | :--- | :--- |
+| **General Category** | 10% of project cost | **15%** | **25%** |
+| **Special Category** (Women, SC, ST, OBC, Minorities, Ex-Servicemen, PH, NER, Hill & Border areas) | **5% of project cost** | **25%** | **35%** |
+
+### Real-World Calculation Example:
+- **Project Type:** Rural Manufacturing Unit (General Category Woman entrepreneur &rarr; Special Category).
+- **Total Project Cost:** ₹40,00,000 (₹40 Lakh).
+- **Own Contribution (5%):** ₹2,00,000 (₹2 Lakh).
+- **Bank Loan Sanction (95%):** ₹38,00,000.
+- **Government Subsidy (35% Rural):** **₹14,00,000 (₹14 Lakh)**.
+- **Effective Net Loan Repayable:** Only **₹24,00,000 (₹24 Lakh)** after 3-year subsidy adjustment.
+
+---
+
+## Eligibility Criteria
+
+1. **Age:** Minimum 18 years on date of application. No upper age limit.
+2. **Enterprise Status:** **Only new (greenfield) projects** are eligible for first-time PMEGP assistance.
+3. **Education:** Minimum 8th standard pass for manufacturing projects costing over ₹10 Lakh, and service projects costing over ₹5 Lakh.
+4. **No Other Subsidy:** The applicant must not have availed central/state subsidy under any other government scheme for the same project.
+5. **Existing Units Ineligible for First Loan:** Existing industrial units cannot apply for the first PMEGP subsidy. (A separate Second PMEGP Loan up to ₹1 Crore for upgradation is available for successful existing units).
+
+---
+
+## Documents Required for PMEGP Application
+
+Keep clean scanned copies of these documents ready before opening the online portal:
+1. **Aadhaar Card & PAN Card**
+2. **Passport Size Photograph**
+3. **Highest Educational Qualification Certificate** (8th standard mark sheet or higher)
+4. **Special Category Proof:** Caste Certificate (SC/ST/OBC) or Disability Certificate (if applicable)
+5. **Detailed Project Report (DPR):** Breakdown of machinery quotations, raw material costs, manpower expenses, and 5-year cash flow projections.
+6. **Rural Area Certificate:** Issued by the local Gram Panchayat / Sarpanch (mandatory to claim the higher 25% or 35% rural subsidy).
+7. **EDP Training Certificate:** (Can also be completed online after in-principle bank sanction).
+
+---
+
+## Step-by-Step Online Application Process
+
+1. **Step 1:** Go to the official KVIC portal: [kviconline.gov.in/pmegpeportal](https://www.kviconline.gov.in/pmegpeportal/).
+2. **Step 2:** Click **"Application for New Unit"** to open the PMEGP online form.
+3. **Step 3:** Enter your 12-digit Aadhaar number and validate with Aadhaar OTP.
+4. **Step 4:** Select the Implementing Agency (KVIC, KVIB, or DIC) and your target district.
+5. **Step 5:** Enter your proposed industry activity (NIC code), select your preferred financing bank branch, and input project cost estimates.
+6. **Step 6:** Upload your DPR, photo, education proof, and rural certificate.
+7. **Step 7:** Submit the application and download your 14-digit **PMEGP Application ID & Password**.
+8. **Step 8 (Scrutiny):** Your application is reviewed by the District Level Task Force Committee (DLTFC) and forwarded electronically to the selected bank branch for credit appraisal.
+`,
+    faq: [
+      {
+        question: 'What is the maximum subsidy amount under PMEGP?',
+        answer:
+          'For a manufacturing project at the maximum ceiling of ₹50 Lakh in a rural area for special category beneficiaries (35%), the maximum subsidy grant is ₹17.5 Lakh.',
+      },
+      {
+        question: 'Can I apply for PMEGP for an existing business?',
+        answer:
+          'First-time PMEGP subsidy is strictly for new (greenfield) enterprises. However, existing units that previously repaid their first PMEGP loan can apply for a Second PMEGP Upgradation Loan up to ₹1 Crore with 15%–20% subsidy.',
+      },
+      {
+        question: 'Is EDP (Entrepreneurship Development Programme) training mandatory for PMEGP?',
+        answer:
+          'Yes. Completion of EDP training (which can now be completed online via the e-learning portal) is mandatory before the release of the margin money subsidy.',
+      },
+      {
+        question: 'What is the official website to apply for PMEGP?',
+        answer:
+          'The only official portal for PMEGP applications is kviconline.gov.in/pmegpeportal. There are no registration fees.',
+      },
+    ],
+    sources: [
+      { label: 'KVIC PMEGP Official e-Portal', url: 'https://www.kviconline.gov.in/pmegpeportal/' },
+      { label: 'Ministry of MSME — PMEGP Operational Guidelines', url: 'https://msme.gov.in' },
+    ],
+    relatedSlugs: ['pmegp-margin-money-calculation', 'business-loan-without-collateral-guide', 'pmfme-scheme-food-processing-guide'],
+    relatedGuides: ['pmegp-loan'],
+  },
 ]
+
