@@ -10,6 +10,9 @@ import LeadForm from '@/components/LeadForm'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://msmevault.in'
 
+// Only known slugs are valid; anything else returns a clean 404 (no thin fallback pages).
+export const dynamicParams = false
+
 export async function generateStaticParams() {
   return VERIFIED_GUIDES.map((guide) => ({
     slug: guide.slug,

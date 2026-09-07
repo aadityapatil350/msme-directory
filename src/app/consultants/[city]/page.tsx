@@ -7,6 +7,9 @@ const CITIES = [
   'chennai', 'hyderabad', 'jaipur', 'kolkata', 'surat'
 ]
 
+// Only the known city list is valid; other cities return a clean 404.
+export const dynamicParams = false
+
 export async function generateStaticParams() {
   return CITIES.map((city) => ({
     city,

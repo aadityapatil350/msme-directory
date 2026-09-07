@@ -8,9 +8,19 @@ const CITIES = [
   'chennai', 'hyderabad', 'jaipur', 'kolkata', 'surat'
 ]
 
+// Stable fallback date for pages without their own revision date. Bump when the
+// static content set changes — do NOT use `new Date()`, which makes every URL
+// look modified on every crawl and trains Google to ignore <lastmod>.
+const CONTENT_REVISION = '2026-09-08'
+
+function toIso(value: string, fallback = CONTENT_REVISION): string {
+  const d = new Date(value)
+  return isNaN(d.getTime()) ? new Date(fallback).toISOString() : d.toISOString()
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://msmevault.in'
-  const currentDate = new Date().toISOString()
+  const revisionIso = new Date(CONTENT_REVISION).toISOString()
 
   // 1. Static Core Pages
   const staticPages = [
@@ -32,31 +42,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/contact',
   ].map((route) => ({
     url: `${siteUrl}${route}`,
-    lastModified: currentDate,
-    changeFrequency: 'daily' as const,
-    priority: route === '' ? 1.0 : route.startsWith('/tools') || route === '/schemes' || route === '/loans' ? 0.9 : 0.7,
+    lastModified: revisionIso,
+    changeFrequency: 'monthly' as const,
+    priority: route === '' ? 1.0 : route === '/schemes' || route === '/loans' || route.startsWith('/tools') ? 0.9 : 0.6,
   }))
 
   // 2. Verified Schemes
   const schemePages = VERIFIED_SCHEMES.map((scheme) => ({
     url: `${siteUrl}/schemes/${scheme.slug}`,
-    lastModified: currentDate,
-    changeFrequency: 'weekly' as const,
+    lastModified: toIso((scheme as { lastVerified?: string }).lastVerified ?? CONTENT_REVISION),
+    changeFrequency: 'monthly' as const,
     priority: 0.8,
   }))
 
   // 3. Pillar Policy Guides
   const guidePages = VERIFIED_GUIDES.map((guide) => ({
     url: `${siteUrl}/guides/${guide.slug}`,
-    lastModified: currentDate,
-    changeFrequency: 'weekly' as const,
+    lastModified: toIso((guide as { lastVerified?: string }).lastVerified ?? CONTENT_REVISION),
+    changeFrequency: 'monthly' as const,
     priority: 0.9,
   }))
 
   // 4. Blog posts
   const blogPages = BLOG_POSTS.map((post) => ({
     url: `${siteUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.updatedAt).toISOString(),
+    lastModified: toIso(post.updatedAt),
     changeFrequency: 'monthly' as const,
     priority: 0.85,
   }))
@@ -64,9 +74,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 5. City Consultant Directories (Beta)
   const cityPages = CITIES.map((city) => ({
     url: `${siteUrl}/consultants/${city}`,
-    lastModified: currentDate,
+    lastModified: revisionIso,
     changeFrequency: 'monthly' as const,
-    priority: 0.6,
+    priority: 0.4,
   }))
 
   return [...staticPages, ...schemePages, ...guidePages, ...blogPages, ...cityPages]
