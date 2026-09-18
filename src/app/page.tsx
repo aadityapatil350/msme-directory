@@ -10,6 +10,7 @@ import {
   ExternalLink,
   Search,
 } from 'lucide-react'
+import AdBanner from '@/components/ads/AdBanner'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://msmevault.in'
 
@@ -258,6 +259,12 @@ export default function HomePage() {
           })}
         </div>
       </section>
+
+      {/* Ad */}
+      <div className="flex justify-center px-4 py-2">
+        <AdBanner size="728x90" className="hidden sm:block" />
+        <AdBanner size="320x50" className="sm:hidden" />
+      </div>
 
       {/* 3. Interactive Financial Calculators */}
       <section className="bg-white border-y border-zinc-200 py-12 px-4 sm:px-6 lg:px-8">

@@ -6,6 +6,7 @@ import { formatSchemeBenefit } from '@/lib/scheme-benefit'
 import { ExternalLink, CheckCircle2 } from 'lucide-react'
 import OutboundLink from '@/components/OutboundLink'
 import LeadForm from '@/components/LeadForm'
+import AdBanner from '@/components/ads/AdBanner'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://msmevault.in'
 
@@ -229,6 +230,11 @@ export default async function SchemeDetailPage({
                 </li>
               ))}
             </ul>
+          </div>
+
+          {/* Ad */}
+          <div className="flex justify-center">
+            <AdBanner size="300x250" />
           </div>
 
           {/* 4.5 Lead capture */}
