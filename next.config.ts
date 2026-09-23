@@ -23,6 +23,26 @@ const legacyRedirects = [
   { source: '/schemes/assam-msme-development', destination: '/schemes' },
   { source: '/schemes/market-access-initiative-scheme', destination: '/schemes' },
 
+  // --- High-Traffic 404s identified in GSC Top Pages (Sep 2026) ---
+  { source: '/guides/how-to-get-business-loan-india', destination: '/loans' },
+  { source: '/schemes/zed-certification-scheme', destination: '/schemes/msme-zed-certification' },
+  { source: '/schemes/pmfme-scheme', destination: '/schemes/pmfme-food-processing' },
+  { source: '/guides/stand-up-india-scheme-complete-guide', destination: '/schemes/stand-up-india-scheme' },
+  { source: '/guides/business-loan-vs-mudra-loan-comparison', destination: '/guides/mudra-loan' },
+  { source: '/guides/clcss-scheme-interest-subsidy', destination: '/schemes' },
+  { source: '/schemes/pmegp', destination: '/schemes/pmegp-scheme' },
+  { source: '/schemes/cgtmse-credit-guarantee-fund', destination: '/schemes/cgtmse-credit-guarantee' },
+  { source: '/maharashtra-solar-pump', destination: '/schemes/maharashtra-solar-pump' },
+  { source: '/msme-classification-2026', destination: '/guides/msme-classification-2026' },
+  { source: '/blog/udyam-vs-udyog-aadhar-comparison', destination: '/blog/udyam-vs-udyog-aadhaar-comparison' },
+
+  // --- Crawled Unlisted Consultant Cities ---
+  { source: '/consultants/nagpur', destination: '/consultants' },
+  { source: '/consultants/mysore', destination: '/consultants' },
+  { source: '/consultants/indore', destination: '/consultants' },
+  { source: '/consultants/chandigarh', destination: '/consultants' },
+  { source: '/consultants/ludhiana', destination: '/consultants' },
+
   // --- Crawled / indexed legacy URLs with a clear topical match ---
   { source: '/guides/msme-loan-schemes-india', destination: '/schemes' },
   { source: '/guides/cgtmse-loan-collateral-free-credit', destination: '/guides/cgtmse' },

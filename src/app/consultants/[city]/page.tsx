@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
+import { permanentRedirect } from 'next/navigation'
 import { ArrowRight, CheckCircle2, MapPin } from 'lucide-react'
 
 const CITIES = [
@@ -7,8 +8,7 @@ const CITIES = [
   'chennai', 'hyderabad', 'jaipur', 'kolkata', 'surat'
 ]
 
-// Only the known city list is valid; other cities return a clean 404.
-export const dynamicParams = false
+export const dynamicParams = true
 
 export async function generateStaticParams() {
   return CITIES.map((city) => ({
@@ -22,6 +22,15 @@ export async function generateMetadata({
   params: Promise<{ city: string }>
 }): Promise<Metadata> {
   const { city } = await params
+  if (!CITIES.includes(city.toLowerCase())) {
+    return {
+      robots: {
+        index: false,
+        follow: false,
+      },
+    }
+  }
+
   const cityName = city.charAt(0).toUpperCase() + city.slice(1)
 
   return {
@@ -29,6 +38,12 @@ export async function generateMetadata({
     description: `We are building a verified directory of Chartered Accountants and MSME advisors in ${cityName}. Apply for free founding cohort listing.`,
     alternates: {
       canonical: `/consultants/${city}`,
+    },
+    // Beta placeholder directory pages: keep noindex to protect overall domain quality
+    // until full professional directory listings are published.
+    robots: {
+      index: false,
+      follow: true,
     },
   }
 }
@@ -39,6 +54,10 @@ export default async function CityConsultantsPage({
   params: Promise<{ city: string }>
 }) {
   const { city } = await params
+  if (!CITIES.includes(city.toLowerCase())) {
+    permanentRedirect('/consultants')
+  }
+
   const cityName = city.charAt(0).toUpperCase() + city.slice(1)
 
   return (

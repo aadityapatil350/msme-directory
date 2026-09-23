@@ -20,9 +20,9 @@ export default function Footer() {
         </div>
 
         {/* Footer Navigation Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-10">
           {/* Brand Column */}
-          <div className="lg:col-span-2 space-y-3">
+          <div className="sm:col-span-2 lg:col-span-2 space-y-3">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-md bg-zinc-950 flex items-center justify-center text-white font-bold text-xs">
                 V
@@ -72,6 +72,43 @@ export default function Footer() {
               <li>
                 <Link href="/guides/msme-classification-2026" className="text-zinc-600 hover:text-zinc-950 transition-colors">
                   MSME Thresholds 2026
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column: Business & Manufacturing Guides (New 30 Articles) */}
+          <div>
+            <h4 className="text-zinc-950 text-xs font-semibold uppercase tracking-wider mb-3">Business Hub</h4>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link href="/blog/manufacturing-business-ideas-india" className="text-zinc-600 hover:text-zinc-950 transition-colors">
+                  Manufacturing Under ₹10L
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/manufacturing-business-under-5-lakh" className="text-zinc-600 hover:text-zinc-950 transition-colors">
+                  Manufacturing Under ₹5L
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/business-loan-without-collateral-guide" className="text-zinc-600 hover:text-zinc-950 transition-colors">
+                  Collateral-Free Loans
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/food-processing-business-ideas-with-subsidy" className="text-zinc-600 hover:text-zinc-950 transition-colors">
+                  Food Processing (35% Grant)
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/pmegp-project-report-dpr-format" className="text-zinc-600 hover:text-zinc-950 transition-colors">
+                  PMEGP DPR Format
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="text-emerald-700 font-semibold hover:text-emerald-900 transition-colors">
+                  View All 30 Articles &rarr;
                 </Link>
               </li>
             </ul>

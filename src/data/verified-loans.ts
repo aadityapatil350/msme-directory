@@ -131,7 +131,9 @@ export const VERIFIED_LOANS: VerifiedLoan[] = [
       'Customized structured EMI plans for seasonal businesses',
       'No property collateral needed up to ₹90 Lakh',
     ],
-    applyUrl: 'https://www.tatacapital.com/business-loan.html',
+    applyUrl:
+      process.env.NEXT_PUBLIC_AFFILIATE_TATACAPITAL_URL ||
+      'https://www.tatacapital.com/business-loan.html',
     lastVerified: '22 Aug 2026',
   },
   {
@@ -154,7 +156,9 @@ export const VERIFIED_LOANS: VerifiedLoan[] = [
       'Minimum business vintage: 6 months; minimum turnover: ₹12 Lakh/year',
       'Zero branch visits required',
     ],
-    applyUrl: 'https://www.lendingkart.com',
+    applyUrl:
+      process.env.NEXT_PUBLIC_AFFILIATE_LENDINGKART_URL ||
+      'https://www.lendingkart.com',
     lastVerified: '22 Aug 2026',
   },
   {

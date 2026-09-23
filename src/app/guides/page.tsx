@@ -96,6 +96,31 @@ export default function GuidesPage() {
             </div>
           ))}
         </div>
+
+        {/* Knowledge Hub Blog Banner */}
+        <div className="bg-white border border-zinc-200 rounded-xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xs">
+          <div className="space-y-1 max-w-2xl">
+            <span className="text-[10px] font-mono uppercase bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded font-semibold inline-block">
+              30 In-Depth Articles &bull; Knowledge Hub
+            </span>
+            <h2 className="text-base sm:text-lg font-bold text-zinc-950">
+              Manufacturing Business Ideas, Mudra Secrets &amp; Loan Blueprints
+            </h2>
+            <p className="text-xs text-zinc-500 leading-relaxed">
+              Explore our full collection of 30 research-backed articles covering business ideas under ₹2L, ₹5L, ₹10L, ₹20L, collateral-free loan recovery, PMEGP DPR templates, and more.
+            </p>
+          </div>
+
+          <div className="flex-shrink-0">
+            <Link
+              href="/blog"
+              className="bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold px-4 py-2.5 rounded-lg transition-colors inline-flex items-center gap-1.5"
+            >
+              <span>Explore All 30 Articles</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { VERIFIED_SCHEMES } from '@/data/verified-schemes'
+import { BLOG_POSTS } from '@/data/verified-blog'
 import { formatSchemeBenefit } from '@/lib/scheme-benefit'
 import {
   ArrowRight,
@@ -9,6 +10,8 @@ import {
   FileCheck,
   ExternalLink,
   Search,
+  BookOpen,
+  Clock,
 } from 'lucide-react'
 import AdBanner from '@/components/ads/AdBanner'
 
@@ -43,6 +46,15 @@ export const metadata: Metadata = {
 export default function HomePage() {
   const topSchemes = VERIFIED_SCHEMES.slice(0, 6)
   const totalSchemesCount = VERIFIED_SCHEMES.length
+
+  const featuredArticles = [
+    BLOG_POSTS.find((p) => p.slug === 'manufacturing-business-ideas-india'),
+    BLOG_POSTS.find((p) => p.slug === 'manufacturing-business-under-5-lakh'),
+    BLOG_POSTS.find((p) => p.slug === 'business-loan-without-collateral-guide'),
+    BLOG_POSTS.find((p) => p.slug === 'food-processing-business-ideas-with-subsidy'),
+    BLOG_POSTS.find((p) => p.slug === 'pmegp-project-report-dpr-format'),
+    BLOG_POSTS.find((p) => p.slug === 'mudra-loan-without-cibil-score'),
+  ].filter(Boolean) as (typeof BLOG_POSTS)[number][]
 
   const states = [
     { name: 'Maharashtra', count: '14+' },
@@ -266,7 +278,78 @@ export default function HomePage() {
         <AdBanner size="320x50" className="sm:hidden" />
       </div>
 
-      {/* 3. Interactive Financial Calculators */}
+      {/* 3. Featured Manufacturing & Business Ideas (Knowledge Hub) */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full">
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-6 gap-2">
+          <div>
+            <div className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-800 text-[10px] font-mono font-medium px-2.5 py-0.5 rounded mb-2 border border-emerald-200">
+              <BookOpen className="w-3 h-3" />
+              <span>30 In-Depth Articles &bull; Verified Research Hub</span>
+            </div>
+            <h2 className="text-xl font-bold text-zinc-950">
+              Manufacturing Business Ideas &amp; MSME Guides
+            </h2>
+            <p className="text-xs text-zinc-500 mt-0.5">
+              Itemized capex budgets, machinery costs, profit margins, and statutory loan blueprints.
+            </p>
+          </div>
+
+          <Link
+            href="/blog"
+            className="text-xs font-semibold text-emerald-700 hover:text-emerald-900 flex items-center gap-1 group self-start sm:self-auto"
+          >
+            <span>Explore all 30 articles</span>
+            <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {featuredArticles.map((post) => (
+            <article
+              key={post.slug}
+              className="bg-white border border-zinc-200 hover:border-zinc-300 rounded-xl p-5 shadow-2xs hover:shadow-xs transition-all flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-2.5">
+                  <span className="bg-zinc-100 text-zinc-700 text-[10px] font-mono font-medium px-2 py-0.5 rounded">
+                    {post.category}
+                  </span>
+                  <div className="text-[10px] text-zinc-400 font-mono flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    <span>{post.readTimeMinutes} min</span>
+                  </div>
+                </div>
+
+                <h3 className="font-bold text-sm text-zinc-950 mb-1.5 leading-snug">
+                  <Link href={`/blog/${post.slug}`} className="hover:underline">
+                    {post.title}
+                  </Link>
+                </h3>
+
+                <p className="text-xs text-zinc-500 line-clamp-3 mb-4 leading-relaxed">
+                  {post.excerpt}
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-zinc-100 flex items-center justify-between">
+                <span className="text-[11px] text-zinc-400 font-mono">
+                  {post.author.name}
+                </span>
+
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="bg-zinc-900 hover:bg-zinc-800 text-white text-[11px] font-medium px-2.5 py-1.5 rounded-md transition-colors inline-flex items-center gap-1"
+                >
+                  <span>Read Article</span>
+                  <ArrowRight className="w-3 h-3" />
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* 4. Interactive Financial Calculators */}
       <section className="bg-white border-y border-zinc-200 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="max-w-2xl mb-8">

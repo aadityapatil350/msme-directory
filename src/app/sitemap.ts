@@ -3,15 +3,10 @@ import { VERIFIED_SCHEMES } from '@/data/verified-schemes'
 import { VERIFIED_GUIDES } from '@/data/verified-guides'
 import { BLOG_POSTS } from '@/data/verified-blog'
 
-const CITIES = [
-  'mumbai', 'delhi', 'bangalore', 'pune', 'ahmedabad',
-  'chennai', 'hyderabad', 'jaipur', 'kolkata', 'surat'
-]
-
 // Stable fallback date for pages without their own revision date. Bump when the
 // static content set changes — do NOT use `new Date()`, which makes every URL
 // look modified on every crawl and trains Google to ignore <lastmod>.
-const CONTENT_REVISION = '2026-09-08'
+const CONTENT_REVISION = '2026-09-23'
 
 function toIso(value: string, fallback = CONTENT_REVISION): string {
   const d = new Date(value)
@@ -71,13 +66,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }))
 
-  // 5. City Consultant Directories (Beta)
-  const cityPages = CITIES.map((city) => ({
-    url: `${siteUrl}/consultants/${city}`,
-    lastModified: revisionIso,
-    changeFrequency: 'monthly' as const,
-    priority: 0.4,
-  }))
-
-  return [...staticPages, ...schemePages, ...guidePages, ...blogPages, ...cityPages]
+  return [...staticPages, ...schemePages, ...guidePages, ...blogPages]
 }

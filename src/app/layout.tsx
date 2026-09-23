@@ -36,9 +36,6 @@ export const metadata: Metadata = {
   authors: [{ name: "MSMEVault Editorial Research Desk", url: `${siteUrl}/about` }],
   creator: "MSMEVault.in",
   publisher: "MSMEVault.in",
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: "MSMEVault.in – Verified Indian Government Schemes & MSME Loans",
     description:
