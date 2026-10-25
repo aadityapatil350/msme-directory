@@ -13,7 +13,6 @@ import {
   BookOpen,
   Clock,
 } from 'lucide-react'
-import AdBanner from '@/components/ads/AdBanner'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://msmevault.in'
 
@@ -271,12 +270,6 @@ export default function HomePage() {
           })}
         </div>
       </section>
-
-      {/* Ad */}
-      <div className="flex justify-center px-4 py-2">
-        <AdBanner size="728x90" className="hidden sm:block" />
-        <AdBanner size="320x50" className="sm:hidden" />
-      </div>
 
       {/* 3. Featured Manufacturing & Business Ideas (Knowledge Hub) */}
       <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full">

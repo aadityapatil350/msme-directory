@@ -7,7 +7,6 @@ import {
   CheckCircle2,
 } from 'lucide-react'
 import LeadForm from '@/components/LeadForm'
-import AdBanner from '@/components/ads/AdBanner'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://msmevault.in'
 
@@ -229,11 +228,6 @@ export default async function GuideDetailPage({
               })}
             </div>
           ))}
-        </div>
-
-        {/* Ad */}
-        <div className="flex justify-center mb-6">
-          <AdBanner size="300x250" />
         </div>
 
         {/* Lead capture */}

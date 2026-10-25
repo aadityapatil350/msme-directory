@@ -4,8 +4,6 @@ import { Metadata } from 'next'
 import { BLOG_POSTS } from '@/data/verified-blog'
 import { Clock, ExternalLink, User } from 'lucide-react'
 import LeadForm from '@/components/LeadForm'
-import AdBanner from '@/components/ads/AdBanner'
-import LoanComparisonCard from '@/components/affiliate/LoanComparisonCard'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://msmevault.in'
 
@@ -285,14 +283,6 @@ export default async function BlogPostPage({
 
         <div className="bg-white border border-zinc-200 rounded-xl p-6 sm:p-8 mb-6 shadow-2xs">
           {renderContent(post.content)}
-        </div>
-
-        {/* Affiliate Loan Comparison Box */}
-        <LoanComparisonCard />
-
-        {/* Ad */}
-        <div className="flex justify-center mb-6">
-          <AdBanner size="300x250" />
         </div>
 
         {/* FAQ */}
