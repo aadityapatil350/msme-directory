@@ -32,9 +32,68 @@ const legacyRedirects = [
   { source: '/guides/clcss-scheme-interest-subsidy', destination: '/schemes' },
   { source: '/schemes/pmegp', destination: '/schemes/pmegp-scheme' },
   { source: '/schemes/cgtmse-credit-guarantee-fund', destination: '/schemes/cgtmse-credit-guarantee' },
-  { source: '/maharashtra-solar-pump', destination: '/schemes/maharashtra-solar-pump' },
+  // NOTE: this used to redirect to /schemes/maharashtra-solar-pump, which was
+  // never actually built — that destination 404s. The real content lives on
+  // the blog post below. This single fix recovers ~110 clicks/yr (GSC Oct 2026).
+  { source: '/maharashtra-solar-pump', destination: '/blog/maharashtra-saur-krushi-pump-yojana-complete-guide' },
+  { source: '/schemes/maharashtra-solar-pump', destination: '/blog/maharashtra-saur-krushi-pump-yojana-complete-guide' },
   { source: '/msme-classification-2026', destination: '/guides/msme-classification-2026' },
   { source: '/blog/udyam-vs-udyog-aadhar-comparison', destination: '/blog/udyam-vs-udyog-aadhaar-comparison' },
+
+  // --- High-Traffic 404s identified in GSC Top Pages (Oct 2026 pull) ---
+  { source: '/guides/msme-payment-delayed-interest-act', destination: '/blog/msme-45-days-payment-rule-section-43b-h' },
+
+  // --- Real central/state schemes that used to have pages; no current
+  //     equivalent exists yet, so point at the schemes index rather than a
+  //     dead end. Strong candidates to turn into real pages later: ECLGS and
+  //     SIDBI SMILE both have meaningful standalone search demand. ---
+  { source: '/schemes/atal-innovation-mission', destination: '/schemes' },
+  { source: '/schemes/mse-cluster-development', destination: '/schemes' },
+  { source: '/schemes/maharashtra-msfc-loan', destination: '/schemes' },
+  { source: '/schemes/karnataka-msme-loan', destination: '/schemes' },
+  { source: '/schemes/west-bengal-msme-loan', destination: '/schemes' },
+  { source: '/schemes/pli-textiles', destination: '/schemes' },
+  { source: '/schemes/andhra-pradesh-msme-support', destination: '/schemes' },
+  { source: '/schemes/jharkhand-msme-financial', destination: '/schemes' },
+  { source: '/schemes/eclgs-scheme', destination: '/schemes' },
+  { source: '/schemes/sidbi-smile-loan', destination: '/schemes' },
+  { source: '/schemes/madhya-pradesh-msme-loan', destination: '/schemes' },
+  { source: '/schemes/sfurti-khadi-clusters', destination: '/schemes' },
+  { source: '/schemes/telangana-thub-startup', destination: '/schemes' },
+  { source: '/schemes/aspire-scheme', destination: '/schemes' },
+  { source: '/schemes/punjab-msme-loan-subsidy', destination: '/schemes' },
+  { source: '/schemes/cgssd-scheme', destination: '/schemes' },
+  { source: '/schemes/nidhi-scheme', destination: '/schemes' },
+  { source: '/schemes/gujarat-biotechnology-startup', destination: '/schemes' },
+
+  // --- Retired generic small-business-advice posts (pre-Aug 2026 rebuild);
+  //     low/no current traffic, no direct equivalent — send to blog index. ---
+  { source: '/blog/msme-ecommerce-selling-online', destination: '/blog' },
+  { source: '/blog/profitable-service-business-ideas-india', destination: '/blog' },
+  { source: '/blog/working-from-home-business-ideas', destination: '/blog' },
+  { source: '/blog/rural-business-ideas-india', destination: '/blog' },
+  { source: '/blog/business-plan-template-india', destination: '/blog' },
+  { source: '/blog/msme-social-media-marketing-guide', destination: '/blog' },
+  { source: '/blog/msme-franchise-opportunities-india', destination: '/blog' },
+  { source: '/blog/msme-sector-india-statistics-trends', destination: '/blog' },
+  { source: '/blog/msme-pricing-strategy-guide', destination: '/blog' },
+  { source: '/blog/msme-sustainability-green-manufacturing', destination: '/blog' },
+  { source: '/blog/how-to-scale-small-business-india', destination: '/blog' },
+  { source: '/blog/online-business-ideas-zero-investment', destination: '/blog' },
+  { source: '/blog/msme-partnership-collaboration-tips', destination: '/blog' },
+  { source: '/blog/financial-planning-small-business-india', destination: '/blog' },
+  { source: '/blog/business-automation-tools-msme', destination: '/blog' },
+  { source: '/blog/msme-marketing-strategies-low-budget', destination: '/blog' },
+  { source: '/blog/msme-digital-transformation-guide', destination: '/blog' },
+  { source: '/blog/msme-branding-strategies', destination: '/blog' },
+  { source: '/blog/msme-succession-planning-guide', destination: '/blog' },
+  { source: '/blog/cashflow-management-small-business', destination: '/blog' },
+  { source: '/blog/best-business-ideas-india-2025', destination: '/blog' },
+  { source: '/blog/inventory-management-small-business', destination: '/blog' },
+  { source: '/blog/msme-crisis-management-guide', destination: '/blog' },
+  { source: '/blog/customer-service-excellence-small-business', destination: '/blog' },
+  { source: '/blog/msme-hiring-recruitment-tips', destination: '/blog' },
+  { source: '/blog/msme-export-guide-beginners', destination: '/blog' },
 
   // --- Crawled Unlisted Consultant Cities ---
   { source: '/consultants/nagpur', destination: '/consultants' },
