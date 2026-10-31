@@ -291,7 +291,7 @@ export default function HomePage() {
             href="/blog"
             className="text-xs font-semibold text-emerald-700 hover:text-emerald-900 flex items-center gap-1 group self-start sm:self-auto"
           >
-            <span>Explore all 30 articles</span>
+            <span>Explore all {BLOG_POSTS.length} articles</span>
             <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>

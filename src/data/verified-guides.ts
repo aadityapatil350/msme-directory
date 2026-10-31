@@ -19,11 +19,11 @@ export interface VerifiedGuide {
 export const VERIFIED_GUIDES: VerifiedGuide[] = [
   {
     slug: 'udyam-registration',
-    title: 'Udyam Registration 2026: Complete Step-by-Step Guide &amp; Free Application Process',
+    title: 'Udyam Registration 2026: Complete Step-by-Step Guide and Free Application Process',
     metaTitle: 'Udyam Registration 2026: Official Free Portal Process & Benefits | MSMEVault',
     metaDescription: 'Step-by-step verified guide to free online Udyam Registration on udyamregistration.gov.in. Zero fees, Aadhaar OTP authentication, and lifetime certificate validity.',
     category: 'Statutory Registration',
-    lastVerified: '22 Aug 2026',
+    lastVerified: '31 Oct 2026',
     author: {
       name: 'Aditya Patil',
       role: 'Lead Research Analyst',
@@ -93,11 +93,11 @@ Follow these exact steps on the official government website:
   },
   {
     slug: 'mudra-loan',
-    title: 'PM Mudra Yojana (PMMY) 2026: Loan Limits, Tarun Plus (₹20L) &amp; Application Guide',
+    title: 'PM Mudra Yojana (PMMY) 2026: Loan Limits, Tarun Plus (₹20L) & Application Guide',
     metaTitle: 'PM Mudra Yojana 2026: Shishu, Kishor, Tarun & Tarun Plus (₹20L) Guide | MSMEVault',
     metaDescription: 'Verified breakdown of PM Mudra Loan categories (Shishu up to ₹50k, Kishor up to ₹5L, Tarun up to ₹10L, and Tarun Plus up to ₹20L w.e.f. Oct 2024). Eligibility & application steps.',
     category: 'Credit & Loans',
-    lastVerified: '22 Aug 2026',
+    lastVerified: '31 Oct 2026',
     author: {
       name: 'Aditya Patil',
       role: 'Lead Research Analyst',
@@ -162,11 +162,11 @@ Announced in Union Budget 2024-25 and officially notified by the Department of F
   },
   {
     slug: 'pmegp-loan',
-    title: 'PMEGP Subsidy Scheme 2026: 15%–35% Margin Money Grant &amp; Project Ceilings',
+    title: 'PMEGP Subsidy Scheme 2026: 15%–35% Margin Money Grant & Project Ceilings',
     metaTitle: 'PMEGP Subsidy 2026: 15%–35% Margin Money, ₹50L Mfg Cap & Calculation | MSMEVault',
     metaDescription: 'Comprehensive guide to Prime Minister Employment Generation Programme (PMEGP). Revised ₹50L manufacturing / ₹20L service project ceilings, subsidy matrix, and KVIC portal workflow.',
     category: 'Capital Subsidy',
-    lastVerified: '22 Aug 2026',
+    lastVerified: '31 Oct 2026',
     author: {
       name: 'Aditya Patil',
       role: 'Lead Research Analyst',
@@ -232,7 +232,7 @@ The subsidy percentage depends on the promoter's social category and the geograp
     metaTitle: 'CGTMSE Guarantee Cover 2026: ₹10 Crore Limit, Fees & Bank Process | MSMEVault',
     metaDescription: 'Verified guide to CGTMSE credit guarantee cover up to ₹10 Crore (increased from ₹5 Cr w.e.f. 1 Apr 2025 per Circular 250). Eligibility, coverage ratio, and bank coordination.',
     category: 'Credit Guarantee',
-    lastVerified: '22 Aug 2026',
+    lastVerified: '31 Oct 2026',
     author: {
       name: 'Aditya Patil',
       role: 'Lead Research Analyst',
@@ -295,11 +295,11 @@ To keep credit affordable, CGTMSE charges an Annual Guarantee Fee (AGF) based on
   },
   {
     slug: 'msme-classification-2026',
-    title: 'New MSME Classification Limits 2026: Investment &amp; Turnover Thresholds Explained',
+    title: 'New MSME Classification Limits 2026: Investment & Turnover Thresholds Explained',
     metaTitle: 'MSME Classification 2026: New Limits w.e.f. 1 April 2025 | MSMEVault',
     metaDescription: 'Verified MSME definition per Gazette Notification S.O. 1364(E). Micro (₹2.5Cr / ₹10Cr), Small (₹25Cr / ₹100Cr), Medium (₹125Cr / ₹500Cr). Composite criteria explained.',
     category: 'Regulatory & Policy',
-    lastVerified: '22 Aug 2026',
+    lastVerified: '31 Oct 2026',
     author: {
       name: 'Aditya Patil',
       role: 'Lead Research Analyst',
@@ -321,7 +321,7 @@ Through **Gazette Notification S.O. 1364(E) dated 21 March 2025**, the Ministry 
 
 The unified definition applies equally to both **Manufacturing and Service** enterprises:
 
-| Classification | Investment in Plant &amp; Machinery / Equipment | Annual Net Turnover |
+| Classification | Investment in Plant & Machinery / Equipment | Annual Net Turnover |
 | :--- | :--- | :--- |
 | **Micro Enterprise** | Up to **₹2.50 Crore** | Up to **₹10.00 Crore** |
 | **Small Enterprise** | Up to **₹25.00 Crore** | Up to **₹100.00 Crore** |

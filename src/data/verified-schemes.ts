@@ -113,7 +113,7 @@ export const VERIFIED_SCHEMES: VerifiedScheme[] = [
   {
     id: 'sch_mudra_tarun',
     slug: 'pm-mudra-yojana-tarun',
-    name: 'PM Mudra Yojana — Tarun &amp; Tarun Plus',
+    name: 'PM Mudra Yojana — Tarun & Tarun Plus',
     shortDescription: 'Loans ₹5 Lakh to ₹10 Lakh (Tarun) and up to ₹20 Lakh (Tarun Plus for repeat borrowers).',
     description: 'PMMY Tarun offers credit facilities from ₹5 Lakh to ₹10 Lakh. Following the Department of Financial Services notification w.e.f. 24 October 2024, the "Tarun Plus" category extends limits up to ₹20 Lakh for entrepreneurs who have previously availed and successfully repaid Tarun loans.',
     nodalMinistry: 'Department of Financial Services (DFS), Ministry of Finance',
@@ -145,10 +145,10 @@ export const VERIFIED_SCHEMES: VerifiedScheme[] = [
   {
     id: 'sch_cgtmse',
     slug: 'cgtmse-credit-guarantee',
-    name: 'CGTMSE (Credit Guarantee Fund Trust for Micro &amp; Small Enterprises)',
+    name: 'CGTMSE (Credit Guarantee Fund Trust for Micro & Small Enterprises)',
     shortDescription: 'Collateral-free bank loan guarantee cover up to ₹10 Crore (increased from ₹5 Cr w.e.f. 1 Apr 2025).',
     description: 'CGTMSE provides institutional credit guarantee to Member Lending Institutions (MLIs) for extending collateral-free term loans and working capital to MSEs. Effective 1 April 2025 (Circular No. 250/2024-25 dated 18 March 2025), the maximum guarantee cover ceiling was raised from ₹5 Crore to ₹10 Crore.',
-    nodalMinistry: 'Ministry of MSME &amp; SIDBI',
+    nodalMinistry: 'Ministry of MSME & SIDBI',
     type: 'central',
     sector: ['Manufacturing', 'Services', 'Selected Retail Trade'],
     benefit: {
@@ -178,7 +178,7 @@ export const VERIFIED_SCHEMES: VerifiedScheme[] = [
     name: 'PMEGP (Prime Minister Employment Generation Programme)',
     shortDescription: 'Credit-linked margin money subsidy 15%–35% on projects up to ₹50L (mfg) / ₹20L (service).',
     description: 'PMEGP is a major credit-linked capital subsidy scheme implemented by KVIC. Subsidies range from 15% to 35% of total project cost (urban general 15%, rural general 25%, urban special 25%, rural special 35%). Project cost ceilings are ₹50 Lakh for manufacturing and ₹20 Lakh for service/business units.',
-    nodalMinistry: 'Ministry of MSME &amp; KVIC',
+    nodalMinistry: 'Ministry of MSME & KVIC',
     type: 'central',
     sector: ['Manufacturing', 'Services', 'Food Processing', 'Traditional Crafts'],
     benefit: {
@@ -211,7 +211,7 @@ export const VERIFIED_SCHEMES: VerifiedScheme[] = [
     name: 'PM Vishwakarma Scheme',
     shortDescription: 'Collateral-free credit up to ₹3 Lakh @ fixed 5% interest, ₹15,000 toolkit voucher & skill training for 18 trades.',
     description: 'Comprehensive central sector scheme supporting traditional artisans and craftspeople across 18 notified trades. Provides recognized PM Vishwakarma Certificate & ID, 5–7 days basic skill training with ₹500/day stipend, ₹15,000 e-voucher for modern toolkits, and collateral-free enterprise credit up to ₹3 Lakh in two tranches (Tranche 1: ₹1L @ 18 mos; Tranche 2: ₹2L @ 30 mos) at a concessional interest rate of 5% (with 8% GoI subvention).',
-    nodalMinistry: 'Ministry of MSME &amp; Ministry of Skill Development',
+    nodalMinistry: 'Ministry of MSME & Ministry of Skill Development',
     type: 'central',
     sector: ['Traditional Crafts', 'Manufacturing', 'Services'],
     benefit: {
@@ -358,8 +358,8 @@ export const VERIFIED_SCHEMES: VerifiedScheme[] = [
   {
     id: 'sch_state_guj_msme',
     slug: 'gujarat-msme-scheme-incentives',
-    name: 'Gujarat Industrial Policy — MSME Capital &amp; Interest Subsidy',
-    shortDescription: 'Up to 25% capital investment subsidy (cap ₹35 Lakh) &amp; 7% interest subsidy for 5–7 years.',
+    name: 'Gujarat Industrial Policy — MSME Capital & Interest Subsidy',
+    shortDescription: 'Up to 25% capital investment subsidy (cap ₹35 Lakh) & 7% interest subsidy for 5–7 years.',
     description: 'Incentives under Gujarat Industrial Policy for micro, small, and medium enterprises. Provides capital subsidy of 10%–25% (up to ₹35 Lakh) on eligible plant & machinery and 5%–7% interest subsidy for up to 7 years.',
     nodalMinistry: 'Industries and Mines Department, Government of Gujarat',
     type: 'state',
@@ -421,9 +421,9 @@ export const VERIFIED_SCHEMES: VerifiedScheme[] = [
     id: 'sch_state_up_msme',
     slug: 'up-msme-promotion-policy',
     name: 'Uttar Pradesh MSME Promotion Policy',
-    shortDescription: 'Capital subsidy 15%–25% (up to ₹4 Crore) &amp; 100% stamp duty exemption in Purvanchal &amp; Bundelkhand.',
+    shortDescription: 'Capital subsidy 15%–25% (up to ₹4 Crore) & 100% stamp duty exemption in Purvanchal & Bundelkhand.',
     description: 'Uttar Pradesh MSME policy offering 15% to 25% capital subsidy (cap ₹4 Crore in Bundelkhand/Purvanchal and ₹2 Crore in Western UP), 50% interest subsidy on loans up to ₹5 Crore, and 100% stamp duty exemption.',
-    nodalMinistry: 'Department of MSME &amp; Export Promotion, Uttar Pradesh',
+    nodalMinistry: 'Department of MSME & Export Promotion, Uttar Pradesh',
     type: 'state',
     state: 'Uttar Pradesh',
     sector: ['Manufacturing', 'Food Processing', 'Traditional Crafts'],

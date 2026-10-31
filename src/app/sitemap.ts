@@ -6,7 +6,7 @@ import { BLOG_POSTS } from '@/data/verified-blog'
 // Stable fallback date for pages without their own revision date. Bump when the
 // static content set changes — do NOT use `new Date()`, which makes every URL
 // look modified on every crawl and trains Google to ignore <lastmod>.
-const CONTENT_REVISION = '2026-09-23'
+const CONTENT_REVISION = '2026-10-31'
 
 function toIso(value: string, fallback = CONTENT_REVISION): string {
   const d = new Date(value)

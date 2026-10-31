@@ -45,7 +45,7 @@ export const VERIFIED_LOANS: VerifiedLoan[] = [
   {
     id: 'loan_sbi_mudra',
     slug: 'sbi-e-mudra-loan',
-    name: 'SBI e-Mudra Shishu &amp; Kishor Loan',
+    name: 'SBI e-Mudra Shishu & Kishor Loan',
     provider: 'State Bank of India (SBI)',
     providerType: 'psu-bank',
     category: 'mudra',
@@ -122,7 +122,7 @@ export const VERIFIED_LOANS: VerifiedLoan[] = [
     maxAmount: 9000000,
     interestRateMin: 13.5,
     interestRateMax: 19.0,
-    interestRateNote: 'Fixed interest rates assessed on cash flows &amp; CIBIL score',
+    interestRateNote: 'Fixed interest rates assessed on cash flows & CIBIL score',
     tenure: '12 to 60 Months',
     collateralRequired: false,
     processingFee: 'Up to 2.50% + GST',
