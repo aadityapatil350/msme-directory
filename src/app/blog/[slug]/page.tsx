@@ -198,19 +198,40 @@ export default async function BlogPostPage({
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
+    '@id': `${siteUrl}/blog/${post.slug}#article`,
     headline: post.title,
     description: post.metaDescription,
     keywords: [post.targetKeyword, ...post.tags].join(', '),
-    author: { '@type': 'Person', name: post.author.name, jobTitle: post.author.role },
+    articleSection: post.category,
+    inLanguage: 'en-IN',
+    isAccessibleForFree: true,
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['.article-summary', 'h2'],
+    },
+    author: {
+      '@type': 'Person',
+      name: post.author.name,
+      jobTitle: post.author.role,
+      worksFor: {
+        '@type': 'Organization',
+        '@id': `${siteUrl}/#organization`,
+        name: 'MSMEVault.in',
+      },
+    },
     publisher: {
       '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
       name: 'MSMEVault.in',
       url: siteUrl,
       logo: { '@type': 'ImageObject', url: `${siteUrl}/icon.svg` },
     },
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,
-    mainEntityOfPage: `${siteUrl}/blog/${post.slug}`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}/blog/${post.slug}`,
+    },
   }
 
   const breadcrumbJsonLd = {

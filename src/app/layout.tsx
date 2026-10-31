@@ -54,19 +54,50 @@ export default function RootLayout({
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${siteUrl}/#organization`,
     name: "MSMEVault.in",
     url: siteUrl,
-    logo: `${siteUrl}/icon.svg`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${siteUrl}/icon.svg`,
+      width: 512,
+      height: 512,
+    },
     description:
-      "Independent private portal for Indian MSME government scheme guidance, loan comparisons, and subsidy calculations.",
-    sameAs: [],
+      "Independent private research portal and utility platform for Indian MSME government scheme guidance, loan comparisons, subsidy calculations, and business development.",
+    foundingDate: "2024-01-01",
+    areaServed: "IN",
+    knowsAbout: [
+      "Indian Micro, Small and Medium Enterprises (MSME)",
+      "Udyam Registration & Re-classification",
+      "Pradhan Mantri Mudra Yojana (PMMY) Loans",
+      "Prime Minister Employment Generation Programme (PMEGP) Subsidies",
+      "CGTMSE Collateral-Free Credit Guarantee",
+      "Goods and Services Tax (GST) Compliance in India",
+      "National Industrial Classification (NIC) Codes",
+      "Small Business Ideas and Startup Operations in India",
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "editorial support",
+      email: "editorial@msmevault.in",
+      availableLanguage: ["English", "Hindi"],
+    },
+    sameAs: [
+      "https://github.com/aadityapatil350/msme-directory",
+    ],
   };
 
   const webSiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
     name: "MSMEVault.in",
     url: siteUrl,
+    publisher: {
+      "@id": `${siteUrl}/#organization`,
+    },
+    inLanguage: "en-IN",
     potentialAction: {
       "@type": "SearchAction",
       target: `${siteUrl}/schemes?q={search_term_string}`,

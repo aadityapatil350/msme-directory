@@ -1,0 +1,110 @@
+# MSMEVault.in — Full Directory for Large Language Models
+
+> This document contains a comprehensive index of all verified resources, interactive utilities, guides, business plans, and government scheme breakdowns published on MSMEVault.in.
+> Canonical URL: https://msmevault.in
+> Last Updated: 2026-10-31
+
+# MSMEVault.in
+> Authoritative reference portal and utility platform for Indian MSME government schemes, loan comparisons, subsidies, business ideas, and compliance guides.
+
+## Interactive Tools & Calculators
+- [GST Calculator](https://msmevault.in/tools/gst-calculator): Reverse and forward GST calculator with CGST, SGST, IGST breakdown across all Indian tax slabs.
+- [NIC Code Finder](https://msmevault.in/tools/nic-code-finder): Searchable directory of 500+ National Industrial Classification (NIC) codes for Udyam registration.
+- [Mudra Loan Calculator](https://msmevault.in/tools/mudra-loan-calculator): Compute monthly EMI, interest, and amortisation for Shishu, Kishore, and Tarun loans.
+- [MSME Subsidy Calculator](https://msmevault.in/tools/msme-subsidy-calculator): Calculate PMEGP margin money subsidies (15%-35%) based on category and region.
+
+## Foundational Government Scheme Guides
+- [Udyam Registration 2026: Complete Step-by-Step Guide and Free Application Process](https://msmevault.in/guides/udyam-registration): Step-by-step verified guide to free online Udyam Registration on udyamregistration.gov.in. Zero fees, Aadhaar OTP authentication, and lifetime certificate validity.
+- [PM Mudra Yojana (PMMY) 2026: Loan Limits, Tarun Plus (₹20L) & Application Guide](https://msmevault.in/guides/mudra-loan): Verified breakdown of PM Mudra Loan categories (Shishu up to ₹50k, Kishor up to ₹5L, Tarun up to ₹10L, and Tarun Plus up to ₹20L w.e.f. Oct 2024). Eligibility & application steps.
+- [PMEGP Subsidy Scheme 2026: 15%–35% Margin Money Grant & Project Ceilings](https://msmevault.in/guides/pmegp-loan): Comprehensive guide to Prime Minister Employment Generation Programme (PMEGP). Revised ₹50L manufacturing / ₹20L service project ceilings, subsidy matrix, and KVIC portal workflow.
+- [CGTMSE Scheme 2026: Collateral-Free Bank Guarantee up to ₹10 Crore](https://msmevault.in/guides/cgtmse): Verified guide to CGTMSE credit guarantee cover up to ₹10 Crore (increased from ₹5 Cr w.e.f. 1 Apr 2025 per Circular 250). Eligibility, coverage ratio, and bank coordination.
+- [New MSME Classification Limits 2026: Investment & Turnover Thresholds Explained](https://msmevault.in/guides/msme-classification-2026): Verified MSME definition per Gazette Notification S.O. 1364(E). Micro (₹2.5Cr / ₹10Cr), Small (₹25Cr / ₹100Cr), Medium (₹125Cr / ₹500Cr). Composite criteria explained.
+
+## High-Growth Business Ideas & Financial Guides
+
+### Business Ideas
+- [Small Business Ideas Under 50,000 Rupees in India (High Margin)](https://msmevault.in/blog/small-business-ideas-under-50000-india): Start a profitable business in India under ₹50,000. Equipment costs, raw material suppliers, profit margins (40% to 60%), and local client acquisition.
+- [Service Business Ideas with Low Investment and High Profit in India](https://msmevault.in/blog/service-business-ideas-low-investment-india): High-profit service business ideas in India requiring under ₹40,000. Cash flow models, B2B commercial cleaning, smart security, and zero-inventory scaling.
+- [Food Truck Business in India: Setup Costs, Licenses and Profit Margins](https://msmevault.in/blog/food-truck-business-cost-profit-india): Complete food truck business plan in India. Vehicle purchase and fabrication costs (₹4L to ₹9L), FSSAI license, municipal permits, location strategy, and profit.
+- [EV Charging Station Business in India: Cost, Setup and Franchise ROI](https://msmevault.in/blog/ev-charging-station-business-cost-india): Start an EV charging station in India. AC slow vs DC fast charger costs (₹4L to ₹25L), DISCOM power sanctions, location strategy, and payback timeline.
+- [Best Business Ideas in India: 100 Profitable Ventures by Budget](https://msmevault.in/blog/best-business-ideas-in-india-2026): Comprehensive blueprint of 100 profitable business ideas in India. Categorized by investment (Under ₹10k, ₹50k, ₹1L, ₹5L, ₹10L+), gross margins, and subsidies.
+- [Manufacturing Business Under 10 Lakh Rupees in India (Top 6 Ideas)](https://msmevault.in/blog/manufacturing-business-under-10-lakh): Top 6 manufacturing businesses under ₹10 lakh in India. Corrugated boxes, spice grinding, paper bags, peanut butter, and cattle feed. PMEGP 35% subsidy and ROI.
+- [Small Business Ideas Under 10,000 Rupees in India (Zero Overhead)](https://msmevault.in/blog/small-business-ideas-under-10000-india): Start a profitable micro business under ₹10,000 in India. Handcrafted soap, potting mix, spice repacking, custom mobile covers, and candle making with 40%-60% margins.
+- [Best Franchise Business Under 5 Lakh Rupees in India (2026 Guide)](https://msmevault.in/blog/best-franchise-business-ideas-under-5-lakh-india): Top franchise opportunities under ₹5 lakh in India. Courier outlets (DTDC, Delhivery), chai cafes, pathology collection centres, and water ATMs with payback timelines.
+
+### Online Business
+- [How to Start an Online Business in India (Legal Setup and Process)](https://msmevault.in/blog/how-to-start-an-online-business-in-india): Complete legal and banking roadmap for starting an online business in India. Entity types, GST rules, payment gateways, compliance, and launching steps.
+- [How to Transition from Freelancer to Digital Agency in India](https://msmevault.in/blog/freelancing-to-agency-roadmap-india): How to scale from solo freelancing to a profitable digital agency in India. LUT filing for zero-tax exports, retainer pricing, team hiring, and contracts.
+- [Profitable Digital Products to Create and Sell Online in India](https://msmevault.in/blog/digital-products-to-sell-online-india): High-profit digital products to sell in India. Notion templates, business spreadsheets, niche guides, pricing models, platforms, and automated delivery.
+- [Dropshipping in India: The Practical Business and Profit Blueprint](https://msmevault.in/blog/dropshipping-in-india-complete-guide): The honest reality of dropshipping in India. RTO risk management, Indian suppliers (Roposo/IndiaMART), GST compliance, courier logistics, and true margins.
+- [YouTube Automation Business in India: Setup, Costs and Earnings](https://msmevault.in/blog/youtube-automation-business-model-india): How to build a faceless YouTube automation business in India. Niche selection, scriptwriting, voiceover SOPs, Indian vs US CPM rates, GST rules, and income models.
+
+### Digital Opportunities
+- [How to Start a Digital Marketing Agency in India (Client Acquisition Guide)](https://msmevault.in/blog/how-to-start-a-digital-marketing-agency-india): Complete blueprint to starting a digital marketing agency in India with zero capital. Service packaging, retainer pricing (₹25k to ₹1L), and closing local clients.
+- [How to Start a No-Code Automation Agency in India (2026 Blueprint)](https://msmevault.in/blog/no-code-automation-services-business-india): Start a profitable no-code automation business in India. Build Zapier, Make, and n8n workflows for Indian SMEs. Package retainers from ₹30,000 to ₹1,50,000 per month.
+
+### AI & Technology
+- [AI Automation Agency (AAA) Business Model for Indian Enterprises](https://msmevault.in/blog/ai-automation-agency-business-model-india): How to build a profitable AI automation agency in India. High-demand workflows, WhatsApp AI bots, CRM syncs, Make.com setups, and pricing models.
+- [Best Practical AI Tools for Indian Small Businesses and MSMEs](https://msmevault.in/blog/best-ai-tools-for-indian-small-businesses): Curated list of practical AI tools for Indian small businesses. Vernacular translation, billing automation, product photography, and customer support.
+- [Micro-SaaS Ideas for Indian Developers: High-Demand B2B Niches](https://msmevault.in/blog/micro-saas-ideas-for-indian-developers): Profitable Micro-SaaS ideas tailored for Indian developers. Tally WhatsApp sync, GST e-invoicing plugins, vernacular widgets, and recurring UPI setups.
+
+### Compliance & GST
+- [MSME 45-Day Payment Rule (Section 43B(h)): How Small Businesses Can Recover Money Legally](https://msmevault.in/blog/msme-45-days-payment-rule-section-43b-h): Learn how small businesses can use Income Tax Section 43B(h) and MSME Samadhaan to recover pending payments within 45 days. 3x RBI penal interest and complaint filing steps.
+- [MSME ZED Certification (Bronze, Silver, Gold): Complete Benefits, Subsidy & Free Registration (2026)](https://msmevault.in/blog/zed-certification-msme-benefits-free): Complete guide to MSME Sustainable (ZED) Certification. 80%–100% government subsidies, 0.5% bank loan interest concessions, tender fee waivers, and how to apply free.
+- [GST for Freelancers and Consultants in India: Thresholds and Rules](https://msmevault.in/blog/gst-for-freelancers-and-consultants): Clear, practical guide to GST for Indian freelancers, developers, and consultants. ₹20 Lakh threshold, Letter of Undertaking (LUT) for foreign clients, and filings.
+
+### MSME Guides
+- [PM Vishwakarma Yojana 2026: 18 Eligible Trades, ₹15,000 Toolkit & 5% Loan Guide](https://msmevault.in/blog/pm-vishwakarma-yojana-guide): Complete guide to PM Vishwakarma Scheme 2026. 18 traditional artisan trades, ₹15,000 e-voucher for toolkits, ₹500/day stipend during skill training, and up to ₹3 Lakh collateral-free loan at fixed 5% interest.
+- [20 Profitable Manufacturing Business Ideas Under ₹10 Lakh in India (2026)](https://msmevault.in/blog/manufacturing-business-ideas-india): Detailed blueprint for 20 high-margin manufacturing businesses under ₹10 Lakh in India. Machinery costs, raw materials, net monthly profit, and PMEGP 35% subsidy & Mudra Tarun financing.
+- [12 High-Margin Manufacturing Business Ideas Under ₹5 Lakh in India (2026)](https://msmevault.in/blog/manufacturing-business-under-5-lakh): Start a profitable small manufacturing business with under ₹5 Lakh in India. Low capex machinery, working capital needs, Mudra Kishor loans, and PMEGP subsidy eligibility.
+- [15 High-Profit Food Processing Business Ideas in India (With 35% Subsidy 2026)](https://msmevault.in/blog/food-processing-business-ideas-with-subsidy): Explore 15 profitable food processing business ideas in India with up to 35% government capital subsidy under PMFME and PMEGP. Machinery costs, profit margins, and FSSAI rules.
+- [12 Profitable Village & Rural Business Ideas in India (With 35% Subsidy 2026)](https://msmevault.in/blog/rural-business-ideas-government-subsidy): Discover 12 high-profit rural and village business ideas in India with 35% government capital subsidy under PMEGP and Mudra loans. Low investment, high local demand.
+- [10 Micro-Manufacturing Business Ideas Under ₹2 Lakh in India (2026)](https://msmevault.in/blog/manufacturing-business-under-2-lakh): Start a profitable micro-manufacturing business with under ₹2 Lakh in India. Low capex machinery under ₹75k, single-phase power, home setup, and Mudra Shishu/Kishor loans.
+- [8 High-Growth Manufacturing Businesses Under ₹20 Lakh in India (2026)](https://msmevault.in/blog/manufacturing-business-under-20-lakh): High-margin manufacturing businesses under ₹20 Lakh in India. Automated machinery, Mudra Tarun Plus (₹20L) financing, PMEGP 35% subsidies, and commercial returns.
+- [10 Home-Based Manufacturing Business Ideas for Women & First-Time Makers (2026)](https://msmevault.in/blog/home-based-manufacturing-business-ideas): Start a high-margin home-based manufacturing business in India. Zero commercial rent, white-category pollution exemption, Mudra Shishu funding, and Stand-Up India benefits.
+- [Spices (Masala) Manufacturing Business Plan: Machinery Cost, FSSAI & 35% PMEGP Subsidy (2026)](https://msmevault.in/blog/spices-manufacturing-business-project-cost): Complete project blueprint for a spices (masala) grinding and packaging business in India. Machinery costs, FSSAI rules, profit margins (30%–40%), and PMEGP 35% subsidy.
+- [Starting a Commercial Bakery in India (2026): Equipment Costs, Profit Margins & 35% Subsidy](https://msmevault.in/blog/bakery-business-plan-cost-subsidy-india): Start a commercial bakery in India. Equipment costs (rotary oven, mixer, slicer), profit margins on bread vs cookies, PMFME 35% subsidy, and FSSAI rules.
+- [Cold Storage Business Plan in India: Setup Cost and 35% Subsidy](https://msmevault.in/blog/cold-storage-business-cost-subsidy-india): Start a commercial cold storage unit in India. 5,000 MT multi-commodity setup cost, ammonia vs freon refrigeration, MIDH & MOFPI 35% subsidies, and power backup.
+
+### Mudra & Loans
+- [Mudra Loan Kaise Le: Shishu, Kishor, Tarun & Tarun Plus (2026)](https://msmevault.in/blog/mudra-loan-kaise-le): Mudra loan lene ka complete process — eligibility, documents, kaunsa bank apply karein, kitni interest rate lagti hai. Tarun Plus mein ₹20 lakh tak collateral-free loan available (w.e.f. 24 Oct 2024).
+- [Stand-Up India Scheme 2026: ₹10 Lakh to ₹1 Crore Loans for Women and SC/ST Founders](https://msmevault.in/blog/stand-up-india-loan-scheme-guide): Complete guide to Stand-Up India loans from ₹10 Lakh to ₹1 Crore. Eligibility for Women and SC/ST entrepreneurs, 85% project cost financing, 7-year repayment, and online application on StandUpMitra.
+- [Business Loans Without Collateral in India (2026): Top 5 Options, Working Capital & Lender Comparison](https://msmevault.in/blog/business-loan-without-collateral-guide): Compare collateral-free business loans and working capital facilities in India: CGTMSE cover up to ₹10 Crore, Mudra Tarun Plus up to ₹20 Lakh, Bank unsecured limits, and NBFC fintech loans. Verified interest rates, CIBIL rules, and eligibility.
+- [My MSME Loan Was Rejected: 9 Reasons and How to Get Approved in 2026](https://msmevault.in/blog/msme-loan-rejected-reasons-solution): Find out why your MSME or Mudra loan was rejected by the bank and the exact 7-day action plan to get approved. Low CIBIL alternatives, DPR fixes, and cash-flow lenders.
+- [Mudra Loan for Shopkeepers & Retailers (2026): Kirana, Medical, Garments & Wholesale](https://msmevault.in/blog/mudra-loan-for-shop-retail-traders): Complete guide to Mudra loans for shopkeepers and retail traders. Working capital limits up to ₹20 Lakh, stock hypothecation rules, zero collateral, and bank application process.
+- [Machinery Loans for Small Businesses (2026): Interest Rates, Subsidies & CGTMSE Cover](https://msmevault.in/blog/machinery-loan-for-small-business): Compare machinery term loans for Indian small businesses. Interest rates (8.5%–14%), hypothecation rules, CGTMSE collateral-free cover, and state capital subsidies.
+- [CGTMSE Loan Without Collateral: How to Stop Banks Demanding Property Security (2026 Guide)](https://msmevault.in/blog/cgtmse-loan-process-bank-secrets): Step-by-step guide to securing a CGTMSE collateral-free business loan up to ₹10 Crore. How to handle reluctant bank managers, calculate AGF fees, and ensure sanction.
+- [Can You Get a Mudra Loan Without CIBIL Score? (The Insider Truth for 2026)](https://msmevault.in/blog/mudra-loan-without-cibil-score): Can you get a Mudra loan with no CIBIL score or zero credit history? How banks evaluate Score -1/NH files, alternative data, and step-by-step approval tricks.
+- [Working Capital Loans for Small Business in India (2026): Cash Credit (CC) vs Overdraft (OD) Explained](https://msmevault.in/blog/working-capital-loan-small-business-guide): Complete guide to working capital loans in India. Understand Cash Credit (CC) vs Overdraft (OD) limits, Drawing Power (DP) formulas, interest savings, and bank application rules.
+
+### PMEGP & Subsidies
+- [PMEGP Margin Money: How the 15%–35% Subsidy Is Actually Calculated (2026)](https://msmevault.in/blog/pmegp-margin-money-calculation): Complete PMEGP margin money subsidy calculation with examples. Rural vs urban rates, general vs special category, project cost limits (₹50L mfg / ₹20L svc), and how the KVIC formula actually works.
+- [PMFME Scheme 2026: How to Get 35% Capital Subsidy for Food Processing Units](https://msmevault.in/blog/pmfme-scheme-food-processing-guide): Everything you need to know about the PMFME (Pradhan Mantri Formalisation of Micro food processing Enterprises) Scheme 2026. 35% credit-linked capital subsidy up to ₹10 Lakh, ODOP eligibility, seed capital for SHGs, and online application process.
+- [PMEGP Loan 2026: Complete Application Process, Project Limits & Subsidy Claim](https://msmevault.in/blog/pmegp-loan-apply-online-guide): Complete guide to PMEGP loan application 2026. Revised project cost limits of ₹50 Lakh (Manufacturing) and ₹20 Lakh (Service), 15% to 35% margin money subsidy, KVIC e-portal step-by-step process, and DPR format.
+- [Saur Krushi Pump Yojana Maharashtra (2026): Online Form, Beneficiary Share & A1 Status](https://msmevault.in/blog/maharashtra-saur-krushi-pump-yojana-complete-guide): Complete guide to Saur Krushi Pump Yojana Maharashtra (Magel Tyala Solar Pump). 90%–95% government subsidy, farmer share payment, A1 portal application, and 3/5/7.5 HP guidelines.
+- [How to Make a PMEGP Project Report (DPR) That Gets Sanctioned (2026 Format)](https://msmevault.in/blog/pmegp-project-report-dpr-format): Downloadable structure and step-by-step guide to writing a PMEGP Detailed Project Report (DPR). 60-mark DLTFC score criteria, DSCR formula, and financial tables.
+
+### Udyam & Registration
+- [Udyam Registration Kaise Kare: Step-by-Step Guide (2026 Update)](https://msmevault.in/blog/udyam-registration-kaise-kare): Udyam registration ki puri process step-by-step. Free official portal, Aadhaar OTP se activation, PAN/GST auto-verification, aur permanent URN certificate — 15 minutes mein complete.
+- [Udyam Registration Fees: Is It Really Free? (2026 Fact-Check)](https://msmevault.in/blog/udyam-registration-fees-truth): Official Udyam registration on udyamregistration.gov.in is 100% free — verified from Ministry of MSME. Learn how to spot fake fee-charging websites and what happens if you paid one.
+- [Udyam vs Udyog Aadhaar: What Changed and What It Means For You](https://msmevault.in/blog/udyam-vs-udyog-aadhaar-comparison): Detailed comparison of the old Udyog Aadhaar Memorandum (UAM) versus the current Udyam Registration — classification, validity, verification, benefits, and how UAM holders migrate.
+- [How to Print or Download Your Udyam Certificate (2026 Guide)](https://msmevault.in/blog/print-udyam-certificate-guide): Step-by-step process to reprint or download your Udyam Registration certificate from udyamregistration.gov.in. Verify authenticity, resolve URN issues, and export QR e-certificate — free.
+
+## Verified Central and State Government Schemes
+- [Udyam Registration (Official MSME Registration)](https://msmevault.in/schemes/pm-mudra-yojana-shishu): Pradhan Mantri Mudra Yojana (PMMY) Shishu tier provides collateral-free institutional credit up to ₹50,000 to micro-entrepreneurs, shopkeepers, fruit/vegetable vendors, and artisanal units through commercial banks, RRBs, Small Finance Banks, and MFIs.
+- [PM Mudra Yojana — Kishor](https://msmevault.in/schemes/pm-mudra-yojana-tarun): PMMY Tarun offers credit facilities from ₹5 Lakh to ₹10 Lakh. Following the Department of Financial Services notification w.e.f. 24 October 2024, the 
+- [CGTMSE (Credit Guarantee Fund Trust for Micro & Small Enterprises)](https://msmevault.in/schemes/pmegp-scheme): PMEGP is a major credit-linked capital subsidy scheme implemented by KVIC. Subsidies range from 15% to 35% of total project cost (urban general 15%, rural general 25%, urban special 25%, rural special 35%). Project cost ceilings are ₹50 Lakh for manufacturing and ₹20 Lakh for service/business units.
+- [PM Vishwakarma Scheme](https://msmevault.in/schemes/msme-zed-certification): Encourages MSMEs to adopt Zero Defect Zero Effect manufacturing practices. Financial assistance includes up to 80% subsidy for Micro, 60% for Small, and 50% for Medium enterprises on certification cost (Bronze, Silver, Gold levels), plus ₹5 Lakh handholding support and ₹3 Lakh testing assistance.
+- [PMFME (PM Formalisation of Micro Food Processing Enterprises)](https://msmevault.in/schemes/stand-up-india-scheme): Facilitates bank loans between ₹10 Lakh and ₹1 Crore to at least one SC or ST borrower and at least one woman borrower per bank branch for setting up a greenfield manufacturing, service, agri-allied, or trading enterprise.
+- [Maharashtra Package Scheme of Incentives (PSI)](https://msmevault.in/schemes/gujarat-msme-scheme-incentives): Incentives under Gujarat Industrial Policy for micro, small, and medium enterprises. Provides capital subsidy of 10%–25% (up to ₹35 Lakh) on eligible plant & machinery and 5%–7% interest subsidy for up to 7 years.
+- [Tamil Nadu NEEDS (New Entrepreneur-cum-Enterprise Development)](https://msmevault.in/schemes/up-msme-promotion-policy): Uttar Pradesh MSME policy offering 15% to 25% capital subsidy (cap ₹4 Crore in Bundelkhand/Purvanchal and ₹2 Crore in Western UP), 50% interest subsidy on loans up to ₹5 Crore, and 100% stamp duty exemption.
+
+
+## Additional Directories & Endpoints
+- [Home Page](https://msmevault.in/): Central portal with search and quick access to all schemes and guides.
+- [Schemes Directory](https://msmevault.in/schemes): Filter central and state government schemes by category and eligibility.
+- [Loans Directory](https://msmevault.in/loans): Compare MSME business loans across public sector and private banks.
+- [Blog Archive](https://msmevault.in/blog): Browse 50 in-depth business and policy articles.
+- [About MSMEVault](https://msmevault.in/about): Editorial mission, research methodology, and team.
+- [Contact](https://msmevault.in/contact): Inquiries and feedback.
+- [XML Sitemap](https://msmevault.in/sitemap.xml): Complete machine-readable XML sitemap.

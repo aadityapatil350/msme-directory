@@ -109,6 +109,13 @@ const legacyRedirects = [
   { source: '/guides/pm-employment-generation-programme', destination: '/guides/pmegp-loan' },
   { source: '/guides/trademark-registration-small-business', destination: '/guides' },
   { source: '/schemes/epcg-scheme', destination: '/schemes' },
+
+  // --- High-Intent Tool Aliases (capturing GSC queries & llms.txt endpoints) ---
+  { source: '/tools/mudra-loan-calculator', destination: '/tools/emi-calculator' },
+  { source: '/tools/cgtmse-loan-calculator', destination: '/tools/emi-calculator' },
+  { source: '/tools/cgtmse-loan-emi-calculator', destination: '/tools/emi-calculator' },
+  { source: '/tools/msme-subsidy-calculator', destination: '/tools/subsidy-calculator' },
+  { source: '/tools/pmegp-subsidy-calculator', destination: '/tools/subsidy-calculator' },
 ]
 
 const nextConfig: NextConfig = {
