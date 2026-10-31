@@ -11,6 +11,8 @@ import {
   Percent,
   FileCheck,
   ArrowRight,
+  Receipt,
+  Hash,
 } from 'lucide-react'
 import LanguageSwitcher from '@/components/layout/LanguageSwitcher'
 
@@ -156,6 +158,32 @@ export default function Navbar() {
                   </Link>
 
                   <Link
+                    href="/tools/gst-calculator"
+                    className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-zinc-50 transition-colors"
+                  >
+                    <div className="w-7 h-7 rounded-md bg-zinc-100 text-zinc-800 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Receipt className="w-3.5 h-3.5" />
+                    </div>
+                    <div>
+                      <div className="font-medium text-xs text-zinc-950">Online GST Calculator</div>
+                      <div className="text-[11px] text-zinc-500">Add or reverse CGST, SGST & IGST</div>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/tools/nic-code-finder"
+                    className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-zinc-50 transition-colors"
+                  >
+                    <div className="w-7 h-7 rounded-md bg-zinc-100 text-zinc-800 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Hash className="w-3.5 h-3.5" />
+                    </div>
+                    <div>
+                      <div className="font-medium text-xs text-zinc-950">Udyam NIC Code Finder</div>
+                      <div className="text-[11px] text-zinc-500">5-digit activity codes lookup</div>
+                    </div>
+                  </Link>
+
+                  <Link
                     href="/eligibility-checker"
                     className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-zinc-50 transition-colors border-t border-zinc-100 mt-1 pt-2"
                   >
@@ -283,6 +311,20 @@ export default function Navbar() {
             className="block px-3 py-2 rounded-lg text-xs font-medium text-zinc-950 hover:bg-zinc-50"
           >
             PMEGP Subsidy Calculator
+          </Link>
+          <Link
+            href="/tools/gst-calculator"
+            onClick={() => setIsOpen(false)}
+            className="block px-3 py-2 rounded-lg text-xs font-medium text-zinc-950 hover:bg-zinc-50"
+          >
+            Online GST Calculator
+          </Link>
+          <Link
+            href="/tools/nic-code-finder"
+            onClick={() => setIsOpen(false)}
+            className="block px-3 py-2 rounded-lg text-xs font-medium text-zinc-950 hover:bg-zinc-50"
+          >
+            Udyam NIC Code Finder
           </Link>
           <Link
             href="/consultants"

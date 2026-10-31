@@ -26,6 +26,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/blog',
     '/tools/emi-calculator',
     '/tools/subsidy-calculator',
+    '/tools/gst-calculator',
+    '/tools/nic-code-finder',
     '/eligibility-checker',
     '/consultants',
     '/list-your-firm',
