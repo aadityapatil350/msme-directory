@@ -216,7 +216,7 @@ Agar aap detailed English step-by-step guide dhundh rahe hain to hamara comprehe
     category: 'Udyam & Registration',
     tags: ['Udyam', 'Fees', 'Fraud Awareness', 'MSME'],
     publishedAt: '2026-08-27',
-    updatedAt: '2026-08-27',
+    updatedAt: '2026-10-31',
     readTimeMinutes: 10,
     author: AUTHOR_ADITYA,
     excerpt:
@@ -1698,7 +1698,7 @@ Keep clean scanned copies of these documents ready before opening the online por
       'Food Processing',
     ],
     publishedAt: '2026-09-24',
-    updatedAt: '2026-09-24',
+    updatedAt: '2026-10-31',
     readTimeMinutes: 12,
     author: AUTHOR_ADITYA,
     excerpt:
@@ -2579,7 +2579,7 @@ Under current municipal and MSME guidelines, activities that produce **no toxic 
     category: 'PMEGP & Subsidies',
     tags: ['Solar Pump Maharashtra', 'Saur Krushi Pump', 'MahaVitaran A1 Portal', 'PM Kusum', 'Agri Subsidy', 'Magel Tyala Solar'],
     publishedAt: '2026-09-24',
-    updatedAt: '2026-09-24',
+    updatedAt: '2026-10-31',
     readTimeMinutes: 17,
     author: AUTHOR_ADITYA,
     excerpt:
@@ -3189,7 +3189,7 @@ Banks run a commercial bureau check on your company PAN (Equifax or CIBIL Commer
     category: 'Mudra & Loans',
     tags: ['Mudra Without CIBIL', 'No CIBIL Loan', 'Mudra Shishu', 'CIBIL Score -1', 'First Time Borrower', 'Credit Bureau'],
     publishedAt: '2026-09-24',
-    updatedAt: '2026-09-24',
+    updatedAt: '2026-10-31',
     readTimeMinutes: 12,
     author: AUTHOR_ADITYA,
     excerpt:
@@ -3385,7 +3385,7 @@ Once that first small loan is sanctioned, pay every single installment with reli
     category: 'MSME Guides',
     tags: ['Spices Manufacturing', 'Masala Business Plan', 'PMEGP Subsidy', 'FSSAI Food License', 'High Profit Business', 'Food Processing'],
     publishedAt: '2026-09-24',
-    updatedAt: '2026-09-24',
+    updatedAt: '2026-10-31',
     readTimeMinutes: 15,
     author: AUTHOR_ADITYA,
     excerpt:

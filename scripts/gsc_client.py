@@ -12,7 +12,7 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
 KEY_FILE = os.path.join(os.path.dirname(__file__), "..", "gsc-credentials.json")
-SCOPES = ["https://www.googleapis.com/auth/webmasters.readonly"]
+SCOPES = ["https://www.googleapis.com/auth/webmasters"]
 
 def get_service():
     if not os.path.exists(KEY_FILE):
@@ -24,6 +24,13 @@ def get_service():
 def list_sites(service):
     sites = service.sites().list().execute()
     return sites.get("siteEntry", [])
+
+def list_sitemaps(service, site_url):
+    sitemaps = service.sitemaps().list(siteUrl=site_url).execute()
+    return sitemaps.get("sitemap", [])
+
+def submit_sitemap(service, site_url, feedpath):
+    return service.sitemaps().submit(siteUrl=site_url, feedpath=feedpath).execute()
 
 def query_analytics(service, site_url, start_date=None, end_date=None, dimensions=None, row_limit=50):
     if not dimensions:
@@ -54,6 +61,13 @@ def main():
 
     subparsers.add_parser("list-sites", help="List sites with verified access")
 
+    sitemaps_list_parser = subparsers.add_parser("list-sitemaps", help="List sitemaps for a site")
+    sitemaps_list_parser.add_argument("--site", default="sc-domain:msmevault.in", help="Site URL or sc-domain:...")
+
+    sitemaps_submit_parser = subparsers.add_parser("submit-sitemap", help="Submit a sitemap to Search Console")
+    sitemaps_submit_parser.add_argument("--site", default="sc-domain:msmevault.in", help="Site URL or sc-domain:...")
+    sitemaps_submit_parser.add_argument("--feedpath", default="https://msmevault.in/sitemap.xml", help="Full sitemap URL")
+
     query_parser = subparsers.add_parser("query", help="Query search analytics")
     query_parser.add_argument("--site", required=True, help="Site URL or sc-domain:...")
     query_parser.add_argument("--start", help="Start date YYYY-MM-DD")
@@ -72,6 +86,12 @@ def main():
     if args.command == "list-sites":
         sites = list_sites(service)
         print(json.dumps(sites, indent=2))
+    elif args.command == "list-sitemaps":
+        sitemaps = list_sitemaps(service, args.site)
+        print(json.dumps(sitemaps, indent=2))
+    elif args.command == "submit-sitemap":
+        submit_sitemap(service, args.site, args.feedpath)
+        print(f"Successfully submitted sitemap {args.feedpath} for {args.site}")
     elif args.command == "query":
         res = query_analytics(service, args.site, args.start, args.end, [args.dimension], args.limit)
         print(json.dumps(res, indent=2))
