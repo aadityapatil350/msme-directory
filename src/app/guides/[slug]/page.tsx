@@ -156,6 +156,7 @@ export default async function GuideDetailPage({
             <div key={idx} className="space-y-3">
               {section.split('\n\n').map((para, pIdx) => {
                 const trimmed = para.trim()
+                if (!trimmed || /^-{3,}$/.test(trimmed)) return null
                 if (trimmed.startsWith('## ')) {
                   return (
                     <h2 key={pIdx} className="text-base font-bold text-zinc-950 pt-3 pb-1 border-b border-zinc-100">

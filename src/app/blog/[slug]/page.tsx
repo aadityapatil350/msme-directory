@@ -45,7 +45,7 @@ function renderContent(content: string) {
   const blocks = content.split(/\n\n+/)
   return blocks.map((block, i) => {
     const trimmed = block.trim()
-    if (!trimmed) return null
+    if (!trimmed || /^-{3,}$/.test(trimmed)) return null
 
     if (trimmed.startsWith('## ')) {
       return (
